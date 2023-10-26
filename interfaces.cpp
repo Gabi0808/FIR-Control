@@ -7,12 +7,10 @@ int login();
 void mainmenu(int acccesType);
 void selectAction(int accessType);
 
-int login()
-{
-
+int login(){
     string username, password;
     int access = 3;
-    while (access > 0)
+ while (access > 0)
     {
         system("cls");
         cout << "Bienvenido al menu principal de FIR-Control" << endl;
@@ -29,13 +27,11 @@ int login()
         {
             cout << "Acceso concedido como empeleado de Bar Brother" << endl;
             return 1;
-            break;
         }
         else if (username == "BarBrotherG" && password == "banana321")
         {
             cout << "Acceso concedidio como gerente de Bar Brother" << endl;
             return 2;
-            break;
         }
         else
         {
@@ -46,6 +42,7 @@ int login()
     }
     cout << "Limite de intentos alcanzado" << endl;
     cout << "Saliendo del programa..." << endl;
+
     return 0;
 }
 
@@ -75,13 +72,13 @@ void mainmenu(int accesType)
 
 void selectAction(int accessType)
 {
-
+    mainmenu(accessType);
     int option;
     cin >> option;
     if (accessType == 2)
         do
         {
-            mainmenu(login());
+            mainmenu(accessType);
 
             switch (option)
             {
@@ -103,7 +100,7 @@ void selectAction(int accessType)
     else
         do
         {
-            mainmenu(login());
+            mainmenu(accessType);
 
             switch (option)
             {
@@ -123,8 +120,14 @@ void selectAction(int accessType)
 
 int main(int argc, char const *argv[])
 {
-    login();
-    selectAction(login());
+    int loginResult = login();
+    if (loginResult ==0)
+    {
+        return 0;
+    }
+    cout << "penesito";
+    selectAction(loginResult);
+    
     return 0;
 }
 
