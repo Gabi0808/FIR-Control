@@ -5,11 +5,11 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-    int loginResult = login();
-    if (loginResult == 0)
+    int resultadoLogin = login();
+    if (resultadoLogin == 0)
     {
         return 0;
     }
-    selectAction(loginResult);
+    seleccionarAccion(resultadoLogin);
     return 0;
 }

@@ -4,6 +4,7 @@
 using namespace std;
 
 int login();
+<<<<<<< HEAD
 void mainmenu(int acccesType);
 void selectAction(int accessType);
 void inventoryModuleMenu();
@@ -12,10 +13,18 @@ void facturationModuleMenu();
 void selectFacturationModuleAction();
 void seleccionarModuloReportes();
 void menuReportes();
+=======
+void menuPrincipal(int acccesType);
+void seleccionarAccion(int accessType);
+void menuModuloInventario();
+void seleccionarAccionModuloInventario();
+void menuModuloFacturacion();
+void seleccionarAccionModuloFacturacion();
+>>>>>>> d90fd5e302e482836b1624cd08851e1d5df2ba0d
 
 int login()
 {
-    string username, password;
+    string usuario, contrasena;
     int access = 3;
     while (access > 0)
     {
@@ -26,16 +35,16 @@ int login()
              << "Inicie sesion para acceder a las funciones." << endl;
         cout << "Intentos restantes: " << access << endl;
         cout << "Ingrese su usuario: " << endl;
-        cin >> username;
+        cin >> usuario;
         cout << "Ingrese su contrasena: " << endl;
-        cin >> password;
+        cin >> contrasena;
 
-        if (username == "BarBrother" && password == "banana123")
+        if (usuario == "BarBrother" && contrasena == "banana123")
         {
             cout << "Acceso concedido como empeleado de Bar Brother" << endl;
             return 1;
         }
-        else if (username == "BarBrotherG" && password == "banana321")
+        else if (usuario == "BarBrotherG" && contrasena == "banana321")
         {
             cout << "Acceso concedidio como gerente de Bar Brother" << endl;
             return 2;
@@ -53,7 +62,7 @@ int login()
     return 0;
 }
 
-void mainmenu(int accesType)
+void menuPrincipal(int accesType)
 {
     system("cls");
     if (accesType == 2)
@@ -78,22 +87,22 @@ void mainmenu(int accesType)
     }
 }
 
-void selectAction(int accessType)
+void seleccionarAccion(int accessType)
 {
-    mainmenu(accessType);
-    int option;
+    menuPrincipal(accessType);
+    int opcion;
     if (accessType == 2)
         do
         {
-            mainmenu(accessType);
-            cin >> option;
-            switch (option)
+            menuPrincipal(accessType);
+            cin >> opcion;
+            switch (opcion)
             {
             case 1:
-                selectInventoryModuleAction();
+                seleccionarAccionModuloInventario();
                 break;
             case 2:
-                selectFacturationModuleAction();
+                seleccionarAccionModuloFacturacion();
                 break;
             case 3:
                 seleccionarModuloReportes();
@@ -104,16 +113,16 @@ void selectAction(int accessType)
                 break;
             }
 
-        } while (option != 4);
+        } while (opcion != 4);
     else
         do
         {
-            mainmenu(accessType);
-            cin >> option;
-            switch (option)
+            menuPrincipal(accessType);
+            cin >> opcion;
+            switch (opcion)
             {
             case 1:
-                selectInventoryModuleAction();
+                seleccionarAccionModuloInventario();
                 break;
             case 2:
 
@@ -123,10 +132,10 @@ void selectAction(int accessType)
             default:
                 break;
             }
-        } while (option != 3);
+        } while (opcion != 3);
 }
 
-void inventoryModuleMenu()
+void menuModuloInventario()
 {
     system("cls");
     cout << "Modulo de Inventario." << endl
@@ -141,15 +150,15 @@ void inventoryModuleMenu()
     cout << "6. Regresar al menu principal." << endl;
 }
 
-void selectInventoryModuleAction()
+void seleccionarAccionModuloInventario()
 {
 
-    int option = 0;
-    while (option != 6)
+    int opcion = 0;
+    while (opcion != 6)
     {
-        inventoryModuleMenu();
-        cin >> option;
-        switch (option)
+        menuModuloInventario();
+        cin >> opcion;
+        switch (opcion)
         {
         case 1:
             cout << "Hola";
@@ -171,7 +180,7 @@ void selectInventoryModuleAction()
     }
 }
 
-void facturationModuleMenu()
+void menuModuloFacturacion()
 {
 
     system("cls");
@@ -187,14 +196,14 @@ void facturationModuleMenu()
     cout << "6. Regresar al menu principal." << endl;
 }
 
-void selectFacturationModuleAction()
+void seleccionarAccionModuloFacturacion()
 {
-    int option = 0;
-    while (option != 6)
+    int opcion = 0;
+    while (opcion != 6)
     {
-        facturationModuleMenu();
-        cin >> option;
-        switch (option)
+        menuModuloFacturacion();
+        cin >> opcion;
+        switch (opcion)
         {
         case 1:
             cout << "Hola";
