@@ -1,9 +1,15 @@
 #include <iostream>
+#include "interfaces.cpp"
 
 using namespace std;
 
 int main(int argc, char const *argv[])
 {
-     cout << "Este es nuestro humilde main por el momento.";
+    int loginResult = login();
+    if (loginResult == 0)
+    {
+        return 0;
+    }
+    selectAction(loginResult);
     return 0;
 }

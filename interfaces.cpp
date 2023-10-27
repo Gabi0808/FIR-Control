@@ -6,11 +6,16 @@ using namespace std;
 int login();
 void mainmenu(int acccesType);
 void selectAction(int accessType);
+void inventoryModuleMenu();
+void selectInventoryModuleAction();
+void facturationModuleMenu();
+void selectFacturationModuleAction();
 
-int login(){
+int login()
+{
     string username, password;
     int access = 3;
- while (access > 0)
+    while (access > 0)
     {
         system("cls");
         cout << "Bienvenido al menu principal de FIR-Control" << endl;
@@ -48,6 +53,7 @@ int login(){
 
 void mainmenu(int accesType)
 {
+    system("cls");
     if (accesType == 2)
     {
         cout << "Sistema FIR-Control / Gerencia" << endl
@@ -74,19 +80,18 @@ void selectAction(int accessType)
 {
     mainmenu(accessType);
     int option;
-    cin >> option;
     if (accessType == 2)
         do
         {
             mainmenu(accessType);
-
+            cin >> option;
             switch (option)
             {
             case 1:
-                /* code */
+                selectInventoryModuleAction();
                 break;
             case 2:
-
+                selectFacturationModuleAction();
                 break;
             case 3:
                 break;
@@ -101,11 +106,11 @@ void selectAction(int accessType)
         do
         {
             mainmenu(accessType);
-
+            cin >> option;
             switch (option)
             {
             case 1:
-                /* code */
+                selectInventoryModuleAction();
                 break;
             case 2:
 
@@ -118,16 +123,92 @@ void selectAction(int accessType)
         } while (option != 3);
 }
 
-int main(int argc, char const *argv[])
+void inventoryModuleMenu()
 {
-    int loginResult = login();
-    if (loginResult ==0)
-    {
-        return 0;
-    }
-    cout << "penesito";
-    selectAction(loginResult);
-    
-    return 0;
+    system("cls");
+    cout << "Modulo de Inventario." << endl
+         << endl;
+    cout << "Seleccione la opcion a realizar." << endl
+         << endl;
+    cout << "1. Ver inventario." << endl;
+    cout << "2. Agregar producto al inventario." << endl;
+    cout << "3. Eliminar producto al inventario." << endl;
+    cout << "4. Modificar producto del inventario." << endl;
+    cout << "5. Actualizar inventario." << endl;
+    cout << "6. Regresar al menu principal." << endl;
 }
 
+void selectInventoryModuleAction()
+{
+
+    int option = 0;
+    while (option != 6)
+    {
+        inventoryModuleMenu();
+        cin >> option;
+        switch (option)
+        {
+        case 1:
+            cout << "Hola";
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            cout << "Regresando al menu principal..." << endl;
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+void facturationModuleMenu()
+{
+
+    system("cls");
+    cout << "Control de ordenes y mesas." << endl
+         << endl;
+    cout << "Seleccione la opcion a realizar." << endl
+         << endl;
+    cout << "1. Selccionar mesa." << endl;
+    cout << "2. Mostrar informacion de mesas." << endl;
+    cout << "3. Agregar mesa." << endl;
+    cout << "4. Eliminar mesa." << endl;
+    cout << "5. Modificar mesa." << endl;
+    cout << "6. Regresar al menu principal." << endl;
+}
+
+void selectFacturationModuleAction()
+{
+    int option = 0;
+    while (option != 6)
+    {
+        facturationModuleMenu();
+        cin >> option;
+        switch (option)
+        {
+        case 1:
+            cout << "Hola";
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            cout << "Regresando al menu principal..." << endl;
+            break;
+        default:
+            break;
+        }
+    }
+}
