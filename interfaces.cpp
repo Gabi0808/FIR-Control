@@ -10,6 +10,8 @@ void inventoryModuleMenu();
 void selectInventoryModuleAction();
 void facturationModuleMenu();
 void selectFacturationModuleAction();
+void seleccionarModuloReportes();
+void menuReportes();
 
 int login()
 {
@@ -94,6 +96,7 @@ void selectAction(int accessType)
                 selectFacturationModuleAction();
                 break;
             case 3:
+                seleccionarModuloReportes();
                 break;
             case 4:
                 break;
@@ -208,6 +211,35 @@ void selectFacturationModuleAction()
             cout << "Regresando al menu principal..." << endl;
             break;
         default:
+            break;
+        }
+    }
+}
+
+void seleccionarModuloReportes()
+{
+    int option = 0;
+    while (option != 6)
+    {
+        menuReportes();
+        cin >> option;
+        switch (option)    
+        {
+        case1:
+            cout << "Hola";
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4: 
+            break;
+        case 5:
+            break;
+        case 6:
+            cout << "Regresando al menu principal..." << endl;
+        default: 
+            cout << "Ingresar opcion valida" << endl;
             break;
         }
     }
