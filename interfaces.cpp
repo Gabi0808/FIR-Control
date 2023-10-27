@@ -4,23 +4,14 @@
 using namespace std;
 
 int login();
-<<<<<<< HEAD
-void mainmenu(int acccesType);
-void selectAction(int accessType);
-void inventoryModuleMenu();
-void selectInventoryModuleAction();
-void facturationModuleMenu();
-void selectFacturationModuleAction();
-void seleccionarModuloReportes();
-void menuReportes();
-=======
 void menuPrincipal(int acccesType);
 void seleccionarAccion(int accessType);
 void menuModuloInventario();
 void seleccionarAccionModuloInventario();
 void menuModuloFacturacion();
 void seleccionarAccionModuloFacturacion();
->>>>>>> d90fd5e302e482836b1624cd08851e1d5df2ba0d
+void menuModuloReportes();
+void seleccionarModuloReportes();
 
 int login()
 {
@@ -125,7 +116,7 @@ void seleccionarAccion(int accessType)
                 seleccionarAccionModuloInventario();
                 break;
             case 2:
-
+                seleccionarAccionModuloFacturacion();
                 break;
             case 3:
                 break;
@@ -188,7 +179,7 @@ void menuModuloFacturacion()
          << endl;
     cout << "Seleccione la opcion a realizar." << endl
          << endl;
-    cout << "1. Selccionar mesa." << endl;
+    cout << "1. Seleccionar mesa." << endl;
     cout << "2. Mostrar informacion de mesas." << endl;
     cout << "3. Agregar mesa." << endl;
     cout << "4. Eliminar mesa." << endl;
@@ -224,17 +215,30 @@ void seleccionarAccionModuloFacturacion()
         }
     }
 }
+void menuModuloReportes()
+{
+    system("cls");
+    cout << "Generacion de reportes " << endl;
+    cout << "\nSeleccione la opcion a realizar " << endl;
+    cout << "\n1. Generar reporte de consumo semanal " << endl;
+    cout << "2. Generar reporte de consumo mensual " << endl;
+    cout << "3. Generar reporte de control de inventario " << endl;
+    cout << "4. Generar historial de transacciones " << endl;
+    cout << "5. Generar reporte de control de facturas " << endl;
+    cout << "6. Volver al menu principal";
+
+}
 
 void seleccionarModuloReportes()
 {
     int option = 0;
     while (option != 6)
     {
-        menuReportes();
+        menuModuloReportes();
         cin >> option;
         switch (option)    
         {
-        case1:
+        case 1:
             cout << "Hola";
             break;
         case 2:
