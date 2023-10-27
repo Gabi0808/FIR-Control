@@ -61,10 +61,10 @@ void menuPrincipal(int accesType)
         cout << "Sistema FIR-Control / Gerencia" << endl
              << endl;
         cout << "Acceder a:" << endl;
-        cout << "1. Control de Inventario." << endl;
+        cout << "\n1. Control de Inventario." << endl;
         cout << "2. Control de ordenes y mesas." << endl;
         cout << "3. Generacion de reportes." << endl;
-        cout << "4. Salir del programa.";
+        cout << "4. Salir del programa." << endl;
     }
     else
     {
@@ -72,7 +72,7 @@ void menuPrincipal(int accesType)
         cout << "Sistema FIR-Control / Empleados" << endl
              << endl;
         cout << "Acceder a:" << endl;
-        cout << "1. Control de Inventario." << endl;
+        cout << "\n1. Control de Inventario." << endl;
         cout << "2. Control de ordenes y mesas." << endl;
         cout << "3. Salir del programa." << endl;
     }
@@ -225,7 +225,7 @@ void menuModuloReportes()
     cout << "3. Generar reporte de control de inventario " << endl;
     cout << "4. Generar historial de transacciones " << endl;
     cout << "5. Generar reporte de control de facturas " << endl;
-    cout << "6. Volver al menu principal";
+    cout << "6. Volver al menu principal" << endl;
 
 }
 
