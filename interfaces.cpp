@@ -152,15 +152,19 @@ void seleccionarAccionModuloInventario()
         switch (opcion)
         {
         case 1:
-            cout << "Hola";
+            cout << "Funcion no Implementada";
             break;
         case 2:
+            cout << "Funcion no Implementada";
             break;
         case 3:
+            cout << "Funcion no Implementada";
             break;
         case 4:
+            cout << "Funcion no Implementada";
             break;
         case 5:
+            cout << "Funcion no Implementada";
             break;
         case 6:
             cout << "Regresando al menu principal..." << endl;
@@ -197,15 +201,19 @@ void seleccionarAccionModuloFacturacion()
         switch (opcion)
         {
         case 1:
-            cout << "Hola";
+            cout << "Funcion no Implementada";
             break;
         case 2:
+            cout << "Funcion no Implementada";
             break;
         case 3:
+            cout << "Funcion no Implementada";
             break;
         case 4:
+            cout << "Funcion no Implementada";
             break;
         case 5:
+            cout << "Funcion no Implementada";
             break;
         case 6:
             cout << "Regresando al menu principal..." << endl;
@@ -219,8 +227,8 @@ void menuModuloReportes()
 {
     system("cls");
     cout << "Generacion de reportes " << endl;
-    cout << "\nSeleccione la opcion a realizar " << endl;
-    cout << "\n1. Generar reporte de consumo semanal " << endl;
+    cout << "Seleccione la opcion a realizar " << endl;
+    cout << "1. Generar reporte de consumo semanal " << endl;
     cout << "2. Generar reporte de consumo mensual " << endl;
     cout << "3. Generar reporte de control de inventario " << endl;
     cout << "4. Generar historial de transacciones " << endl;
@@ -239,15 +247,19 @@ void seleccionarModuloReportes()
         switch (option)    
         {
         case 1:
-            cout << "Hola";
+            cout << "Funcion no Implementada";
             break;
         case 2:
+            cout << "Funcion no Implementada";
             break;
         case 3:
+            cout << "Funcion no Implementada";
             break;
         case 4: 
+            cout << "Funcion no Implementada";
             break;
         case 5:
+            cout << "Funcion no Implementada";
             break;
         case 6:
             cout << "Regresando al menu principal..." << endl;
