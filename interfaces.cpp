@@ -177,7 +177,8 @@ void seleccionarAccionModuloInventario()
 
 void menuModuloFacturacion()
 {
-
+/*Hay que añadir una seccion de caja chica, asi como un menu de facturacion para controlar de mejor manera 
+los pedidos a proveedores*/
     system("cls");
     cout << "Control de ordenes y mesas." << endl
          << endl;
