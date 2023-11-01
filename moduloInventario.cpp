@@ -4,13 +4,60 @@
 
 using namespace std;
 
+<<<<<<< HEAD
+
+struct producto {
+=======
 typedef struct
 {
+>>>>>>> 4358ab8a12a474a39a74cebbc74609dc68e47c60
     string codigoProducto;
     string nombreProducto;
     float precioProducto;
     int cantidadProducto;
+<<<<<<< HEAD
 } Producto;
+=======
+<<<<<<< HEAD
+};
+
+
+void menuProducto() {
+    system("cls");
+
+    cout << "Menu de insumos." << endl;
+    cout << "Codigo de insumo: " << endl;
+    cout << "Nombre de insumo: " << endl;
+    cout << "Precio del insumo: " << endl;
+    cout << "Cantidad del insumo: " << endl;
+}
+
+void ingresarInsumo() {
+    int codigo;
+    string nombre;
+    float precio;
+    int cantidad;
+
+    cout << "Ingrese el codigo de insumo: ";
+    cin >> codigo;
+    cin.ignore();
+    cout << "Ingrese el nombre de insumo: ";
+    getline(cin, nombre);
+    cout << "Ingrese el precio del insumo: ";
+    cin >> precio;
+    cout << "Ingrese la cantidad del insumo: ";
+    cin >> cantidad;
+}
+
+int main() {
+
+   ingresarInsumo();
+
+    return 0;
+}
+=======
+} producto;
+>>>>>>> d35b45735e405ec910c13eef1a0a082476101483
 
 void mostrarDatosBinarios(const string &nombreArchivo)
 {
@@ -62,6 +109,10 @@ int main()
 
     return 0;
 }
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 4358ab8a12a474a39a74cebbc74609dc68e47c60
+>>>>>>> d35b45735e405ec910c13eef1a0a082476101483
