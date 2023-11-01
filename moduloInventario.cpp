@@ -1,26 +1,19 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-
+#define MAX 1000
 using namespace std;
 
-<<<<<<< HEAD
 
-struct producto {
-=======
 typedef struct
 {
->>>>>>> 4358ab8a12a474a39a74cebbc74609dc68e47c60
     string codigoProducto;
     string nombreProducto;
     float precioProducto;
     int cantidadProducto;
-<<<<<<< HEAD
 } Producto;
-=======
-<<<<<<< HEAD
-};
 
+Producto inventarioProducto[MAX];
 
 void menuProducto() {
     system("cls");
@@ -48,16 +41,6 @@ void ingresarInsumo() {
     cout << "Ingrese la cantidad del insumo: ";
     cin >> cantidad;
 }
-
-int main() {
-
-   ingresarInsumo();
-
-    return 0;
-}
-=======
-} producto;
->>>>>>> d35b45735e405ec910c13eef1a0a082476101483
 
 void mostrarDatosBinarios(const string &nombreArchivo)
 {
@@ -109,10 +92,3 @@ int main()
 
     return 0;
 }
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 4358ab8a12a474a39a74cebbc74609dc68e47c60
->>>>>>> d35b45735e405ec910c13eef1a0a082476101483
