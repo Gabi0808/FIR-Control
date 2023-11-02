@@ -28,7 +28,6 @@ string codigoABuscar;
 Producto productoEncontrado;
 string codigoAEliminar;
 
-
 void ingresarProducto()
 {
     if (ultimoRegistro < MAX)
@@ -116,36 +115,79 @@ void guardarProductos(Producto productosAGuardar[])
     }
 }
 
+bool buscarProducto(const string &codigoProducto, Producto &productoEncontrado)
+{
+    ifstream archivo("inventario.txt");
+
+    if (archivo.is_open())
+    {
+        while (archivo >> productoEncontrado.codigoProducto)
+        {
+            archivo.ignore(); // Consumir el carácter de nueva línea.
+            getline(archivo, productoEncontrado.nombreProducto);
+            archivo >> productoEncontrado.precioProducto;
+            archivo >> productoEncontrado.cantidadProducto;
+
+            if (productoEncontrado.codigoProducto == codigoProducto)
+            {
+                archivo.close();
+                return true; // Producto encontrado
+            }
+        }
+
+        archivo.close();
+    }
+
+    return false; // Producto no encontrado
+}
+
 void eliminarProducto(const string& codigoProducto)
 {
     Producto productoEncontrado;
-    if (buscarProducto(codigoProducto, productoEncontrado))
+    bool encontrado = buscarProducto(codigoProducto, productoEncontrado);
+
+    if (encontrado)
     {
-        int indiceAEliminar = -1;
+        int codigoAEliminar = -1;
 
         for (int i = 0; i < ultimoRegistro; i++)
         {
             if (inventarioProducto[i].codigoProducto == codigoProducto)
             {
-                indiceAEliminar = i;
+                codigoAEliminar = i;
                 break; // Si encuentras el producto, sal del bucle
             }
         }
 
-        if (indiceAEliminar != -1)
+        if (codigoAEliminar != -1)
         {
             // Elimina el producto moviendo los elementos restantes
-            for (int i = indiceAEliminar; i < ultimoRegistro - 1; i++)
+            for (int i = codigoAEliminar; i < ultimoRegistro - 1; i++)
             {
                 inventarioProducto[i] = inventarioProducto[i + 1];
             }
 
             ultimoRegistro--;
 
-            // Guarda los productos restantes en el archivo
-            guardarProductos(inventarioProducto);
+            // Guarda los productos restantes en el archivo sobrescribiendo el archivo existente
+            ofstream archivo("inventario.txt", ios::trunc);
+            if (archivo.is_open())
+            {
+                for (int i = 0; i < ultimoRegistro; i++)
+                {
+                    archivo << inventarioProducto[i].codigoProducto << endl;
+                    archivo << inventarioProducto[i].nombreProducto << endl;
+                    archivo << inventarioProducto[i].precioProducto << endl;
+                    archivo << inventarioProducto[i].cantidadProducto << endl;
+                }
+                archivo.close();
 
-            cout << "Producto eliminado correctamente." << endl;
+                cout << "Producto eliminado correctamente." << endl;
+            }
+            else
+            {
+                cerr << "No se pudo abrir el archivo para sobrescribir." << endl;
+            }
         }
         else
         {
@@ -158,29 +200,3 @@ void eliminarProducto(const string& codigoProducto)
     }
 }
 
-
-    bool buscarProducto(const string &codigoProducto, Producto &productoEncontrado)
-    {
-        ifstream archivo("inventario.txt");
-
-        if (archivo.is_open())
-        {
-            while (archivo >> productoEncontrado.codigoProducto)
-            {
-                archivo.ignore(); // Consumir el carácter de nueva línea.
-                getline(archivo, productoEncontrado.nombreProducto);
-                archivo >> productoEncontrado.precioProducto;
-                archivo >> productoEncontrado.cantidadProducto;
-
-                if (productoEncontrado.codigoProducto == codigoProducto)
-                {
-                    archivo.close();
-                    return true; // Producto encontrado
-                }
-            }
-
-            archivo.close();
-        }
-
-        return false; // Producto no encontrado
-    }
