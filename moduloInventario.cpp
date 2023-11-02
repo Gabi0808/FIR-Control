@@ -4,7 +4,6 @@
 #define MAX 1000
 using namespace std;
 
-
 typedef struct
 {
     string codigoProducto;
@@ -13,33 +12,27 @@ typedef struct
     int cantidadProducto;
 } Producto;
 
+int ultimoRegistro = 0;
 Producto inventarioProducto[MAX];
 
-void menuProducto() {
-    system("cls");
+void ingresarProducto()
+{
+    Producto productoActual;
+    for (int i = 0; i < 4; i++)
+    {
+        cout << "Ingrese el codigo de insumo: ";
+        cin >> productoActual.codigoProducto;
+        cin.ignore();
+        cout << "Ingrese el nombre de insumo: ";
+        getline(cin, productoActual.nombreProducto);
+        cout << "Ingrese el precio del insumo: ";
+        cin >> productoActual.precioProducto;
+        cout << "Ingrese la cantidad del insumo: ";
+        cin >> productoActual.cantidadProducto;
 
-    cout << "Menu de insumos." << endl;
-    cout << "Codigo de insumo: " << endl;
-    cout << "Nombre de insumo: " << endl;
-    cout << "Precio del insumo: " << endl;
-    cout << "Cantidad del insumo: " << endl;
-}
-
-void ingresarInsumo() {
-    int codigo;
-    string nombre;
-    float precio;
-    int cantidad;
-
-    cout << "Ingrese el codigo de insumo: ";
-    cin >> codigo;
-    cin.ignore();
-    cout << "Ingrese el nombre de insumo: ";
-    getline(cin, nombre);
-    cout << "Ingrese el precio del insumo: ";
-    cin >> precio;
-    cout << "Ingrese la cantidad del insumo: ";
-    cin >> cantidad;
+        inventarioProducto[ultimoRegistro] = productoActual;
+        ultimoRegistro++;
+    }
 }
 
 void mostrarDatosBinarios(const string &nombreArchivo)
@@ -48,7 +41,7 @@ void mostrarDatosBinarios(const string &nombreArchivo)
     if (archivo.is_open())
     {
         Producto producto;
-        while (archivo.read(reinterpret_cast< char *>(&producto), sizeof(producto)))
+        while (archivo.read(reinterpret_cast<char *>(&producto), sizeof(producto)))
         {
             cout << "Codigo: " << producto.codigoProducto << endl;
             cout << "Nombre: " << producto.nombreProducto << endl;
@@ -65,19 +58,50 @@ void mostrarDatosBinarios(const string &nombreArchivo)
     }
 }
 
-int main()
+void mostrarRegistroInventario()
 {
-    Producto inventarioProductos[] = {
-        {"081501", "Victoria Clasica Lata 355mL", 45.0, 100}};
+    ifstream archivo("inventario.bin", ios::binary);
+
+    if (!archivo.is_open())
+    {
+        cerr << "No se pudo abrir el archivo." << endl;
+    }
+
+    // Calcula el tamaño del archivo para saber cuántos registros hay
+    archivo.seekg(0, ios::end);
+    int numRegistros = archivo.tellg() / sizeof(Producto);
+    archivo.seekg(0, ios::beg);
+
+    // Crea un arreglo para almacenar los registros
+    Producto productos[numRegistros];
+
+    // Lee los registros desde el archivo
+    archivo.read(reinterpret_cast<char *>(productos), sizeof(productos));
+
+    archivo.close();
+
+    // Muestra los registros en pantalla
+    for (int i = 0; i < numRegistros; i++)
+    {
+        cout << "Registro " << i + 1 << ":\n";
+        cout << "Codigo: " << productos[i].codigoProducto << endl;
+        cout << "Nombre: " << productos[i].nombreProducto << endl;
+        cout << "Precio: " << productos[i].precioProducto << endl;
+        cout << "Cantidad: " << productos[i].cantidadProducto << endl;
+        // Muestra otros campos si los hay
+        cout << endl;
+    }
+}
+
+void guardarProductos(Producto productosAGuardar[])
+{
 
     ofstream archivo("inventario.bin", ios::binary);
 
     if (archivo.is_open())
     {
-        for (const Producto &producto : inventarioProductos)
-        {
-            archivo.write(reinterpret_cast<const char *>(&producto), sizeof(Producto));
-        }
+
+        archivo.write(reinterpret_cast<const char *>(productosAGuardar), sizeof(Producto));
 
         archivo.close();
 
@@ -88,7 +112,13 @@ int main()
         cerr << "No se pudo abrir el archivo." << endl;
     }
 
-    mostrarDatosBinarios("inventario.bin");
+}
+
+int main(int argc, char const *argv[])
+{
+    ingresarProducto();
+    guardarProductos(inventarioProducto);
+    mostrarRegistroInventario();
 
     return 0;
 }
