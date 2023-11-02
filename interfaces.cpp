@@ -147,11 +147,10 @@ void menuModuloInventario()
 
 void seleccionarAccionModuloInventario()
 {
-
+    recuperarRegistroInventario(inventarioProducto, ultimoRegistro);
     int opcion = 0;
     while (opcion != 6)
     {
-        recuperarRegistroInventario(inventarioProducto, ultimoRegistro);
         menuModuloInventario();
         cin >> opcion;
         switch (opcion)
@@ -185,7 +184,9 @@ void seleccionarAccionModuloInventario()
             system("pause");
             break;
         case 4:
-            cout << "Funcion no Implementada";
+            cout << "Ingrese el codigo del producto que desea eliminar";
+            cin >> codigoAEliminar;
+            eliminarProducto(codigoAEliminar);
             break;
         case 5:
             cout << "Funcion no Implementada";

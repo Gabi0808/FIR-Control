@@ -26,6 +26,8 @@ bool buscarProducto();
 void eliminarProducto();
 string codigoABuscar;
 Producto productoEncontrado;
+string codigoAEliminar;
+
 
 void ingresarProducto()
 {
@@ -80,7 +82,7 @@ void recuperarRegistroInventario(Producto productosARecuperar[], int &cantidadRe
 
 void mostrarProducto(Producto productoAMostrar)
 {
-    
+
     cout << "Codigo: " << productoAMostrar.codigoProducto << endl;
     cout << "Nombre: " << productoAMostrar.nombreProducto << endl;
     cout << "Precio: " << productoAMostrar.precioProducto << endl;
@@ -114,28 +116,41 @@ void guardarProductos(Producto productosAGuardar[])
     }
 }
 
-void eliminarProducto(string codigoProducto, Producto *productos, int &numProductos)
+void eliminarProducto(const string& codigoProducto)
 {
-    bool encontrado = false;
-
-    for (int i = 0; i < numProductos; i++)
+    Producto productoEncontrado;
+    if (buscarProducto(codigoProducto, productoEncontrado))
     {
-        if (productos[i].codigoProducto == codigoProducto)
+        int indiceAEliminar = -1;
+
+        for (int i = 0; i < ultimoRegistro; i++)
         {
-            for (int j = i; j < numProductos - 1; j++)
+            if (inventarioProducto[i].codigoProducto == codigoProducto)
             {
-                productos[j] = productos[j + 1];
+                indiceAEliminar = i;
+                break; // Si encuentras el producto, sal del bucle
+            }
+        }
+
+        if (indiceAEliminar != -1)
+        {
+            // Elimina el producto moviendo los elementos restantes
+            for (int i = indiceAEliminar; i < ultimoRegistro - 1; i++)
+            {
+                inventarioProducto[i] = inventarioProducto[i + 1];
             }
 
-            numProductos--;
-            encontrado = true;
-            break;
-        }
-    }
+            ultimoRegistro--;
 
-    if (encontrado)
-    {
-        cout << "Se ha eliminado correctamente el producto con código: " << codigoProducto << endl;
+            // Guarda los productos restantes en el archivo
+            guardarProductos(inventarioProducto);
+
+            cout << "Producto eliminado correctamente." << endl;
+        }
+        else
+        {
+            cout << "No se encontró un producto con el código especificado." << endl;
+        }
     }
     else
     {
@@ -143,28 +158,29 @@ void eliminarProducto(string codigoProducto, Producto *productos, int &numProduc
     }
 }
 
-bool buscarProducto(const string &codigoProducto, Producto &productoEncontrado)
-{
-    ifstream archivo("inventario.txt");
 
-    if (archivo.is_open())
+    bool buscarProducto(const string &codigoProducto, Producto &productoEncontrado)
     {
-        while (archivo >> productoEncontrado.codigoProducto)
-        {
-            archivo.ignore(); // Consumir el carácter de nueva línea.
-            getline(archivo, productoEncontrado.nombreProducto);
-            archivo >> productoEncontrado.precioProducto;
-            archivo >> productoEncontrado.cantidadProducto;
+        ifstream archivo("inventario.txt");
 
-            if (productoEncontrado.codigoProducto == codigoProducto)
+        if (archivo.is_open())
+        {
+            while (archivo >> productoEncontrado.codigoProducto)
             {
-                archivo.close();
-                return true; // Producto encontrado
+                archivo.ignore(); // Consumir el carácter de nueva línea.
+                getline(archivo, productoEncontrado.nombreProducto);
+                archivo >> productoEncontrado.precioProducto;
+                archivo >> productoEncontrado.cantidadProducto;
+
+                if (productoEncontrado.codigoProducto == codigoProducto)
+                {
+                    archivo.close();
+                    return true; // Producto encontrado
+                }
             }
+
+            archivo.close();
         }
 
-        archivo.close();
+        return false; // Producto no encontrado
     }
-
-    return false; // Producto no encontrado
-}
