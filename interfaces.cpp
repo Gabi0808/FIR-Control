@@ -26,7 +26,8 @@ int login()
              << endl
              << "Inicie sesion para acceder a las funciones." << endl;
         cout << "Intentos restantes: " << access << endl;
-        cout << "Ingrese su usuario: \n" << endl;
+        cout << "Ingrese su usuario: \n"
+             << endl;
         cin >> usuario;
         cout << "Ingrese su contrasena: " << endl;
         cin >> contrasena;
@@ -134,6 +135,7 @@ void menuModuloInventario()
          << endl;
     cout << "Seleccione la opcion a realizar." << endl
          << endl;
+    cout << "Cantidad de registros: " << ultimoRegistro << endl;
     cout << "1. Ver inventario." << endl;
     cout << "2. Agregar producto al inventario." << endl;
     cout << "3. Eliminar producto al inventario." << endl;
@@ -153,13 +155,12 @@ void seleccionarAccionModuloInventario()
         switch (opcion)
         {
         case 1:
-            mostrarRegistroInventario();
+            mostrarRegistroInventario(inventarioProducto);
             break;
         case 2:
             ingresarProducto();
             break;
         case 3:
-            eliminarRegistro(inventarioProducto[]);
             break;
         case 4:
             cout << "Funcion no Implementada";
@@ -178,10 +179,10 @@ void seleccionarAccionModuloInventario()
 
 void menuModuloFacturacion()
 {
-/*Hay que añadir una seccion de caja chica, asi como un menu de facturacion para controlar de mejor manera 
-los pedidos a proveedores*/
-/*Hay que añadir el control de cuanto rinden los ingredientes, ejemplo cuantos platos salen de x cantidad de carne
-o cuantos tragos salen de una botella*/
+    /*Hay que añadir una seccion de caja chica, asi como un menu de facturacion para controlar de mejor manera
+    los pedidos a proveedores*/
+    /*Hay que añadir el control de cuanto rinden los ingredientes, ejemplo cuantos platos salen de x cantidad de carne
+    o cuantos tragos salen de una botella*/
     system("cls");
     cout << "Control de ordenes y mesas." << endl
          << endl;
@@ -238,7 +239,6 @@ void menuModuloReportes()
     cout << "4. Generar historial de transacciones " << endl;
     cout << "5. Generar reporte de control de facturas " << endl;
     cout << "6. Volver al menu principal" << endl;
-
 }
 
 void seleccionarModuloReportes()
@@ -248,7 +248,7 @@ void seleccionarModuloReportes()
     {
         menuModuloReportes();
         cin >> option;
-        switch (option)    
+        switch (option)
         {
         case 1:
             cout << "Funcion no Implementada";
@@ -259,7 +259,7 @@ void seleccionarModuloReportes()
         case 3:
             cout << "Funcion no Implementada";
             break;
-        case 4: 
+        case 4:
             cout << "Funcion no Implementada";
             break;
         case 5:
@@ -267,7 +267,7 @@ void seleccionarModuloReportes()
             break;
         case 6:
             cout << "Regresando al menu principal..." << endl;
-        default: 
+        default:
             cout << "Ingresar opcion valida" << endl;
             break;
         }

@@ -15,9 +15,11 @@ typedef struct
 int ultimoRegistro = 0;
 Producto inventarioProducto[MAX];
 
-//CRUD
+// CRUD
 void ingresarProducto();
+void guardarProductos(Producto productosAGuardar[]);
 void mostrarProducto();
+int calcularUltimoRegistro(const char* nombreArchivo);
 void modificarProducto();
 void modificarInventario();
 void buscarProducto();
@@ -25,9 +27,9 @@ void eliminarProducto();
 
 void ingresarProducto()
 {
+    ultimoRegistro = calcularUltimoRegistro("inventario.txt");
     Producto productoActual;
-    for (int i = 0; i < 4; i++)
-    {
+   
         cout << "Ingrese el codigo de insumo: ";
         cin >> productoActual.codigoProducto;
         cin.ignore();
@@ -37,30 +39,51 @@ void ingresarProducto()
         cin >> productoActual.precioProducto;
         cout << "Ingrese la cantidad del insumo: ";
         cin >> productoActual.cantidadProducto;
-
         inventarioProducto[ultimoRegistro] = productoActual;
         ultimoRegistro++;
-    }
+        guardarProductos(inventarioProducto);
+    
 }
 
-void mostrarRegistroInventario()
+int calcularUltimoRegistro(const char* nombreArchivo) {
+    fstream archivo(nombreArchivo, ios::in | ios::binary);
+
+    if (!archivo) {
+        cerr << "No se pudo abrir el archivo." << endl;
+        return -1;
+    }
+
+    size_t tamano_registro = sizeof(Producto);
+    archivo.seekg(0, ios::end);
+    streampos tamano_archivo = archivo.tellg();
+    int ultimo_registro = tamano_archivo / tamano_registro;
+
+    archivo.close();
+
+    return ultimo_registro;
+}
+
+void mostrarRegistroInventario(Producto productosARecuperar[])
 {
+    ultimoRegistro = calcularUltimoRegistro("inventario.txt");
     ifstream archivo("inventario.txt");
     if (archivo.is_open())
     {
-        Producto producto;
 
-        while (getline(archivo, producto.codigoProducto) &&
-               getline(archivo, producto.nombreProducto) &&
-               archivo >> producto.precioProducto >> producto.cantidadProducto)
+        for (int i = 0; i < ultimoRegistro; i++)
         {
-            cout << "Codigo: " << producto.codigoProducto << endl;
-            cout << "Nombre: " << producto.nombreProducto << endl;
-            cout << "Precio: " << producto.precioProducto << endl;
-            cout << "Cantidad: " << producto.cantidadProducto << endl;
-            cout << "------------------------------" << endl;
+            while (getline(archivo, productosARecuperar[i].codigoProducto) &&
+                   getline(archivo, productosARecuperar[i].nombreProducto) &&
+                   archivo >> productosARecuperar[i].precioProducto >> productosARecuperar[i].cantidadProducto)
+            {
+                cout << "Codigo: " << productosARecuperar[i].codigoProducto << endl;
+                cout << "Nombre: " << productosARecuperar[i].nombreProducto << endl;
+                cout << "Precio: " << productosARecuperar[i].precioProducto << endl;
+                cout << "Cantidad: " << productosARecuperar[i].cantidadProducto << endl;
+                cout << "------------------------------" << endl;
 
-            archivo.ignore();
+                archivo.ignore();
+            }
         }
 
         archivo.close();
