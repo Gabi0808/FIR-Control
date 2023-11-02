@@ -19,17 +19,20 @@ Producto inventarioProducto[MAX];
 void ingresarProducto();
 void guardarProductos(Producto productosAGuardar[]);
 void mostrarProducto();
-int calcularUltimoRegistro(const char* nombreArchivo);
+int calcularUltimoRegistro(const char *nombreArchivo);
 void modificarProducto();
 void modificarInventario();
-void buscarProducto();
+bool buscarProducto();
 void eliminarProducto();
+string codigoABuscar;
+Producto productoEncontrado;
 
 void ingresarProducto()
 {
-    if(ultimoRegistro < MAX){
+    if (ultimoRegistro < MAX)
+    {
         Producto productoActual;
-   
+
         cout << "Ingrese el codigo de insumo: ";
         cin >> productoActual.codigoProducto;
         cin.ignore();
@@ -43,15 +46,19 @@ void ingresarProducto()
         ultimoRegistro++;
         cout << "El inventario se ha guardado en el archivo 'inventario.txt'." << endl;
         guardarProductos(inventarioProducto);
-    } else {
+    }
+    else
+    {
         cerr << "El inventario esta lleno, no se pueden agregar mas productos." << endl;
     }
 }
 
-int calcularUltimoRegistro(const char* nombreArchivo) {
+int calcularUltimoRegistro(const char *nombreArchivo)
+{
     fstream archivo(nombreArchivo, ios::in | ios::binary);
 
-    if (!archivo) {
+    if (!archivo)
+    {
         cerr << "No se pudo abrir el archivo." << endl;
         return -1;
     }
@@ -69,13 +76,13 @@ int calcularUltimoRegistro(const char* nombreArchivo) {
 void mostrarRegistroInventario(Producto productosARecuperar[])
 {
     ifstream archivo("inventario.txt");
-    int i = 0; 
+    int i = 0;
 
     if (archivo.is_open())
     {
         while (archivo >> productosARecuperar[i].codigoProducto)
         {
-            archivo.ignore(); 
+            archivo.ignore();
             getline(archivo, productosARecuperar[i].nombreProducto);
             archivo >> productosARecuperar[i].precioProducto;
             archivo >> productosARecuperar[i].cantidadProducto;
@@ -86,7 +93,7 @@ void mostrarRegistroInventario(Producto productosARecuperar[])
             cout << "Cantidad: " << productosARecuperar[i].cantidadProducto << endl;
             cout << "------------------------------" << endl;
 
-            i++; 
+            i++;
         }
 
         archivo.close();
@@ -98,11 +105,9 @@ void mostrarRegistroInventario(Producto productosARecuperar[])
     }
 }
 
-
-
 void guardarProductos(Producto productosAGuardar[])
 {
-    ofstream archivo("inventario.txt", ios::app); 
+    ofstream archivo("inventario.txt", ios::app);
 
     if (archivo.is_open())
     {
@@ -124,14 +129,13 @@ void guardarProductos(Producto productosAGuardar[])
     }
 }
 
-
-void eliminarRegistro(string codigoProducto, Producto *productos, int &numProductos)
+void eliminarProducto(string codigoProducto, Producto *productos, int &numProductos)
 {
     bool encontrado = false;
 
-    for (int i = 0; i < ultimoRegistro; i++)
+    for (int i = 0; i < numProductos; i++)
     {
-        if (inventarioProducto[i].codigoProducto == codigoProducto)
+        if (productos[i].codigoProducto == codigoProducto)
         {
             for (int j = i; j < numProductos - 1; j++)
             {
@@ -143,12 +147,39 @@ void eliminarRegistro(string codigoProducto, Producto *productos, int &numProduc
             break;
         }
     }
+
     if (encontrado)
     {
-        cout << "Se elimino correctamente el producto con codigo: " << codigoProducto << endl;
+        cout << "Se ha eliminado correctamente el producto con código: " << codigoProducto << endl;
     }
     else
     {
-        cout << "No se encontro un producto con el codigo especificado." << endl;
+        cout << "No se encontró un producto con el código especificado." << endl;
     }
+}
+
+bool buscarProducto(const string &codigoProducto, Producto &productoEncontrado)
+{
+    ifstream archivo("inventario.txt");
+
+    if (archivo.is_open())
+    {
+        while (archivo >> productoEncontrado.codigoProducto)
+        {
+            archivo.ignore(); // Consumir el carácter de nueva línea.
+            getline(archivo, productoEncontrado.nombreProducto);
+            archivo >> productoEncontrado.precioProducto;
+            archivo >> productoEncontrado.cantidadProducto;
+
+            if (productoEncontrado.codigoProducto == codigoProducto)
+            {
+                archivo.close();
+                return true; // Producto encontrado
+            }
+        }
+
+        archivo.close();
+    }
+
+    return false; // Producto no encontrado
 }
