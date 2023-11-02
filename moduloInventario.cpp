@@ -53,56 +53,41 @@ void ingresarProducto()
     }
 }
 
-int calcularUltimoRegistro(const char *nombreArchivo)
+void recuperarRegistroInventario(Producto productosARecuperar[], int &cantidadRegistros)
 {
-    fstream archivo(nombreArchivo, ios::in | ios::binary);
 
-    if (!archivo)
-    {
-        cerr << "No se pudo abrir el archivo." << endl;
-        return -1;
-    }
-
-    size_t tamano_registro = sizeof(Producto);
-    archivo.seekg(0, ios::end);
-    streampos tamano_archivo = archivo.tellg();
-    int ultimo_registro = tamano_archivo / tamano_registro;
-
-    archivo.close();
-
-    return ultimo_registro;
-}
-
-void mostrarRegistroInventario(Producto productosARecuperar[])
-{
     ifstream archivo("inventario.txt");
-    int i = 0;
 
     if (archivo.is_open())
     {
-        while (archivo >> productosARecuperar[i].codigoProducto)
+        while (archivo >> productosARecuperar[cantidadRegistros].codigoProducto)
         {
             archivo.ignore();
-            getline(archivo, productosARecuperar[i].nombreProducto);
-            archivo >> productosARecuperar[i].precioProducto;
-            archivo >> productosARecuperar[i].cantidadProducto;
+            getline(archivo, productosARecuperar[cantidadRegistros].nombreProducto);
+            archivo >> productosARecuperar[cantidadRegistros].precioProducto;
+            archivo >> productosARecuperar[cantidadRegistros].cantidadProducto;
 
-            cout << "Codigo: " << productosARecuperar[i].codigoProducto << endl;
-            cout << "Nombre: " << productosARecuperar[i].nombreProducto << endl;
-            cout << "Precio: " << productosARecuperar[i].precioProducto << endl;
-            cout << "Cantidad: " << productosARecuperar[i].cantidadProducto << endl;
-            cout << "------------------------------" << endl;
-
-            i++;
+            cantidadRegistros++;
         }
-
         archivo.close();
-        system("pause");
     }
+
     else
     {
         cerr << "No se pudo abrir el archivo." << endl;
     }
+}
+
+void mostrarProducto(Producto productoAMostrar)
+{
+    
+    cout << "Codigo: " << productoAMostrar.codigoProducto << endl;
+    cout << "Nombre: " << productoAMostrar.nombreProducto << endl;
+    cout << "Precio: " << productoAMostrar.precioProducto << endl;
+    cout << "Cantidad: " << productoAMostrar.cantidadProducto << endl;
+    cout << "------------------------------" << endl;
+
+    system("pause");
 }
 
 void guardarProductos(Producto productosAGuardar[])
