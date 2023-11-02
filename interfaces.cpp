@@ -150,12 +150,17 @@ void seleccionarAccionModuloInventario()
     int opcion = 0;
     while (opcion != 6)
     {
+        recuperarRegistroInventario(inventarioProducto, ultimoRegistro);
         menuModuloInventario();
         cin >> opcion;
         switch (opcion)
         {
         case 1:
-            mostrarRegistroInventario(inventarioProducto);
+            for (int i = 0; i < ultimoRegistro; i++)
+            {
+                mostrarProducto(inventarioProducto[i]);
+            }
+            
             break;
         case 2:
             ingresarProducto();
