@@ -19,17 +19,21 @@ Producto inventarioProducto[MAX];
 void ingresarProducto();
 void guardarProductos(Producto productosAGuardar[]);
 void mostrarProducto();
-int calcularUltimoRegistro(const char* nombreArchivo);
+int calcularUltimoRegistro(const char *nombreArchivo);
 void modificarProducto();
 void modificarInventario();
-void buscarProducto();
+bool buscarProducto();
 void eliminarProducto();
+string codigoABuscar;
+Producto productoEncontrado;
+string codigoAEliminar;
 
 void ingresarProducto()
 {
-    if(ultimoRegistro < MAX){
+    if (ultimoRegistro < MAX)
+    {
         Producto productoActual;
-   
+
         cout << "Ingrese el codigo de insumo: ";
         cin >> productoActual.codigoProducto;
         cin.ignore();
@@ -43,66 +47,53 @@ void ingresarProducto()
         ultimoRegistro++;
         cout << "El inventario se ha guardado en el archivo 'inventario.txt'." << endl;
         guardarProductos(inventarioProducto);
-    } else {
+    }
+    else
+    {
         cerr << "El inventario esta lleno, no se pueden agregar mas productos." << endl;
     }
 }
 
-int calcularUltimoRegistro(const char* nombreArchivo) {
-    fstream archivo(nombreArchivo, ios::in | ios::binary);
-
-    if (!archivo) {
-        cerr << "No se pudo abrir el archivo." << endl;
-        return -1;
-    }
-
-    size_t tamano_registro = sizeof(Producto);
-    archivo.seekg(0, ios::end);
-    streampos tamano_archivo = archivo.tellg();
-    int ultimo_registro = tamano_archivo / tamano_registro;
-
-    archivo.close();
-
-    return ultimo_registro;
-}
-
-void mostrarRegistroInventario(Producto productosARecuperar[])
+void recuperarRegistroInventario(Producto productosARecuperar[], int &cantidadRegistros)
 {
+
     ifstream archivo("inventario.txt");
-    int i = 0; 
 
     if (archivo.is_open())
     {
-        while (archivo >> productosARecuperar[i].codigoProducto)
+        while (archivo >> productosARecuperar[cantidadRegistros].codigoProducto)
         {
-            archivo.ignore(); 
-            getline(archivo, productosARecuperar[i].nombreProducto);
-            archivo >> productosARecuperar[i].precioProducto;
-            archivo >> productosARecuperar[i].cantidadProducto;
+            archivo.ignore();
+            getline(archivo, productosARecuperar[cantidadRegistros].nombreProducto);
+            archivo >> productosARecuperar[cantidadRegistros].precioProducto;
+            archivo >> productosARecuperar[cantidadRegistros].cantidadProducto;
 
-            cout << "Codigo: " << productosARecuperar[i].codigoProducto << endl;
-            cout << "Nombre: " << productosARecuperar[i].nombreProducto << endl;
-            cout << "Precio: " << productosARecuperar[i].precioProducto << endl;
-            cout << "Cantidad: " << productosARecuperar[i].cantidadProducto << endl;
-            cout << "------------------------------" << endl;
-
-            i++; 
+            cantidadRegistros++;
         }
-
         archivo.close();
-        system("pause");
     }
+
     else
     {
         cerr << "No se pudo abrir el archivo." << endl;
     }
 }
 
+void mostrarProducto(Producto productoAMostrar)
+{
 
+    cout << "Codigo: " << productoAMostrar.codigoProducto << endl;
+    cout << "Nombre: " << productoAMostrar.nombreProducto << endl;
+    cout << "Precio: " << productoAMostrar.precioProducto << endl;
+    cout << "Cantidad: " << productoAMostrar.cantidadProducto << endl;
+    cout << "------------------------------" << endl;
+
+    system("pause");
+}
 
 void guardarProductos(Producto productosAGuardar[])
 {
-    ofstream archivo("inventario.txt", ios::app); 
+    ofstream archivo("inventario.txt", ios::app);
 
     if (archivo.is_open())
     {
@@ -124,31 +115,88 @@ void guardarProductos(Producto productosAGuardar[])
     }
 }
 
-
-void eliminarRegistro(string codigoProducto, Producto *productos, int &numProductos)
+bool buscarProducto(const string &codigoProducto, Producto &productoEncontrado)
 {
-    bool encontrado = false;
+    ifstream archivo("inventario.txt");
 
-    for (int i = 0; i < ultimoRegistro; i++)
+    if (archivo.is_open())
     {
-        if (inventarioProducto[i].codigoProducto == codigoProducto)
+        while (archivo >> productoEncontrado.codigoProducto)
         {
-            for (int j = i; j < numProductos - 1; j++)
-            {
-                productos[j] = productos[j + 1];
-            }
+            archivo.ignore(); // Consumir el carácter de nueva línea.
+            getline(archivo, productoEncontrado.nombreProducto);
+            archivo >> productoEncontrado.precioProducto;
+            archivo >> productoEncontrado.cantidadProducto;
 
-            numProductos--;
-            encontrado = true;
-            break;
+            if (productoEncontrado.codigoProducto == codigoProducto)
+            {
+                archivo.close();
+                return true; // Producto encontrado
+            }
         }
+
+        archivo.close();
     }
+
+    return false; // Producto no encontrado
+}
+
+void eliminarProducto(const string& codigoProducto)
+{
+    Producto productoEncontrado;
+    bool encontrado = buscarProducto(codigoProducto, productoEncontrado);
+
     if (encontrado)
     {
-        cout << "Se elimino correctamente el producto con codigo: " << codigoProducto << endl;
+        int codigoAEliminar = -1;
+
+        for (int i = 0; i < ultimoRegistro; i++)
+        {
+            if (inventarioProducto[i].codigoProducto == codigoProducto)
+            {
+                codigoAEliminar = i;
+                break; // Si encuentras el producto, sal del bucle
+            }
+        }
+
+        if (codigoAEliminar != -1)
+        {
+            // Elimina el producto moviendo los elementos restantes
+            for (int i = codigoAEliminar; i < ultimoRegistro - 1; i++)
+            {
+                inventarioProducto[i] = inventarioProducto[i + 1];
+            }
+
+            ultimoRegistro--;
+
+            // Guarda los productos restantes en el archivo sobrescribiendo el archivo existente
+            ofstream archivo("inventario.txt", ios::trunc);
+            if (archivo.is_open())
+            {
+                for (int i = 0; i < ultimoRegistro; i++)
+                {
+                    archivo << inventarioProducto[i].codigoProducto << endl;
+                    archivo << inventarioProducto[i].nombreProducto << endl;
+                    archivo << inventarioProducto[i].precioProducto << endl;
+                    archivo << inventarioProducto[i].cantidadProducto << endl;
+                }
+                archivo.close();
+
+                cout << "Producto eliminado correctamente." << endl;
+            }
+            else
+            {
+                cerr << "No se pudo abrir el archivo para sobrescribir." << endl;
+            }
+        }
+        else
+        {
+            cout << "No se encontró un producto con el código especificado." << endl;
+        }
     }
     else
     {
-        cout << "No se encontro un producto con el codigo especificado." << endl;
+        cout << "No se encontró un producto con el código especificado." << endl;
     }
 }
+

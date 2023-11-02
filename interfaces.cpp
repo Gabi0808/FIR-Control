@@ -138,15 +138,16 @@ void menuModuloInventario()
     cout << "Cantidad de registros: " << ultimoRegistro << endl;
     cout << "1. Ver inventario." << endl;
     cout << "2. Agregar producto al inventario." << endl;
-    cout << "3. Eliminar producto al inventario." << endl;
-    cout << "4. Modificar producto del inventario." << endl;
-    cout << "5. Actualizar inventario." << endl;
-    cout << "6. Regresar al menu principal." << endl;
+    cout << "3. Buscar producto" << endl;
+    cout << "4. Eliminar producto al inventario." << endl;
+    cout << "5. Modificar producto del inventario." << endl;
+    cout << "6. Actualizar inventario." << endl;
+    cout << "7. Regresar al menu principal." << endl;
 }
 
 void seleccionarAccionModuloInventario()
 {
-
+    recuperarRegistroInventario(inventarioProducto, ultimoRegistro);
     int opcion = 0;
     while (opcion != 6)
     {
@@ -155,21 +156,45 @@ void seleccionarAccionModuloInventario()
         switch (opcion)
         {
         case 1:
-            mostrarRegistroInventario(inventarioProducto);
+            for (int i = 0; i < ultimoRegistro; i++)
+            {
+                mostrarProducto(inventarioProducto[i]);
+            }
+            
             break;
         case 2:
             ingresarProducto();
             break;
         case 3:
-            eliminarRegistro(inventarioProducto[]);
+            cout << "Ingrese el codigo del producto que desea buscar ";
+            cin >> codigoABuscar;
+            
+            if (buscarProducto(codigoABuscar, productoEncontrado))
+            {
+                cout << "Producto encontrado:" << endl;
+                cout << "Codigo: " << productoEncontrado.codigoProducto << endl;
+                cout << "Nombre: " << productoEncontrado.nombreProducto << endl;
+                cout << "Precio: " << productoEncontrado.precioProducto << endl;
+                cout << "Cantidad: " << productoEncontrado.cantidadProducto << endl;
+            }
+            else
+            {
+                cout << "No se encontro el producto con ese codigo" << endl;
+            }
+            system("pause");
             break;
         case 4:
-            cout << "Funcion no Implementada";
+            cout << "Ingrese el codigo del producto que desea eliminar";
+            cin >> codigoAEliminar;
+            eliminarProducto(codigoAEliminar);
             break;
         case 5:
             cout << "Funcion no Implementada";
             break;
         case 6:
+            cout << "Funcion no Implementada";
+            break;
+        case 7:
             cout << "Regresando al menu principal..." << endl;
             break;
         default:
@@ -268,6 +293,7 @@ void seleccionarModuloReportes()
             break;
         case 6:
             cout << "Regresando al menu principal..." << endl;
+            break;
         default:
             cout << "Ingresar opcion valida" << endl;
             break;
