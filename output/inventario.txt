@@ -1,12 +1,28 @@
-081301
-tona lata 355ml
-45 100
-081303
-tona botella 1l
-80 35
-112501
-flor de cana 7 anos 1l
-700 10
-051201
-Paquete Modern
-25 100
+789456
+gabriel
+100
+90
+789456
+andres
+100
+10
+789456
+andres
+100
+10
+125235
+christopher
+450
+60
+789456
+andres
+100
+10
+125235
+christopher
+450
+60
+785412
+gabriel
+900
+50
