@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "moduloInventario.cpp"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ int login()
              << endl
              << "Inicie sesion para acceder a las funciones." << endl;
         cout << "Intentos restantes: " << access << endl;
-        cout << "Ingrese su usuario: " << endl;
+        cout << "Ingrese su usuario: \n" << endl;
         cin >> usuario;
         cout << "Ingrese su contrasena: " << endl;
         cin >> contrasena;
@@ -152,10 +153,10 @@ void seleccionarAccionModuloInventario()
         switch (opcion)
         {
         case 1:
-            cout << "Funcion no Implementada";
+            mostrarRegistroInventario();
             break;
         case 2:
-            cout << "Funcion no Implementada";
+            ingresarProducto();
             break;
         case 3:
             cout << "Funcion no Implementada";

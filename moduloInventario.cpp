@@ -65,6 +65,7 @@ void mostrarRegistroInventario()
         }
 
         archivo.close();
+        system("pause");
     }
     else
     {
@@ -96,10 +97,3 @@ void guardarProductos(Producto productosAGuardar[])
     }
 }
 
-int main(int argc, char const *argv[])
-{
-    
-    mostrarRegistroInventario();
-
-    return 0;
-}
