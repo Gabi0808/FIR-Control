@@ -65,43 +65,33 @@ void mostrarRegistroInventario()
     if (!archivo.is_open())
     {
         cerr << "No se pudo abrir el archivo." << endl;
+        return;
     }
 
-    // Calcula el tamaño del archivo para saber cuántos registros hay
-    archivo.seekg(0, ios::end);
-    int numRegistros = archivo.tellg() / sizeof(Producto);
-    archivo.seekg(0, ios::beg);
+    Producto producto;
 
-    // Crea un arreglo para almacenar los registros
-    Producto productos[numRegistros];
-
-    // Lee los registros desde el archivo
-    archivo.read(reinterpret_cast<char *>(productos), sizeof(productos));
+    while (archivo.read(reinterpret_cast<char *>(&producto), sizeof(Producto)))
+    {
+        cout << "Codigo: " << producto.codigoProducto << endl;
+        cout << "Nombre: " << producto.nombreProducto << endl;
+        cout << "Precio: " << producto.precioProducto << endl;
+        cout << "Cantidad: " << producto.cantidadProducto << endl;
+        cout << "------------------------------" << endl;
+    }
 
     archivo.close();
-
-    // Muestra los registros en pantalla
-    for (int i = 0; i < numRegistros; i++)
-    {
-        cout << "Registro " << i + 1 << ":\n";
-        cout << "Codigo: " << productos[i].codigoProducto << endl;
-        cout << "Nombre: " << productos[i].nombreProducto << endl;
-        cout << "Precio: " << productos[i].precioProducto << endl;
-        cout << "Cantidad: " << productos[i].cantidadProducto << endl;
-        // Muestra otros campos si los hay
-        cout << endl;
-    }
 }
 
 void guardarProductos(Producto productosAGuardar[])
 {
-
     ofstream archivo("inventario.bin", ios::binary);
 
     if (archivo.is_open())
     {
-
-        archivo.write(reinterpret_cast<const char *>(productosAGuardar), sizeof(Producto));
+        for (int i = 0; i < ultimoRegistro; i++)
+        {
+            archivo.write(reinterpret_cast<char*>(&productosAGuardar[i]), sizeof(Producto));
+        }
 
         archivo.close();
 
@@ -111,8 +101,8 @@ void guardarProductos(Producto productosAGuardar[])
     {
         cerr << "No se pudo abrir el archivo." << endl;
     }
-
 }
+
 
 int main(int argc, char const *argv[])
 {
