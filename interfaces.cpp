@@ -159,7 +159,7 @@ void seleccionarAccionModuloInventario()
             ingresarProducto();
             break;
         case 3:
-            cout << "Funcion no Implementada";
+            eliminarRegistro(inventarioProducto[]);
             break;
         case 4:
             cout << "Funcion no Implementada";

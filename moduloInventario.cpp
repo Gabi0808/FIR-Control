@@ -60,7 +60,6 @@ void mostrarRegistroInventario()
             cout << "Cantidad: " << producto.cantidadProducto << endl;
             cout << "------------------------------" << endl;
 
-           
             archivo.ignore();
         }
 
@@ -72,7 +71,6 @@ void mostrarRegistroInventario()
         cerr << "No se pudo abrir el archivo." << endl;
     }
 }
-
 
 void guardarProductos(Producto productosAGuardar[])
 {
@@ -97,3 +95,30 @@ void guardarProductos(Producto productosAGuardar[])
     }
 }
 
+void eliminarRegistro(string codigoProducto, Producto *productos, int &numProductos)
+{
+    bool encontrado = false;
+
+    for (int i = 0; i < ultimoRegistro; i++)
+    {
+        if (inventarioProducto[i].codigoProducto == codigoProducto)
+        {
+            for (int j = i; j < numProductos - 1; j++)
+            {
+                productos[j] = productos[j + 1];
+            }
+
+            numProductos--;
+            encontrado = true;
+            break;
+        }
+    }
+    if (encontrado)
+    {
+        cout << "Se elimino correctamente el producto con codigo: " << codigoProducto << endl;
+    }
+    else
+    {
+        cout << "No se encontro un producto con el codigo especificado." << endl;
+    }
+}
