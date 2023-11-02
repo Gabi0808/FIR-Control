@@ -147,6 +147,7 @@ void menuModuloInventario()
 
 void seleccionarAccionModuloInventario()
 {
+    int resultadoBusqueda = -1;
     recuperarRegistroInventario(inventarioProducto, ultimoRegistro);
     int opcion = 0;
     while (opcion != 6)
@@ -160,33 +161,30 @@ void seleccionarAccionModuloInventario()
             {
                 mostrarProducto(inventarioProducto[i]);
             }
-            
+
             break;
         case 2:
             ingresarProducto();
             break;
         case 3:
             cout << "Ingrese el codigo del producto que desea buscar ";
-            cin >> codigoABuscar;
-            
-            if (buscarProducto(codigoABuscar, productoEncontrado))
+            cin >> codigoIngresado;
+            resultadoBusqueda = buscarProducto(codigoIngresado);
+            if (resultadoBusqueda != -1)
             {
-                cout << "Producto encontrado:" << endl;
-                cout << "Codigo: " << productoEncontrado.codigoProducto << endl;
-                cout << "Nombre: " << productoEncontrado.nombreProducto << endl;
-                cout << "Precio: " << productoEncontrado.precioProducto << endl;
-                cout << "Cantidad: " << productoEncontrado.cantidadProducto << endl;
+                mostrarProducto(inventarioProducto[resultadoBusqueda]);
             }
             else
             {
-                cout << "No se encontro el producto con ese codigo" << endl;
+                cout << "No se encontro producto con ese codigo." << endl;
             }
+
             system("pause");
             break;
         case 4:
             cout << "Ingrese el codigo del producto que desea eliminar";
-            cin >> codigoAEliminar;
-            eliminarProducto(codigoAEliminar);
+            cin >> codigoIngresado;
+            eliminarProducto(codigoIngresado);
             break;
         case 5:
             cout << "Funcion no Implementada";

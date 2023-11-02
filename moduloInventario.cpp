@@ -14,7 +14,7 @@ typedef struct
 
 int ultimoRegistro = 0;
 Producto inventarioProducto[MAX];
-
+string codigoIngresado;
 // CRUD
 void ingresarProducto();
 void guardarProductos(Producto productosAGuardar[]);
@@ -24,9 +24,7 @@ void modificarProducto();
 void modificarInventario();
 bool buscarProducto();
 void eliminarProducto();
-string codigoABuscar;
 Producto productoEncontrado;
-string codigoAEliminar;
 
 void ingresarProducto()
 {
@@ -115,88 +113,57 @@ void guardarProductos(Producto productosAGuardar[])
     }
 }
 
-bool buscarProducto(const string &codigoProducto, Producto &productoEncontrado)
+int buscarProducto(string codigoABuscar)
 {
-    ifstream archivo("inventario.txt");
 
-    if (archivo.is_open())
+    for (int i = 0; i < ultimoRegistro; i++)
     {
-        while (archivo >> productoEncontrado.codigoProducto)
+        if (inventarioProducto[i].codigoProducto == codigoABuscar)
         {
-            archivo.ignore(); // Consumir el carácter de nueva línea.
-            getline(archivo, productoEncontrado.nombreProducto);
-            archivo >> productoEncontrado.precioProducto;
-            archivo >> productoEncontrado.cantidadProducto;
-
-            if (productoEncontrado.codigoProducto == codigoProducto)
-            {
-                archivo.close();
-                return true; // Producto encontrado
-            }
+            return i;
         }
-
-        archivo.close();
     }
-
-    return false; // Producto no encontrado
+    return -1;
 }
 
-void eliminarProducto(const string& codigoProducto)
+void eliminarProducto(string codigoABuscar)
 {
-    Producto productoEncontrado;
-    bool encontrado = buscarProducto(codigoProducto, productoEncontrado);
+    int codigoAEliminar = -1;
+    codigoAEliminar = buscarProducto(codigoABuscar);
 
-    if (encontrado)
+    if (codigoAEliminar != -1)
     {
-        int codigoAEliminar = -1;
-
-        for (int i = 0; i < ultimoRegistro; i++)
+        // Elimina el producto moviendo los elementos restantes
+        for (int i = codigoAEliminar; i < ultimoRegistro - 1; i++)
         {
-            if (inventarioProducto[i].codigoProducto == codigoProducto)
-            {
-                codigoAEliminar = i;
-                break; // Si encuentras el producto, sal del bucle
-            }
+            inventarioProducto[i] = inventarioProducto[i + 1];
         }
 
-        if (codigoAEliminar != -1)
+        ultimoRegistro--;
+
+        // Guarda los productos restantes en el archivo sobrescribiendo el archivo existente
+        ofstream archivo("inventario.txt", ios::trunc);
+        if (archivo.is_open())
         {
-            // Elimina el producto moviendo los elementos restantes
-            for (int i = codigoAEliminar; i < ultimoRegistro - 1; i++)
+            for (int i = 0; i < ultimoRegistro; i++)
             {
-                inventarioProducto[i] = inventarioProducto[i + 1];
+                archivo << inventarioProducto[i].codigoProducto << endl;
+                archivo << inventarioProducto[i].nombreProducto << endl;
+                archivo << inventarioProducto[i].precioProducto << endl;
+                archivo << inventarioProducto[i].cantidadProducto << endl;
             }
+            archivo.close();
 
-            ultimoRegistro--;
-
-            // Guarda los productos restantes en el archivo sobrescribiendo el archivo existente
-            ofstream archivo("inventario.txt", ios::trunc);
-            if (archivo.is_open())
-            {
-                for (int i = 0; i < ultimoRegistro; i++)
-                {
-                    archivo << inventarioProducto[i].codigoProducto << endl;
-                    archivo << inventarioProducto[i].nombreProducto << endl;
-                    archivo << inventarioProducto[i].precioProducto << endl;
-                    archivo << inventarioProducto[i].cantidadProducto << endl;
-                }
-                archivo.close();
-
-                cout << "Producto eliminado correctamente." << endl;
-            }
-            else
-            {
-                cerr << "No se pudo abrir el archivo para sobrescribir." << endl;
-            }
+            cout << "Producto eliminado correctamente." << endl;
         }
         else
         {
-            cout << "No se encontró un producto con el código especificado." << endl;
+            cerr << "No se pudo abrir el archivo para sobrescribir." << endl;
         }
     }
+
     else
     {
         cout << "No se encontró un producto con el código especificado." << endl;
     }
 }
-
