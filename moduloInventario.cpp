@@ -35,67 +35,52 @@ void ingresarProducto()
     }
 }
 
-void mostrarDatosBinarios(const string &nombreArchivo)
+void mostrarRegistroInventario()
 {
-    ifstream archivo(nombreArchivo, ios::binary);
+    ifstream archivo("inventario.txt");
     if (archivo.is_open())
     {
         Producto producto;
-        while (archivo.read(reinterpret_cast<char *>(&producto), sizeof(producto)))
+
+        while (getline(archivo, producto.codigoProducto) &&
+               getline(archivo, producto.nombreProducto) &&
+               archivo >> producto.precioProducto >> producto.cantidadProducto)
         {
             cout << "Codigo: " << producto.codigoProducto << endl;
             cout << "Nombre: " << producto.nombreProducto << endl;
             cout << "Precio: " << producto.precioProducto << endl;
             cout << "Cantidad: " << producto.cantidadProducto << endl;
             cout << "------------------------------" << endl;
+
+           
+            archivo.ignore();
         }
 
         archivo.close();
     }
     else
     {
-        cerr << "No se pudo abrir el archivo. " << endl;
-    }
-}
-
-void mostrarRegistroInventario()
-{
-    ifstream archivo("inventario.bin", ios::binary);
-
-    if (!archivo.is_open())
-    {
         cerr << "No se pudo abrir el archivo." << endl;
-        return;
     }
-
-    Producto producto;
-
-    while (archivo.read(reinterpret_cast<char *>(&producto), sizeof(Producto)))
-    {
-        cout << "Codigo: " << producto.codigoProducto << endl;
-        cout << "Nombre: " << producto.nombreProducto << endl;
-        cout << "Precio: " << producto.precioProducto << endl;
-        cout << "Cantidad: " << producto.cantidadProducto << endl;
-        cout << "------------------------------" << endl;
-    }
-
-    archivo.close();
 }
+
 
 void guardarProductos(Producto productosAGuardar[])
 {
-    ofstream archivo("inventario.bin", ios::binary);
+    ofstream archivo("inventario.txt");
 
     if (archivo.is_open())
     {
         for (int i = 0; i < ultimoRegistro; i++)
         {
-            archivo.write(reinterpret_cast<char*>(&productosAGuardar[i]), sizeof(Producto));
+            archivo << productosAGuardar[i].codigoProducto << endl;
+            archivo << productosAGuardar[i].nombreProducto << endl;
+            archivo << productosAGuardar[i].precioProducto << ' ' << productosAGuardar[i].cantidadProducto << endl;
         }
 
         archivo.close();
 
-        cout << "El inventario se ha guardado en el archivo 'inventario.bin'." << endl;
+        cout << "El inventario se ha guardado en el archivo 'inventario.txt'." << endl;
     }
     else
     {
@@ -103,11 +88,9 @@ void guardarProductos(Producto productosAGuardar[])
     }
 }
 
-
 int main(int argc, char const *argv[])
 {
-    ingresarProducto();
-    guardarProductos(inventarioProducto);
+    
     mostrarRegistroInventario();
 
     return 0;
