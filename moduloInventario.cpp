@@ -15,6 +15,14 @@ typedef struct
 int ultimoRegistro = 0;
 Producto inventarioProducto[MAX];
 
+//CRUD
+void ingresarProducto();
+void mostrarProducto();
+void modificarProducto();
+void modificarInventario();
+void buscarProducto();
+void eliminarProducto();
+
 void ingresarProducto()
 {
     Producto productoActual;
