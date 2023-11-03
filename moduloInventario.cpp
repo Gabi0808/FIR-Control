@@ -18,12 +18,11 @@ string codigoIngresado;
 // CRUD
 void ingresarProducto();
 void guardarProductos(Producto productosAGuardar[]);
-void mostrarProducto();
-int calcularUltimoRegistro(const char *nombreArchivo);
+void mostrarProducto(Producto productoAMostrar);
 void modificarProducto(string codigoABuscar);
 void modificarInventario();
-bool buscarProducto();
-void eliminarProducto();
+int buscarProducto(string codigoABuscar);
+void eliminarProducto(string codigoABuscar);
 string codigoABuscar;
 Producto productoEncontrado;
 
@@ -185,8 +184,6 @@ void modificarProducto(string codigoABuscar)
         cin >> inventarioProducto[codigoAModificar].precioProducto;
         cout << "Ingrese la nueva cantidad: ";
         cin >> inventarioProducto[codigoAModificar].cantidadProducto;
-        system("pause");
-        cout << "Producto modificado exitosamente." << endl; 
 
 
         ofstream archivo("inventario.txt", ios::trunc);
@@ -200,7 +197,8 @@ void modificarProducto(string codigoABuscar)
                 archivo << inventarioProducto[i].cantidadProducto << endl;
             }
             archivo.close();
-
+ cout << "Producto modificado exitosamente." << endl; 
+system("pause");
         }
         else
         {
