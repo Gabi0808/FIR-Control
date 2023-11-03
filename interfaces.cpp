@@ -141,7 +141,7 @@ void menuModuloInventario()
     cout << "3. Buscar producto" << endl;
     cout << "4. Eliminar producto al inventario." << endl;
     cout << "5. Modificar producto del inventario." << endl;
-    cout << "6. Actualizar inventario." << endl;
+    cout << "6. Registrar entrada/salida." << endl;
     cout << "7. Regresar al menu principal." << endl;
 }
 
@@ -192,10 +192,13 @@ void seleccionarAccionModuloInventario()
             modificarProducto(codigoABuscar);
             break;
         case 6:
-            cout << "Funcion no Implementada";
+            cout << "Ingrese el codigo del producto que entro o salio ";
+            cin >> codigoARegistrar;
+            registrarEntradaSalida(codigoARegistrar);
             break;
         case 7:
             cout << "Regresando al menu principal..." << endl;
+            return;
             break;
         default:
             break;
@@ -248,6 +251,7 @@ void seleccionarAccionModuloFacturacion()
             break;
         case 6:
             cout << "Regresando al menu principal..." << endl;
+            return;
             break;
         default:
             break;

@@ -24,7 +24,9 @@ void modificarProducto(string codigoABuscar);
 void modificarInventario();
 bool buscarProducto();
 void eliminarProducto();
+void registrarEntradaSalida();
 string codigoABuscar;
+string codigoARegistrar;
 Producto productoEncontrado;
 
 void ingresarProducto()
@@ -186,8 +188,7 @@ void modificarProducto(string codigoABuscar)
         cout << "Ingrese la nueva cantidad: ";
         cin >> inventarioProducto[codigoAModificar].cantidadProducto;
         system("pause");
-        cout << "Producto modificado exitosamente." << endl; 
-
+        cout << "Producto modificado exitosamente." << endl;
 
         ofstream archivo("inventario.txt", ios::trunc);
         if (archivo.is_open())
@@ -200,7 +201,6 @@ void modificarProducto(string codigoABuscar)
                 archivo << inventarioProducto[i].cantidadProducto << endl;
             }
             archivo.close();
-
         }
         else
         {
@@ -213,3 +213,33 @@ void modificarProducto(string codigoABuscar)
     }
 }
 
+void registrarEntradaSalida(string codigoARegistrar)
+{
+    int opcion = 0;
+    int cantidadARegistrar = 0;
+    int codigoAModificar = buscarProducto(codigoARegistrar);
+
+    while (opcion != 1 || 2)
+    {
+        cout << " 1. Registrar Entrada ";
+        cout << " 2. Registrar Salida ";
+        cout << " Ingrese una opcion";
+        cin >> opcion;
+    }
+    if (opcion == 1)
+    {
+        cout << "Ingrese la cantidad de entrada (+) del producto";
+        cin >> cantidadARegistrar;
+        inventarioProducto[codigoAModificar].cantidadProducto += cantidadARegistrar;
+    }
+    else if (opcion == 2)
+    {
+        cout << "Ingrese la cantidad de salida (-) del producto";
+        cin >> "Cantidad A Registrar";
+        inventarioProducto[codigoAModificar].cantidadProducto -= cantidadARegistrar;
+    }
+    else
+    {
+        cout << "Producto no encontrado en el inventario";
+    }
+}
