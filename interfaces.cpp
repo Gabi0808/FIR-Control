@@ -34,7 +34,7 @@ int login()
 
         if (usuario == "BarBrother" && contrasena == "banana123")
         {
-            cout << "Acceso concedido como empeleado de Bar Brother" << endl;
+            cout << "Acceso concedido como empleado de Bar Brother" << endl;
             return 1;
         }
         else if (usuario == "BarBrotherG" && contrasena == "banana321")
@@ -168,8 +168,8 @@ void seleccionarAccionModuloInventario()
             break;
         case 3:
             cout << "Ingrese el codigo del producto que desea buscar ";
-            cin >> codigoIngresado;
-            resultadoBusqueda = buscarProducto(codigoIngresado);
+            cin >> codigoABuscar;
+            resultadoBusqueda = buscarProducto(codigoABuscar);
             if (resultadoBusqueda != -1)
             {
                 mostrarProducto(inventarioProducto[resultadoBusqueda]);
@@ -182,12 +182,14 @@ void seleccionarAccionModuloInventario()
             system("pause");
             break;
         case 4:
-            cout << "Ingrese el codigo del producto que desea eliminar";
-            cin >> codigoIngresado;
-            eliminarProducto(codigoIngresado);
+            cout << "Ingrese el codigo del producto que desea eliminar ";
+            cin >> codigoABuscar;
+            eliminarProducto(codigoABuscar);
             break;
         case 5:
-            cout << "Funcion no Implementada";
+            cout <<"Ingrese el codigo del producto que desea modificar ";
+            cin >> codigoABuscar;
+            modificarProducto(codigoABuscar);
             break;
         case 6:
             cout << "Funcion no Implementada";

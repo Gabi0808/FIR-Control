@@ -1,8 +1,20 @@
 081303
-tona botella 1l
+tona botella 1L
 80
-35
+60
 112501
 flor de cana 7 anos 1L
 700
 10
+051301
+paquete marlboro rojo
+100
+50
+051201
+paquete modern
+65
+50
+081501
+victoria clasica lata 355 mL 
+90
+100

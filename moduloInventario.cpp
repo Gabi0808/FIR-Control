@@ -20,10 +20,11 @@ void ingresarProducto();
 void guardarProductos(Producto productosAGuardar[]);
 void mostrarProducto();
 int calcularUltimoRegistro(const char *nombreArchivo);
-void modificarProducto();
+void modificarProducto(string codigoABuscar);
 void modificarInventario();
 bool buscarProducto();
 void eliminarProducto();
+string codigoABuscar;
 Producto productoEncontrado;
 
 void ingresarProducto()
@@ -167,3 +168,48 @@ void eliminarProducto(string codigoABuscar)
         cout << "No se encontró un producto con el código especificado." << endl;
     }
 }
+
+void modificarProducto(string codigoABuscar)
+{
+    int codigoAModificar = buscarProducto(codigoABuscar);
+
+    if (codigoAModificar != -1)
+    {
+        mostrarProducto(inventarioProducto[codigoAModificar]);
+
+        cout << "Ingrese los nuevos datos para el producto:" << endl;
+        cout << "Ingrese el nuevo nombre: ";
+        cin.ignore();
+        getline(cin, inventarioProducto[codigoAModificar].nombreProducto);
+        cout << "Ingrese el nuevo precio: ";
+        cin >> inventarioProducto[codigoAModificar].precioProducto;
+        cout << "Ingrese la nueva cantidad: ";
+        cin >> inventarioProducto[codigoAModificar].cantidadProducto;
+        system("pause");
+        cout << "Producto modificado exitosamente." << endl; 
+
+
+        ofstream archivo("inventario.txt", ios::trunc);
+        if (archivo.is_open())
+        {
+            for (int i = 0; i < ultimoRegistro; i++)
+            {
+                archivo << inventarioProducto[i].codigoProducto << endl;
+                archivo << inventarioProducto[i].nombreProducto << endl;
+                archivo << inventarioProducto[i].precioProducto << endl;
+                archivo << inventarioProducto[i].cantidadProducto << endl;
+            }
+            archivo.close();
+
+        }
+        else
+        {
+            cerr << "No se pudo abrir el archivo para sobrescribir." << endl;
+        }
+    }
+    else
+    {
+        cout << "No se encontró un producto con el código especificado." << endl;
+    }
+}
+
