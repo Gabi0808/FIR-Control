@@ -147,10 +147,11 @@ void menuModuloInventario()
 
 void seleccionarAccionModuloInventario()
 {
+    ultimoRegistro = 0;
     int resultadoBusqueda = -1;
     recuperarRegistroInventario(inventarioProducto, ultimoRegistro);
     int opcion = 0;
-    while (opcion != 6)
+    while (opcion != 7)
     {
         menuModuloInventario();
         cin >> opcion;

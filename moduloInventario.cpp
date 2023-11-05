@@ -20,6 +20,7 @@ void ingresarProducto();
 void guardarProductos(Producto productosAGuardar[]);
 void mostrarProducto(Producto productoAMostrar);
 void modificarProducto(string codigoABuscar);
+void sobreescribirDatos();
 void modificarInventario();
 int buscarProducto(string codigoABuscar);
 void eliminarProducto(string codigoABuscar);
@@ -128,6 +129,26 @@ int buscarProducto(string codigoABuscar)
     return -1;
 }
 
+void sobreescribirDatos()
+{
+
+    ofstream archivo("inventario.txt", ios::trunc);
+    if (archivo.is_open())
+    {
+        for (int i = 0; i < ultimoRegistro; i++)
+        {
+            archivo << inventarioProducto[i].codigoProducto << endl;
+            archivo << inventarioProducto[i].nombreProducto << endl;
+            archivo << inventarioProducto[i].precioProducto << endl;
+            archivo << inventarioProducto[i].cantidadProducto << endl;
+        }
+    }
+    else
+    {
+        cerr << "No se pudo abrir el archivo para sobrescribir." << endl;
+    }
+    archivo.close();
+}
 void eliminarProducto(string codigoABuscar)
 {
     int codigoAEliminar = -1;
@@ -143,27 +164,8 @@ void eliminarProducto(string codigoABuscar)
 
         ultimoRegistro--;
 
-        // Guarda los productos restantes en el archivo sobrescribiendo el archivo existente
-        ofstream archivo("inventario.txt", ios::trunc);
-        if (archivo.is_open())
-        {
-            for (int i = 0; i < ultimoRegistro; i++)
-            {
-                archivo << inventarioProducto[i].codigoProducto << endl;
-                archivo << inventarioProducto[i].nombreProducto << endl;
-                archivo << inventarioProducto[i].precioProducto << endl;
-                archivo << inventarioProducto[i].cantidadProducto << endl;
-            }
-            archivo.close();
-
-            cout << "Producto eliminado correctamente." << endl;
-        }
-        else
-        {
-            cerr << "No se pudo abrir el archivo para sobrescribir." << endl;
-        }
+        sobreescribirDatos();
     }
-
     else
     {
         cout << "No se encontró un producto con el código especificado." << endl;
@@ -186,28 +188,8 @@ void modificarProducto(string codigoABuscar)
         cin >> inventarioProducto[codigoAModificar].precioProducto;
         cout << "Ingrese la nueva cantidad: ";
         cin >> inventarioProducto[codigoAModificar].cantidadProducto;
-        system("pause");
-        cout << "Producto modificado exitosamente." << endl; 
 
-
-        ofstream archivo("inventario.txt", ios::trunc);
-        if (archivo.is_open())
-        {
-            for (int i = 0; i < ultimoRegistro; i++)
-            {
-                archivo << inventarioProducto[i].codigoProducto << endl;
-                archivo << inventarioProducto[i].nombreProducto << endl;
-                archivo << inventarioProducto[i].precioProducto << endl;
-                archivo << inventarioProducto[i].cantidadProducto << endl;
-            }
-            archivo.close();
- cout << "Producto modificado exitosamente." << endl; 
-system("pause");
-        }
-        else
-        {
-            cerr << "No se pudo abrir el archivo para sobrescribir." << endl;
-        }
+        sobreescribirDatos();
     }
     else
     {
@@ -221,27 +203,41 @@ void registrarEntradaSalida(string codigoARegistrar)
     int cantidadARegistrar = 0;
     int codigoAModificar = buscarProducto(codigoARegistrar);
 
-    while (opcion != 1 || 2)
+    while (opcion != 3)
     {
-        cout << " 1. Registrar Entrada ";
-        cout << " 2. Registrar Salida ";
-        cout << " Ingrese una opcion";
+        mostrarProducto(inventarioProducto[codigoAModificar]);
+        cout << " 1. Registrar Entrada " << endl;
+        cout << " 2. Registrar Salida " << endl;
+        cout << " 3. Salir al menu." << endl;
+        cout << " Ingrese una opcion: ";
         cin >> opcion;
-    }
-    if (opcion == 1)
-    {
-        cout << "Ingrese la cantidad de entrada (+) del producto";
-        cin >> cantidadARegistrar;
-        inventarioProducto[codigoAModificar].cantidadProducto += cantidadARegistrar;
-    }
-    else if (opcion == 2)
-    {
-        cout << "Ingrese la cantidad de salida (-) del producto";
-        cin >> "Cantidad A Registrar";
-        inventarioProducto[codigoAModificar].cantidadProducto -= cantidadARegistrar;
-    }
-    else
-    {
-        cout << "Producto no encontrado en el inventario";
+
+        switch (opcion)
+        {
+        case 1:
+
+            cout << "Ingrese la cantidad de entrada (+) del producto";
+            cin >> cantidadARegistrar;
+            inventarioProducto[codigoAModificar].cantidadProducto += cantidadARegistrar;
+
+            sobreescribirDatos();
+            cout << "Entrada registrada exitosamente." << endl;
+            system("pause");
+
+            break;
+        case 2:
+            cout << "Ingrese la cantidad de salida (-) del producto";
+            cin >> cantidadARegistrar;
+            inventarioProducto[codigoAModificar].cantidadProducto -= cantidadARegistrar;
+
+            sobreescribirDatos();
+            break;
+        case 3:
+            cout << "Saliendo al menu..." << endl;
+            break;
+        default:
+
+            break;
+        }
     }
 }
