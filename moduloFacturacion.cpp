@@ -42,6 +42,7 @@ void actualizarEstadoMesa();
 void crearNuevaOrden();
 void modificarOrden();
 void cancelarOrden();
+void sobreescribirDatosMesa();
 
 void agregarMesa()
 {
@@ -76,6 +77,45 @@ void guardarMesa(Mesa mesaAGuardar[])
     {
         cerr << "No se pudo abrir el archivo 'mesas.txt'" << endl;
     }
+}
+
+void eliminarMesa()
+{
+    int mesaAEliminar = -1;
+    cout << "\nIngrese el numero de la mesa a eliminar:";
+    cin >> mesaAEliminar;
+
+    if (mesaAEliminar != 1)
+    {
+        for (int i = mesaAEliminar; i < ultimoRegistro; i++)
+        {
+            informacionMesas[i] = informacionMesas[i + 1];
+        }
+        ultimoRegistro--;
+
+        sobreescribirDatosMesa();
+    }
+    else
+    {
+        cout << "No se encontro una mesa con ese numero. ";
+    }
+}
+
+void sobreescribirDatosMesa()
+{
+    ofstream archivo("mesas.txt", ios::trunc);
+    if (archivo.is_open())
+    {
+        for (int i = 0; i < ultimoRegistro; i++)
+        {
+            archivo << informacionMesas[i].numeroMesa << endl;
+        }
+    }
+    else
+    {
+        cerr << "No se pudo abrir el archivo para sobreescribir." << endl;
+    }
+    archivo.close();
 }
 
 int main()
