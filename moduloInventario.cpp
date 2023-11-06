@@ -216,7 +216,7 @@ void registrarEntradaSalida(string codigoARegistrar)
         {
         case 1:
 
-            cout << "Ingrese la cantidad de entrada (+) del producto";
+            cout << "Ingrese la cantidad de entrada (+) del producto ";
             cin >> cantidadARegistrar;
             inventarioProducto[codigoAModificar].cantidadProducto += cantidadARegistrar;
 
@@ -226,7 +226,7 @@ void registrarEntradaSalida(string codigoARegistrar)
 
             break;
         case 2:
-            cout << "Ingrese la cantidad de salida (-) del producto";
+            cout << "Ingrese la cantidad de salida (-) del producto ";
             cin >> cantidadARegistrar;
             inventarioProducto[codigoAModificar].cantidadProducto -= cantidadARegistrar;
 
