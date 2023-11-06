@@ -9,10 +9,14 @@ void menuPrincipal(int acccesType);
 void seleccionarAccion(int accessType);
 void menuModuloInventario();
 void seleccionarAccionModuloInventario();
-void menuModuloFacturacion();
+void menuOrdenesYMesa();
 void seleccionarAccionModuloFacturacion();
+void seleccionarAccionModuloMesa();
 void menuModuloReportes();
 void seleccionarModuloReportes();
+void menuMF();
+void contronFactura();
+
 
 int login()
 {
@@ -207,7 +211,19 @@ void seleccionarAccionModuloInventario()
     }
 }
 
-void menuModuloFacturacion()
+void menuMF()
+{
+    system("cls");
+    cout << "Modulo de Facturacion." << endl
+         << endl;
+    cout << "Seleccione la opcion a realizar." << endl
+         << endl;
+    cout << "1. Control de mesas y ordenes." << endl;
+    cout << "2. Generar Factura." << endl;
+    cout << "3. Regresando al menu principal." << endl;
+}
+
+void menuOrdenesYMesa()
 {
     /*Hay que añadir una seccion de caja chica, asi como un menu de facturacion para controlar de mejor manera
     los pedidos a proveedores*/
@@ -226,12 +242,29 @@ void menuModuloFacturacion()
     cout << "6. Regresar al menu principal." << endl;
 }
 
-void seleccionarAccionModuloFacturacion()
+void controlFactura()
+{
+    system("cls");
+    cout << "Control de Factura." << endl
+         << endl;
+    cout << "Seleccione la opcion a realizar." << endl
+         << endl;
+    cout << "1. Seleccionar Factura." << endl;
+    cout << "2. Mostrar informacion de Facturas." << endl;
+    cout << "3. Agregar Factura." << endl;
+    cout << "4. Eliminar Factura." << endl;
+    cout << "5. Modificar Factura." << endl;
+    cout << "6. Regresar al menu principal." << endl;
+}
+
+
+
+void seleccionarAccionModuloMesa()
 {
     int opcion = 0;
     while (opcion != 6)
     {
-        menuModuloFacturacion();
+        menuOrdenesYMesa();
         cin >> opcion;
         switch (opcion)
         {
@@ -259,6 +292,31 @@ void seleccionarAccionModuloFacturacion()
         }
     }
 }
+
+void seleccionarAccionModuloFacturacion()
+{
+    int opcion = 0;
+    while (opcion != 3)
+    {
+        menuMF();
+        cin >> opcion;
+        switch (opcion)
+        {
+        case 1:
+            seleccionarAccionModuloMesa();
+            break;
+        case 2:
+            controlFactura();
+            break;
+        case 3: 
+            cout << "Regresando al menu principal..." << endl;
+            return;
+        default:
+            break;
+        }
+    }
+}
+
 void menuModuloReportes()
 {
     system("cls");
