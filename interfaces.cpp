@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "moduloInventario.cpp"
+#include "moduloFacturacion.cpp"
 
 using namespace std;
 
@@ -272,7 +273,11 @@ void seleccionarAccionModuloMesa()
             cout << "Funcion no Implementada";
             break;
         case 2:
-            cout << "Funcion no Implementada";
+            for (int i = 0; i < ultimoRegistro; i++)
+            {
+                mostrarInfoMesas(informacionMesas[i])
+            }
+            
             break;
         case 3:
             cout << "Funcion no Implementada";

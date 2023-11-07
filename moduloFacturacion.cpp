@@ -62,6 +62,12 @@ void agregarMesa()
     }
 }
 
+void mostrarInfoMesas(Mesa mesaAMostrar){
+cout << "Numero de mesa: " << mesaAMostrar.numeroMesa;
+cout << "Estado de la mesa: " << mesaAMostrar.estadoMesa;
+cout << "Orden actual: " << mesaAMostrar.ordenActual;
+}
+
 void guardarMesa(Mesa mesaAGuardar[])
 {
     ofstream archivo("mesas.txt", ios::app);
@@ -116,10 +122,4 @@ void sobreescribirDatosMesa()
         cerr << "No se pudo abrir el archivo para sobreescribir." << endl;
     }
     archivo.close();
-}
-
-int main()
-{
-    agregarMesa();
-    return 0;
 }
