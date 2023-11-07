@@ -35,11 +35,13 @@ int login()
         if (usuario == "BarBrother" && contrasena == "banana123")
         {
             cout << "Acceso concedido como empleado de Bar Brother" << endl;
+            system("pause");
             return 1;
         }
         else if (usuario == "BarBrotherG" && contrasena == "banana321")
         {
             cout << "Acceso concedidio como gerente de Bar Brother" << endl;
+            system("pause");
             return 2;
         }
         else
@@ -162,6 +164,7 @@ void seleccionarAccionModuloInventario()
             {
                 mostrarProducto(inventarioProducto[i]);
             }
+            system("pause");
 
             break;
         case 2:
@@ -174,6 +177,7 @@ void seleccionarAccionModuloInventario()
             if (resultadoBusqueda != -1)
             {
                 mostrarProducto(inventarioProducto[resultadoBusqueda]);
+                system("pause");
             }
             else
             {
@@ -188,7 +192,7 @@ void seleccionarAccionModuloInventario()
             eliminarProducto(codigoABuscar);
             break;
         case 5:
-            cout <<"Ingrese el codigo del producto que desea modificar ";
+            cout << "Ingrese el codigo del producto que desea modificar ";
             cin >> codigoABuscar;
             modificarProducto(codigoABuscar);
             break;

@@ -1,20 +1,8 @@
-081303
-tona botella 1L
-80
-72
-112501
-flor de cana 7 anos 1L
-700
-22
-051301
-paquete marlboro rojo
-45
-100
-051201
-paquete cigarro 96
-100
-40
-081501
-victoria clasica lata 355 mL 
-90
-93
+020301
+carne asda
+200
+15
+3
+010201 010102 010302 
+1.5 10301 2 
+

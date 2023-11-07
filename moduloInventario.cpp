@@ -6,14 +6,28 @@ using namespace std;
 
 typedef struct
 {
+    string codigoInsumo;
+    string nombreInsumo;
+    float precioInsumo;
+    float cantidadInsumo;
+    string unidadMedidaInsumo;
+} Insumo;
+
+typedef struct
+{
     string codigoProducto;
     string nombreProducto;
     float precioProducto;
     int cantidadProducto;
+    Insumo insumosNecesarios[20];
+    float cantidadInsumosNecesarios[20];
+    int numeroInsumosUsados;
+
 } Producto;
 
 int ultimoRegistro = 0;
 Producto inventarioProducto[MAX];
+Insumo inventarioInsumo[MAX];
 string codigoIngresado;
 // CRUD
 void ingresarProducto();
@@ -21,10 +35,9 @@ void guardarProductos(Producto productosAGuardar[]);
 void mostrarProducto(Producto productoAMostrar);
 void modificarProducto(string codigoABuscar);
 void sobreescribirDatos();
-void modificarInventario();
 int buscarProducto(string codigoABuscar);
 void eliminarProducto(string codigoABuscar);
-void registrarEntradaSalida();
+void registrarEntradaSalida(string codigoARegistrar);
 string codigoABuscar;
 string codigoARegistrar;
 Producto productoEncontrado;
@@ -33,17 +46,33 @@ void ingresarProducto()
 {
     if (ultimoRegistro < MAX)
     {
+        string codigoInsumoIngresado;
         Producto productoActual;
 
-        cout << "Ingrese el codigo de insumo: ";
+        cout << "Ingrese el codigo del producto: ";
         cin >> productoActual.codigoProducto;
         cin.ignore();
-        cout << "Ingrese el nombre de insumo: ";
+        cout << "Ingrese el nombre del producto: ";
         getline(cin, productoActual.nombreProducto);
-        cout << "Ingrese el precio del insumo: ";
+        cout << "Ingrese el precio del producto: ";
         cin >> productoActual.precioProducto;
-        cout << "Ingrese la cantidad del insumo: ";
+        cout << "Ingrese la cantidad del producto: ";
         cin >> productoActual.cantidadProducto;
+        cout << "Ingrese los insumos que necesita el producto." << endl;
+        cout << "Escriba 'salir' si no desea ingresar mas insumos" << endl;
+        productoActual.numeroInsumosUsados = 0;
+        for (; productoActual.numeroInsumosUsados < 20; productoActual.numeroInsumosUsados++)
+        {
+            cout << "Ingrese el codigo del insumo " << productoActual.numeroInsumosUsados + 1 << endl;
+            cin >> codigoInsumoIngresado;
+            if (codigoInsumoIngresado == "salir")
+            {
+                break;
+            }
+            productoActual.insumosNecesarios[productoActual.numeroInsumosUsados].codigoInsumo = codigoInsumoIngresado;
+            cout << "Ingrese la cantidad necesaria de ese insumo" << endl;
+            cin >> productoActual.cantidadInsumosNecesarios[productoActual.numeroInsumosUsados];
+        }
         inventarioProducto[ultimoRegistro] = productoActual;
         ultimoRegistro++;
         cout << "El inventario se ha guardado en el archivo 'inventario.txt'." << endl;
@@ -57,7 +86,6 @@ void ingresarProducto()
 
 void recuperarRegistroInventario(Producto productosARecuperar[], int &cantidadRegistros)
 {
-
     ifstream archivo("inventario.txt");
 
     if (archivo.is_open())
@@ -69,11 +97,23 @@ void recuperarRegistroInventario(Producto productosARecuperar[], int &cantidadRe
             archivo >> productosARecuperar[cantidadRegistros].precioProducto;
             archivo >> productosARecuperar[cantidadRegistros].cantidadProducto;
 
+            // Leer el número de insumos usados
+            archivo >> productosARecuperar[cantidadRegistros].numeroInsumosUsados;
+
+            // Leer insumos y cantidades en función del número de insumos usados
+            for (int j = 0; j < productosARecuperar[cantidadRegistros].numeroInsumosUsados; j++)
+            {
+                archivo >> productosARecuperar[cantidadRegistros].insumosNecesarios[j].codigoInsumo;
+            }
+            for (int k = 0; k < productosARecuperar[cantidadRegistros].numeroInsumosUsados; k++)
+            {
+                archivo >> productosARecuperar[cantidadRegistros].cantidadInsumosNecesarios[k];
+            }
+
             cantidadRegistros++;
         }
         archivo.close();
     }
-
     else
     {
         cerr << "No se pudo abrir el archivo." << endl;
@@ -87,9 +127,16 @@ void mostrarProducto(Producto productoAMostrar)
     cout << "Nombre: " << productoAMostrar.nombreProducto << endl;
     cout << "Precio: " << productoAMostrar.precioProducto << endl;
     cout << "Cantidad: " << productoAMostrar.cantidadProducto << endl;
-    cout << "------------------------------" << endl;
+    if (productoAMostrar.numeroInsumosUsados != 0)
+    {
+        for (int i = 0; i < productoAMostrar.numeroInsumosUsados; i++)
+        {
+            cout << "Codigo Insumo " << i + 1 << ": " << productoAMostrar.insumosNecesarios[i].codigoInsumo << endl;
+            cout << "Cantidad requerida de Insumo " << i + 1 << ": " << productoAMostrar.cantidadInsumosNecesarios[i] << endl;
+        }
+    }
 
-    system("pause");
+    cout << "------------------------------" << endl;
 }
 
 void guardarProductos(Producto productosAGuardar[])
@@ -104,6 +151,21 @@ void guardarProductos(Producto productosAGuardar[])
             archivo << productosAGuardar[i].nombreProducto << endl;
             archivo << productosAGuardar[i].precioProducto << endl;
             archivo << productosAGuardar[i].cantidadProducto << endl;
+            archivo << productosAGuardar[i].numeroInsumosUsados << endl;
+            if (productosAGuardar[i].numeroInsumosUsados != 0)
+            {
+                for (int j = 0; j < productosAGuardar[i].numeroInsumosUsados; j++)
+                {
+
+                    archivo << productosAGuardar[i].insumosNecesarios[j].codigoInsumo << " ";
+                }
+                archivo << endl;
+                for (int k = 0; k < productosAGuardar[i].numeroInsumosUsados; k++)
+                {
+                    archivo << productosAGuardar[i].cantidadInsumosNecesarios[k] << " ";
+                }
+                archivo << endl;
+            }
         }
 
         archivo.close();
@@ -141,6 +203,20 @@ void sobreescribirDatos()
             archivo << inventarioProducto[i].nombreProducto << endl;
             archivo << inventarioProducto[i].precioProducto << endl;
             archivo << inventarioProducto[i].cantidadProducto << endl;
+            if (inventarioProducto[i].numeroInsumosUsados != 0)
+            {
+                for (int j = 0; j < inventarioProducto[i].numeroInsumosUsados; j++)
+                {
+
+                    archivo << inventarioProducto[i].insumosNecesarios[j].codigoInsumo << " ";
+                }
+                archivo << endl;
+                for (int k = 0; k < inventarioProducto[i].numeroInsumosUsados; k++)
+                {
+                    archivo << inventarioProducto[i].cantidadInsumosNecesarios[k] << " ";
+                }
+                archivo << endl;
+            }
         }
     }
     else
