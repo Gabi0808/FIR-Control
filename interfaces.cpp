@@ -266,6 +266,7 @@ void controlFactura()
 
 void seleccionarAccionModuloMesa()
 {
+    recuperarRegistroMesas(informacionMesas, ultimoRegistroMesas);
     int opcion = 0;
     while (opcion != 6)
     {
@@ -277,17 +278,19 @@ void seleccionarAccionModuloMesa()
             cout << "Funcion no Implementada";
             break;
         case 2:
-            for (int i = 0; i < ultimoRegistro; i++)
+            for (int i = 0; i < ultimoRegistroMesas; i++)
             {
                 mostrarInfoMesas(informacionMesas[i]);
+                system("pause");
             }
-            
             break;
         case 3:
-            cout << "Funcion no Implementada";
+            agregarMesa();
+            system("pause");
+            cout << "La mesa ha sido agregada exitosamente ";
             break;
         case 4:
-            cout << "Funcion no Implementada";
+            eliminarMesa();
             break;
         case 5:
             cout << "Funcion no Implementada";

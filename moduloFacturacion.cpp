@@ -3,13 +3,13 @@
 
 void agregarMesa()
 {
-    if (ultimoRegistro < MAX)
+    if (ultimoRegistroMesas < MAX)
     {
         Mesa nuevaMesa;
         cout << "\n\tNumero de mesa: ";
         cin >> nuevaMesa.numeroMesa;
-        informacionMesas[ultimoRegistro] = nuevaMesa;
-        ultimoRegistro++;
+        informacionMesas[ultimoRegistroMesas] = nuevaMesa;
+        ultimoRegistroMesas++;
         cout << " La nueva mesa se ha guardado en el archivo 'mesas.txt' ";
         guardarMesa(informacionMesas);
     }
@@ -19,10 +19,46 @@ void agregarMesa()
     }
 }
 
-void mostrarInfoMesas(Mesa mesaAMostrar){
-cout << "Numero de mesa: " << mesaAMostrar.numeroMesa;
-cout << "Estado de la mesa: " << mesaAMostrar.estadoMesa;
-cout << "Orden actual: " << mesaAMostrar.ordenActual.detalleOrden;
+void eliminarMesa()
+{
+    int mesaAEliminar = -1;
+    cout << "\nIngrese el numero de la mesa a eliminar: ";
+    cin >> mesaAEliminar;
+
+    int mesaEncontrada = -1;
+    for (int i = 0; i < ultimoRegistroMesas; i++)
+    {
+        if (informacionMesas[i].numeroMesa == mesaAEliminar)
+        {
+            mesaEncontrada = i;
+            break;
+        }
+    }
+    if (mesaEncontrada != -1)
+    {
+        for (int j = mesaEncontrada + 1; j < ultimoRegistroMesas; j++){
+            informacionMesas[j] = informacionMesas[j+1];
+        }
+        ultimoRegistroMesas--;
+
+        sobreescribirDatosMesa();
+
+        cout << "La mesa " << mesaAEliminar << " ha sido eliminada exitosamente. " << endl;
+        system ("pause");
+        }
+    else
+    {
+        cout << "No se encontro una mesa con el numero " << mesaAEliminar << endl;
+    }
+}
+        
+    
+
+void mostrarInfoMesas(Mesa mesaAMostrar)
+{
+    cout << "Numero de mesa: " << mesaAMostrar.numeroMesa << endl;
+    cout << "Estado de la mesa: " << mesaAMostrar.estadoMesa << endl;
+    cout << "Orden actual: " << mesaAMostrar.ordenActual.detalleOrden << endl;
 }
 
 void guardarMesa(Mesa mesaAGuardar[])
@@ -30,7 +66,7 @@ void guardarMesa(Mesa mesaAGuardar[])
     ofstream archivo("mesas.txt", ios::app);
     if (archivo.is_open())
     {
-        for (int i = 0; i < ultimoRegistro; i++)
+        for (int i = 0; i < ultimoRegistroMesas; i++)
         {
             archivo << mesaAGuardar[i].numeroMesa << endl;
             archivo.close();
@@ -42,34 +78,12 @@ void guardarMesa(Mesa mesaAGuardar[])
     }
 }
 
-void eliminarMesa()
-{
-    int mesaAEliminar = -1;
-    cout << "\nIngrese el numero de la mesa a eliminar:";
-    cin >> mesaAEliminar;
-
-    if (mesaAEliminar != 1)
-    {
-        for (int i = mesaAEliminar; i < ultimoRegistro; i++)
-        {
-            informacionMesas[i] = informacionMesas[i + 1];
-        }
-        ultimoRegistro--;
-
-        sobreescribirDatosMesa();
-    }
-    else
-    {
-        cout << "No se encontro una mesa con ese numero. ";
-    }
-}
-
 void sobreescribirDatosMesa()
 {
     ofstream archivo("mesas.txt", ios::trunc);
     if (archivo.is_open())
     {
-        for (int i = 0; i < ultimoRegistro; i++)
+        for (int i = 0; i < ultimoRegistroMesas; i++)
         {
             archivo << informacionMesas[i].numeroMesa << endl;
         }
@@ -79,4 +93,26 @@ void sobreescribirDatosMesa()
         cerr << "No se pudo abrir el archivo para sobreescribir." << endl;
     }
     archivo.close();
+}
+
+void recuperarRegistroMesas(Mesa mesasARecuperar[], int &cantidadRegistros)
+{
+    ifstream archivo("mesas.txt");
+
+    if (archivo.is_open())
+    {
+        while (archivo >> mesasARecuperar[cantidadRegistros].numeroMesa)
+        {
+            archivo.ignore();
+            getline(archivo, mesasARecuperar[cantidadRegistros].estadoMesa);
+            archivo >> mesasARecuperar[cantidadRegistros].ordenActual.detalleOrden;
+
+            cantidadRegistros++;
+        }
+        archivo.close();
+    }
+    else
+    {
+        cerr << "Error al abrir el archivo de las mesas" << endl;
+    }
 }
