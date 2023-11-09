@@ -31,6 +31,8 @@ void ingresarProducto()
         }
         if (productoActual.numeroInsumosUsados == 0)
         {
+            productoActual.insumosNecesarios[0].codigoInsumo = "0";
+            productoActual.cantidadInsumosNecesarios[0] = 0;   
             cout << "Ingrese la cantidad del producto: ";
             cin >> productoActual.cantidadProducto;
         }
