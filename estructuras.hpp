@@ -69,10 +69,10 @@ void registrarEntradaSalida(string codigoARegistrar);
 typedef struct
 {
     string codigoOrden;
+    int numeroProductosOrdenados;
     Producto productoOrdenado[50];
     int cantidadProductoOrdenado[50];
-    string observacionesOrden;
-    string detalleOrden;
+    
 } Orden;
 
 typedef struct
@@ -101,21 +101,19 @@ void agregarMesa();
 void guardarMesa(Mesa mesaAGuardar[]);
 void eliminarMesa();
 void actualizarEstadoMesa();
-void crearNuevaOrden();
-void modificarOrden();
-void cancelarOrden();
 void sobreescribirDatosMesa();
 void recuperarRegistroMesas(Mesa mesasARecuperar[], int &cantidadRegistros);
 
 int obtenerFechaHoy();
 string construirCodigoOrden(int numeroMesa, int fechaOrden);
-void abrirOrden(int numeroMesa);
-void agregarProductoOrden();
-void eliminarProductoOrden();
-void cancelarOrden();
-void cerrarOrden();
+void incializarOrden(int numeroMesa);
+void agregarProductoOrden(int numeroMesa);
+void eliminarProductoOrden(int numeroMesa, string codigoProductoAEliminar);
+void guardarOrden(Orden ordenesAGuardar[]);
+void recuperarOrden(Orden ordenesARecuperar[], int &cantidadRegistroOrdenes);
+void cerrarOrden(int numeroMesa);
 
-int registroGlobalOrdenes = 0;
+int ultimoRegistroOrdenes = 0;
 int ultimoRegistroOrdenesAbiertas = 0;
 Orden ordenesAbiertas[50];
 Orden registroOrdenes[MAX];

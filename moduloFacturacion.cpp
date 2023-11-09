@@ -148,22 +148,147 @@ string construirCodigoOrden(int numeroMesa, int fechaOrden)
     stringstream codigo;
     codigo << std::setfill('0') << std::setw(2) << numeroMesa;
     codigo << std::setfill('0') << std::setw(6) << fechaOrden;
-    codigo << std::setfill('0') << std::setw(3) << ultimoRegistroOrdenesAbiertas + 1;
+    codigo << std::setfill('0') << std::setw(3) << ultimoRegistroOrdenes + 1;
 
     string codigoNumerico = codigo.str();
 
     return codigoNumerico;
 }
 
-void abrirOrden(int numeroMesa)
+void incializarOrden(int numeroMesa)
 {
 
-    ordenesAbiertas[ultimoRegistroOrdenesAbiertas].codigoOrden = construirCodigoOrden(numeroMesa, obtenerFechaHoy());
-    ordenesAbiertas[ultimoRegistroOrdenesAbiertas].productoOrdenado[0].codigoProducto = "000000";
-    ordenesAbiertas[ultimoRegistroOrdenesAbiertas].cantidadProductoOrdenado[0] = 0;
-    ordenesAbiertas[ultimoRegistroOrdenesAbiertas].observacionesOrden = " ";
-    ordenesAbiertas[ultimoRegistroOrdenesAbiertas].detalleOrden = " ";
-
+    ordenesAbiertas[numeroMesa].codigoOrden = construirCodigoOrden(numeroMesa, obtenerFechaHoy());
+    ordenesAbiertas[numeroMesa].productoOrdenado[0].codigoProducto = "000000";
+    ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[0] = 0;
+    ordenesAbiertas[numeroMesa].numeroProductosOrdenados = 0;
     ultimoRegistroOrdenesAbiertas++;
 }
 
+void agregarProductoOrden(int numeroMesa)
+{
+
+    Orden ordenActual;
+    string codigoProductoIngresado;
+
+    ordenActual.numeroProductosOrdenados = 0;
+    for (int i = 0; i < 50; i++)
+    {
+        cout << "Escriba 'salir' si termino de agregar productos a la orden." << endl;
+        cout << "Ingrese el codigo del producto que desea agregar: ";
+        cin >> codigoProductoIngresado;
+        if (codigoProductoIngresado == "salir")
+        {
+            break;
+        }
+        ordenActual.productoOrdenado[i].codigoProducto = codigoProductoIngresado;
+        cout << "Ingrese la cantidad de producto ordenado: ";
+        cin >> ordenActual.cantidadProductoOrdenado[i];
+        ordenesAbiertas[numeroMesa].productoOrdenado[i].codigoProducto = ordenActual.productoOrdenado[i].codigoProducto;
+        ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[i] = ordenActual.cantidadProductoOrdenado[i];
+        ordenActual.numeroProductosOrdenados++;
+    }
+    cout << "Productos guardados con exito." << endl;
+}
+
+void eliminarProductoOrden(int numeroMesa, string codigoProductoAEliminar)
+{
+
+    for (int i = 0; i < 50; i++)
+    {
+        if (ordenesAbiertas[numeroMesa].productoOrdenado[i].codigoProducto == codigoProductoAEliminar)
+        {
+            ordenesAbiertas[numeroMesa].productoOrdenado[i].codigoProducto = "";
+            ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[i] = 0;
+            cout << "Producto eliminado con éxito." << endl;
+
+            // Reorganizamos el arreglo para eliminar lugares en blanco
+            for (int j = i; j < ordenesAbiertas[numeroMesa].numeroProductosOrdenados; j++)
+            {
+                ordenesAbiertas[numeroMesa].productoOrdenado[j].codigoProducto = ordenesAbiertas[numeroMesa].productoOrdenado[j + 1].codigoProducto;
+            }
+            ordenesAbiertas[numeroMesa].productoOrdenado[ordenesAbiertas[numeroMesa].numeroProductosOrdenados - 1].codigoProducto = "";
+            ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[ordenesAbiertas[numeroMesa].numeroProductosOrdenados - 1] = 0;
+
+            return;
+        }
+    }
+}
+
+void cerrarOrden(int numeroMesa)
+{
+    if (ordenesAbiertas[numeroMesa].numeroProductosOrdenados != 0)
+    {
+        registroOrdenes[ultimoRegistroOrdenes] = ordenesAbiertas[numeroMesa];
+        ultimoRegistroOrdenes++;
+        guardarOrden(registroOrdenes);
+        incializarOrden(numeroMesa);
+    }
+    else
+    {
+        cout << "No puedes guardar una orden vacia." << endl;
+    }
+}
+
+void guardarOrden(Orden ordenesAGuardar[])
+{
+
+    ofstream archivo("registroOrdenes.txt", ios::trunc);
+
+    if (archivo.is_open())
+    {
+        for (int i = 0; i < ultimoRegistroOrdenes; i++)
+        {
+            archivo << ordenesAGuardar[i].codigoOrden << endl;
+            archivo << ordenesAGuardar[i].numeroProductosOrdenados << endl;
+
+            for (int j = 0; j < ordenesAGuardar[i].numeroProductosOrdenados; j++)
+            {
+                archivo << ordenesAGuardar[i].productoOrdenado[j].codigoProducto << " ";
+            }
+            archivo << endl;
+            for (int k = 0; k < ordenesAGuardar[i].numeroProductosOrdenados; k++)
+            {
+                archivo << ordenesAGuardar[i].cantidadProductoOrdenado[k] << " ";
+            }
+            archivo << endl;
+        }
+
+        archivo.close();
+
+        cout << "El inventario se ha guardado en el archivo 'inventario.txt'." << endl;
+    }
+    else
+    {
+        cerr << "No se pudo abrir el archivo." << endl;
+    }
+}
+
+void recuperarOrden(Orden ordenesARecuperar[], int &cantidadRegistroOrdenes)
+{
+    ifstream archivo("registroOrdenes.txt");
+
+    if (archivo.is_open())
+    {
+        while (archivo >> ordenesARecuperar[cantidadRegistroOrdenes].codigoOrden)
+        {
+            archivo.ignore();
+            archivo >> ordenesARecuperar[cantidadRegistroOrdenes].numeroProductosOrdenados;
+            for (int j = 0; j < ordenesARecuperar[cantidadRegistroOrdenes].numeroProductosOrdenados; j++)
+            {
+                archivo >> ordenesARecuperar[cantidadRegistroOrdenes].productoOrdenado[j].codigoProducto;
+            }
+            for (int k = 0; k < ordenesARecuperar[cantidadRegistroOrdenes].numeroProductosOrdenados; k++)
+            {
+                archivo >> ordenesARecuperar[cantidadRegistroOrdenes].cantidadProductoOrdenado[k];
+            }
+        }
+
+        cantidadRegistroOrdenes++;
+    }
+    archivo.close();
+    else
+    {
+        cerr << "No se pudo abrir el archivo." << endl;
+    }
+}
