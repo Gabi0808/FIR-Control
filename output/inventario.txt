@@ -19,10 +19,10 @@ victoria lata 355ml
 0
 N/A
 0
-010102
-tostones con queso
-200
-0
-3
-020301 030401 030403 
-0.2 2 0.5 
+010203
+turquita de mono con queso
+500
+6
+2
+123456 020304 
+2 0.5 
