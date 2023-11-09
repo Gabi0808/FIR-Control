@@ -69,8 +69,8 @@ void guardarMesa(Mesa mesaAGuardar[])
         for (int i = 0; i < ultimoRegistroMesas; i++)
         {
             archivo << mesaAGuardar[i].numeroMesa << endl;
-            archivo.close();
         }
+        archivo.close();
     }
     else
     {
