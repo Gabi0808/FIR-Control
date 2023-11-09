@@ -14,8 +14,6 @@ void ingresarProducto()
         getline(cin, productoActual.nombreProducto);
         cout << "Ingrese el precio del producto: ";
         cin >> productoActual.precioProducto;
-        cout << "Ingrese la cantidad del producto: ";
-        cin >> productoActual.cantidadProducto;
         cout << "Ingrese los insumos que necesita el producto." << endl;
         cout << "Escriba 'salir' si no desea ingresar mas insumos" << endl;
         productoActual.numeroInsumosUsados = 0;
@@ -31,6 +29,17 @@ void ingresarProducto()
             cout << "Ingrese la cantidad necesaria de ese insumo" << endl;
             cin >> productoActual.cantidadInsumosNecesarios[productoActual.numeroInsumosUsados];
         }
+        if (productoActual.numeroInsumosUsados == 0)
+        {
+            cout << "Ingrese la cantidad del producto: ";
+            cin >> productoActual.cantidadProducto;
+        }
+        else
+        {
+            /*Aqui deberia ir una funcion que calcule cuantos productos se pueden elaborar
+        en base a las existencias de insumos*/
+        }
+
         inventarioProducto[ultimoRegistro] = productoActual;
         ultimoRegistro++;
         cout << "El inventario se ha guardado en el archivo 'inventario.txt'." << endl;
@@ -274,4 +283,225 @@ void registrarEntradaSalida(string codigoARegistrar)
             break;
         }
     }
+}
+
+void recuperarRegistroInsumos(Insumo insumosARecuperar[], int &cantidadRegistrosInsumos)
+{
+
+    {
+        ifstream archivo("inventarioInsumos.txt");
+
+        if (archivo.is_open())
+        {
+            while (archivo >> insumosARecuperar[cantidadRegistrosInsumos].codigoInsumo)
+            {
+                archivo.ignore();
+                getline(archivo, insumosARecuperar[cantidadRegistrosInsumos].nombreInsumo);
+                archivo >> insumosARecuperar[cantidadRegistrosInsumos].precioInsumo;
+                archivo >> insumosARecuperar[cantidadRegistrosInsumos].cantidadInsumo;
+                archivo >> insumosARecuperar[cantidadRegistrosInsumos].unidadMedidaInsumo;
+
+                cantidadRegistrosInsumos++;
+            }
+            archivo.close();
+        }
+        else
+        {
+            cerr << "No se pudo abrir el archivo." << endl;
+        }
+    }
+}
+
+void ingresarInsumo()
+{
+    if (ultimoRegistroInsumos < MAX)
+    {
+        Insumo insumoActual;
+
+        cout << "Ingrese el codigo del insumo: ";
+        cin >> insumoActual.codigoInsumo;
+        cin.ignore();
+        cout << "Ingrese el nombre del insumo: ";
+        getline(cin, insumoActual.nombreInsumo);
+        cout << "Ingrese el precio del producto: ";
+        cin >> insumoActual.precioInsumo;
+        cout << "Ingrese la cantidad del producto: ";
+        cin >> insumoActual.cantidadInsumo;
+        cout << "Ingrese la unidad de medida del insumo: ";
+        cin >> insumoActual.unidadMedidaInsumo;
+        inventarioInsumo[ultimoRegistroInsumos] = insumoActual;
+        ultimoRegistroInsumos++;
+        cout << "El inventario de insumos se ha guardado en el archivo 'inventarioInsumos.txt'." << endl;
+        guardarInsumos(inventarioInsumo);
+    }
+    else
+    {
+        cerr << "El inventario esta lleno, no se pueden agregar mas productos." << endl;
+    }
+}
+void guardarInsumos(Insumo insumosAGuardar[])
+{
+    ofstream archivo("inventarioInsumos.txt", ios::app);
+
+    if (archivo.is_open())
+    {
+        for (int i = 0; i < ultimoRegistroInsumos; i++)
+        {
+            archivo << insumosAGuardar[i].codigoInsumo << endl;
+            archivo << insumosAGuardar[i].nombreInsumo << endl;
+            archivo << insumosAGuardar[i].precioInsumo << endl;
+            archivo << insumosAGuardar[i].cantidadInsumo << endl;
+            archivo << insumosAGuardar[i].unidadMedidaInsumo << endl;
+        }
+
+        archivo.close();
+
+        cout << "El inventario se ha guardado en el archivo 'inventarioInsumos.txt'." << endl;
+    }
+    else
+    {
+        cerr << "No se pudo abrir el archivo." << endl;
+    }
+}
+
+void mostrarInsumo(Insumo insumoAMostrar)
+{
+
+    cout << "Codigo: " << insumoAMostrar.codigoInsumo << endl;
+    cout << "Nombre: " << insumoAMostrar.nombreInsumo << endl;
+    cout << "Precio: " << insumoAMostrar.precioInsumo << endl;
+    cout << "Cantidad: " << insumoAMostrar.cantidadInsumo << endl;
+    cout << "Unidad de medida: " << insumoAMostrar.unidadMedidaInsumo << endl;
+    cout << "------------------------------" << endl;
+}
+
+int buscarInsumo(string codigoABuscar)
+{
+
+    {
+
+        for (int i = 0; i < ultimoRegistroInsumos; i++)
+        {
+            if (inventarioInsumo[i].codigoInsumo == codigoABuscar)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+
+void sobreescribirDatosInsumos()
+{
+    ofstream archivo("inventarioInsumos.txt", ios::trunc);
+
+    if (archivo.is_open())
+    {
+        for (int i = 0; i < ultimoRegistroInsumos; i++)
+        {
+            archivo << inventarioInsumo[i].codigoInsumo << endl;
+            archivo << inventarioInsumo[i].nombreInsumo << endl;
+            archivo << inventarioInsumo[i].precioInsumo << endl;
+            archivo << inventarioInsumo[i].cantidadInsumo << endl;
+            archivo << inventarioInsumo[i].unidadMedidaInsumo << endl;
+        }
+    }
+    else
+    {
+        cerr << "No se pudo abrir el archivo para sobrescribir." << endl;
+    }
+    archivo.close();
+}
+
+void modificarInsumo(string codigoABuscar)
+{
+
+    int codigoAModificar = buscarInsumo(codigoABuscar);
+
+    if (codigoAModificar != -1)
+    {
+        mostrarInsumo(inventarioInsumo[codigoAModificar]);
+
+        cout << "Ingrese los nuevos datos para el producto:" << endl;
+        cout << "Ingrese el nuevo nombre: ";
+        cin.ignore();
+        getline(cin, inventarioInsumo[codigoAModificar].nombreInsumo);
+        cout << "Ingrese el nuevo precio: ";
+        cin >> inventarioInsumo[codigoAModificar].precioInsumo;
+        cout << "Ingrese la nueva cantidad: ";
+        cin >> inventarioInsumo[codigoAModificar].cantidadInsumo;
+        cout << "Ingrese la nueva unidad de medida: " << endl;
+        sobreescribirDatosInsumos();
+    }
+    else
+    {
+        cout << "No se encontró un producto con el código especificado." << endl;
+    }
+}
+void eliminarInsumo(string codigoABuscar){
+
+int codigoAEliminar = -1;
+    codigoAEliminar = buscarInsumo(codigoABuscar);
+
+    if (codigoAEliminar != -1)
+    {
+        // Elimina el producto moviendo los elementos restantes
+        for (int i = codigoAEliminar; i < ultimoRegistroInsumos - 1; i++)
+        {
+            inventarioInsumo[i] = inventarioInsumo[i + 1];
+        }
+
+        ultimoRegistroInsumos--;
+
+        sobreescribirDatosInsumos();
+    }
+    else
+    {
+        cout << "No se encontró un producto con el código especificado." << endl;
+    }
+
+}
+void registrarEntradaSalidaInsumo(string codigoARegistrar){
+    int opcion = 0;
+    int cantidadARegistrar = 0;
+    int codigoAModificar = buscarInsumo(codigoARegistrar);
+
+    while (opcion != 3)
+    {
+        mostrarInsumo(inventarioInsumo[codigoAModificar]);
+        cout << " 1. Registrar Entrada " << endl;
+        cout << " 2. Registrar Salida " << endl;
+        cout << " 3. Salir al menu." << endl;
+        cout << " Ingrese una opcion: ";
+        cin >> opcion;
+
+        switch (opcion)
+        {
+        case 1:
+
+            cout << "Ingrese la cantidad de entrada (+) del producto ";
+            cin >> cantidadARegistrar;
+            inventarioInsumo[codigoAModificar].cantidadInsumo += cantidadARegistrar;
+
+            sobreescribirDatos();
+            cout << "Entrada registrada exitosamente." << endl;
+            system("pause");
+
+            break;
+        case 2:
+            cout << "Ingrese la cantidad de salida (-) del producto ";
+            cin >> cantidadARegistrar;
+            inventarioInsumo[codigoAModificar].cantidadInsumo -= cantidadARegistrar;
+
+            sobreescribirDatos();
+            break;
+        case 3:
+            cout << "Saliendo al menu..." << endl;
+            break;
+        default:
+
+            break;
+        }
+    }
+
 }

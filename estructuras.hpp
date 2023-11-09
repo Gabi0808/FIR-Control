@@ -30,12 +30,25 @@ typedef struct
 } Producto;
 
 int ultimoRegistro = 0;
+int ultimoRegistroInsumos =0;
 Producto inventarioProducto[MAX];
 Insumo inventarioInsumo[MAX];
 string codigoIngresado;
 string codigoABuscar;
 string codigoARegistrar;
 Producto productoEncontrado;
+Insumo insumoEncontrado;
+//CRUD
+void recuperarRegistroInsumos(Insumo insumosARecuperar[], int &cantidadRegistrosInsumos);
+void ingresarInsumo();
+void guardarInsumos(Insumo insumosAGuardar[]);
+void mostrarInsumo(Insumo insumoAMostrar);
+void modificarInsumo(string codigoABuscar);
+void sobreescribirDatosInsumos();
+int buscarInsumo(string codigoABuscar);
+void eliminarInsumo(string codigoABuscar);
+void registrarEntradaSalidaInsumo(string codigoARegistrar);
+
 // CRUD
 void recuperarRegistroInventario(Producto productosARecuperar[], int &cantidadRegistros);
 void ingresarProducto();
