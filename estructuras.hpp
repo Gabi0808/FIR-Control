@@ -84,6 +84,7 @@ typedef struct
     float total;
 } Factura;
 
+int ultimoRegistroMesas = 0;
 Mesa informacionMesas[MAX];
 Factura informacionFacturas[MAX];
 // CRUD
@@ -97,5 +98,6 @@ void crearNuevaOrden();
 void modificarOrden();
 void cancelarOrden();
 void sobreescribirDatosMesa();
+void recuperarRegistroMesas(Mesa mesasARecuperar[], int &cantidadRegistros);
 
 #endif
