@@ -280,7 +280,7 @@ void seleccionarAccionInsumos()
         switch (opcion)
         {
         case 1:
-            for (int i = 0; i < ultimoRegistro; i++)
+            for (int i = 0; i < ultimoRegistroInsumos; i++)
             {
                 mostrarInsumo(inventarioInsumo[i]);
             }

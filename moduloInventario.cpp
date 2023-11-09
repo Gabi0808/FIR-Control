@@ -393,7 +393,7 @@ void ingresarInsumo()
 }
 void guardarInsumos(Insumo insumosAGuardar[])
 {
-    ofstream archivo("inventarioInsumos.txt", ios::app);
+    ofstream archivo("inventarioInsumos.txt", ios::trunc);
 
     if (archivo.is_open())
     {

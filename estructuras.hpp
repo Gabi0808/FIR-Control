@@ -4,6 +4,10 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <chrono>
+#include <ctime>
+#include <sstream>
+#include <iomanip>
 #define MAX 1000
 
 using namespace std;
@@ -64,6 +68,7 @@ void registrarEntradaSalida(string codigoARegistrar);
 
 typedef struct
 {
+    string codigoOrden;
     Producto productoOrdenado[50];
     int cantidadProductoOrdenado[50];
     string observacionesOrden;
@@ -101,5 +106,18 @@ void modificarOrden();
 void cancelarOrden();
 void sobreescribirDatosMesa();
 void recuperarRegistroMesas(Mesa mesasARecuperar[], int &cantidadRegistros);
+
+int obtenerFechaHoy();
+string construirCodigoOrden(int numeroMesa, int fechaOrden);
+void abrirOrden(int numeroMesa);
+void agregarProductoOrden();
+void eliminarProductoOrden();
+void cancelarOrden();
+void cerrarOrden();
+
+int registroGlobalOrdenes = 0;
+int ultimoRegistroOrdenesAbiertas = 0;
+Orden ordenesAbiertas[50];
+Orden registroOrdenes[MAX];
 
 #endif
