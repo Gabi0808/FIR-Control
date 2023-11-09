@@ -10,14 +10,17 @@ void menuPrincipal(int acccesType);
 void seleccionarAccion(int accessType);
 void menuModuloInventario();
 void seleccionarAccionModuloInventario();
+void seleccionarAccionInsumos();
 void menuOrdenesYMesa();
 void seleccionarAccionModuloFacturacion();
 void seleccionarAccionModuloMesa();
 void menuModuloReportes();
 void seleccionarModuloReportes();
 void menuMF();
-void contronFactura();
-
+void controlFactura();
+void seleccionarAccionControlFactura();
+void seleccionarAccionControlInventario();
+void menuControlInventario();
 
 int login()
 {
@@ -45,7 +48,7 @@ int login()
         }
         else if (usuario == "BarBrotherG" && contrasena == "banana321")
         {
-            cout << "Acceso concedidio como gerente de Bar Brother" << endl;
+            cout << "Acceso concedido como gerente de Bar Brother" << endl;
             system("pause");
             return 2;
         }
@@ -99,7 +102,7 @@ void seleccionarAccion(int accessType)
             switch (opcion)
             {
             case 1:
-                seleccionarAccionModuloInventario();
+                seleccionarAccionControlInventario();
                 break;
             case 2:
                 seleccionarAccionModuloFacturacion();
@@ -122,7 +125,7 @@ void seleccionarAccion(int accessType)
             switch (opcion)
             {
             case 1:
-                seleccionarAccionModuloInventario();
+                seleccionarAccionControlInventario();
                 break;
             case 2:
                 seleccionarAccionModuloFacturacion();
@@ -135,6 +138,39 @@ void seleccionarAccion(int accessType)
         } while (opcion != 3);
 }
 
+void menuControlInventario()
+{
+    system("cls");
+    cout << "Seleccione una opcion: " << endl;
+    cout << "\t1. Control de productos " << endl;
+    cout << "\t2. Control de insumos" << endl;
+    cout << "\t3. Salir. " << endl;
+}
+
+void seleccionarAccionControlInventario()
+{
+    int opcion = 0;
+    while (opcion != 3)
+    {
+        menuControlInventario();
+        cin >> opcion;
+        switch (opcion)
+        {
+        case 1:
+            seleccionarAccionModuloInventario();
+            break;
+        case 2:
+            seleccionarAccionInsumos();
+            break;
+        case 3:
+            cout << "Regresando al menu principal..." << endl;
+            return;
+            break;
+        default:
+            cout << "Opcion no valida, por favor intente nuevamente." << endl;
+        }
+    }
+}
 void menuModuloInventario()
 {
     system("cls");
@@ -150,6 +186,20 @@ void menuModuloInventario()
     cout << "5. Modificar producto del inventario." << endl;
     cout << "6. Registrar entrada/salida." << endl;
     cout << "7. Regresar al menu principal." << endl;
+}
+
+void menuInsumos()
+{
+    system("cls");
+    cout << "Insumos del inventario" << endl;
+    cout << "\nSeleccione la opcion a realizar." << endl;
+    cout << "1. Ver insumos." << endl;
+    cout << "2. Agregar insumo." << endl;
+    cout << "3. Buscar insumo." << endl;
+    cout << "4. Eliminar insumo." << endl;
+    cout << "5. Modificar insumo." << endl;
+    cout << "6. Registrar entrada/salida de insumo." << endl;
+    cout << "7. Volver al menu principal." << endl;
 }
 
 void seleccionarAccionModuloInventario()
@@ -211,6 +261,72 @@ void seleccionarAccionModuloInventario()
             return;
             break;
         default:
+            cout << "Seleccione una opcion valida. ";
+            break;
+        }
+    }
+}
+
+void seleccionarAccionInsumos()
+{
+    ultimoRegistroInsumos = 0;
+    int resultadoBusqueda = -1;
+    recuperarRegistroInsumos(inventarioInsumo, ultimoRegistroInsumos);
+    int opcion = 0;
+    while (opcion != 7)
+    {
+        menuInsumos();
+        cin >> opcion;
+        switch (opcion)
+        {
+        case 1:
+            for (int i = 0; i < ultimoRegistro; i++)
+            {
+                mostrarInsumo(inventarioInsumo[i]);
+            }
+            system("pause");
+
+            break;
+        case 2:
+            ingresarInsumo();
+            break;
+        case 3:
+            cout << "Ingrese el codigo del insumo que desea buscar ";
+            cin >> codigoABuscar;
+            resultadoBusqueda = buscarInsumo(codigoABuscar);
+            if (resultadoBusqueda != -1)
+            {
+                mostrarInsumo(inventarioInsumo[resultadoBusqueda]);
+                system("pause");
+            }
+            else
+            {
+                cout << "No se encontro un insumo con ese codigo. " << endl;
+            }
+
+            system("pause");
+            break;
+        case 4:
+            cout << "Ingrese el codigo del insumo que desea eliminar";
+            cin >> codigoABuscar;
+            eliminarInsumo(codigoABuscar);
+            break;
+        case 5:
+            cout << "Ingrese el codigo del insumo que desea modificar ";
+            cin >> codigoABuscar;
+            modificarInsumo(codigoABuscar);
+            break;
+        case 6:
+            cout << "Ingrese el codigo del insumo que entro o salio";
+            cin >> codigoABuscar;
+            registrarEntradaSalidaInsumo(codigoARegistrar);
+            break;
+        case 7:
+            cout << "Regresando al menu principal..." << endl;
+            return;
+            break;
+        default:
+            cout << "Seleccione una opcion valida";
             break;
         }
     }
@@ -224,7 +340,7 @@ void menuMF()
     cout << "Seleccione la opcion a realizar." << endl
          << endl;
     cout << "1. Control de mesas y ordenes." << endl;
-    cout << "2. Generar Factura." << endl;
+    cout << "2. Control de facturas" << endl;
     cout << "3. Regresando al menu principal." << endl;
 }
 
@@ -250,7 +366,7 @@ void menuOrdenesYMesa()
 void controlFactura()
 {
     system("cls");
-    cout << "Control de Factura." << endl
+    cout << "Control de Facturas." << endl
          << endl;
     cout << "Seleccione la opcion a realizar." << endl
          << endl;
@@ -261,8 +377,6 @@ void controlFactura()
     cout << "5. Modificar Factura." << endl;
     cout << "6. Regresar al menu principal." << endl;
 }
-
-
 
 void seleccionarAccionModuloMesa()
 {
@@ -318,12 +432,48 @@ void seleccionarAccionModuloFacturacion()
             seleccionarAccionModuloMesa();
             break;
         case 2:
-            controlFactura();
+            seleccionarAccionControlFactura();
+            system("pause");
             break;
-        case 3: 
+        case 3:
             cout << "Regresando al menu principal..." << endl;
             return;
         default:
+            break;
+        }
+    }
+}
+
+void seleccionarAccionControlFactura()
+{
+    int opcion = 0;
+    while (opcion != 7)
+    {
+        controlFactura();
+        cin >> opcion;
+        switch (opcion)
+        {
+        case 1:
+            cout << "Funcion no Implementada";
+            break;
+        case 2:
+            cout << "Funcion no Implementada";
+            break;
+        case 3:
+            cout << "Funcion no Implementada";
+            break;
+        case 4:
+            cout << "Funcion no Implementada";
+            break;
+        case 5:
+            cout << "Funcion no Implementada";
+            break;
+        case 6:
+            cout << "Regresando al menu principal..." << endl;
+            return;
+            break;
+        default:
+            cout << "Seleccione una opcion valida. ";
             break;
         }
     }
