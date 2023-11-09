@@ -23,9 +23,10 @@ typedef struct
     string nombreProducto;
     float precioProducto;
     int cantidadProducto;
+    int numeroInsumosUsados;
     Insumo insumosNecesarios[20];
     float cantidadInsumosNecesarios[20];
-    int numeroInsumosUsados;
+    
 
 } Producto;
 

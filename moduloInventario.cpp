@@ -29,17 +29,18 @@ void ingresarProducto()
             cout << "Ingrese la cantidad necesaria de ese insumo" << endl;
             cin >> productoActual.cantidadInsumosNecesarios[productoActual.numeroInsumosUsados];
         }
-        if (productoActual.numeroInsumosUsados == 0)
-        {
-            productoActual.insumosNecesarios[0].codigoInsumo = "0";
-            productoActual.cantidadInsumosNecesarios[0] = 0;   
-            cout << "Ingrese la cantidad del producto: ";
-            cin >> productoActual.cantidadProducto;
-        }
-        else
+        if (productoActual.numeroInsumosUsados != 0)
         {
             int cantidadPosible = calcularProductosDisponibles(productoActual, inventarioInsumo, ultimoRegistro);
             cout << "Se pueden elaborar " << cantidadPosible << " productos de " << productoActual.nombreProducto << endl;
+            system("pause");
+        }
+        else
+        {
+            productoActual.insumosNecesarios[0].codigoInsumo = "N/A";
+            productoActual.cantidadInsumosNecesarios[0] = 0;
+            cout << "Ingrese la cantidad del producto: ";
+            cin >> productoActual.cantidadProducto;
         }
 
         inventarioProducto[ultimoRegistro] = productoActual;
@@ -105,15 +106,22 @@ void recuperarRegistroInventario(Producto productosARecuperar[], int &cantidadRe
 
             // Leer el número de insumos usados
             archivo >> productosARecuperar[cantidadRegistros].numeroInsumosUsados;
-
-            // Leer insumos y cantidades en función del número de insumos usados
-            for (int j = 0; j < productosARecuperar[cantidadRegistros].numeroInsumosUsados; j++)
+            if (productosARecuperar[cantidadRegistros].numeroInsumosUsados != 0)
             {
-                archivo >> productosARecuperar[cantidadRegistros].insumosNecesarios[j].codigoInsumo;
+                // Leer insumos y cantidades en función del número de insumos usados
+                for (int j = 0; j < productosARecuperar[cantidadRegistros].numeroInsumosUsados; j++)
+                {
+                    archivo >> productosARecuperar[cantidadRegistros].insumosNecesarios[j].codigoInsumo;
+                }
+                for (int k = 0; k < productosARecuperar[cantidadRegistros].numeroInsumosUsados; k++)
+                {
+                    archivo >> productosARecuperar[cantidadRegistros].cantidadInsumosNecesarios[k];
+                }
             }
-            for (int k = 0; k < productosARecuperar[cantidadRegistros].numeroInsumosUsados; k++)
+            else
             {
-                archivo >> productosARecuperar[cantidadRegistros].cantidadInsumosNecesarios[k];
+                archivo >> productosARecuperar[cantidadRegistros].insumosNecesarios[0].codigoInsumo;
+                archivo >> productosARecuperar[cantidadRegistros].cantidadInsumosNecesarios[0];
             }
 
             cantidadRegistros++;
@@ -147,7 +155,7 @@ void mostrarProducto(Producto productoAMostrar)
 
 void guardarProductos(Producto productosAGuardar[])
 {
-    ofstream archivo("inventario.txt", ios::app);
+    ofstream archivo("inventario.txt", ios::trunc);
 
     if (archivo.is_open())
     {
@@ -171,6 +179,11 @@ void guardarProductos(Producto productosAGuardar[])
                     archivo << productosAGuardar[i].cantidadInsumosNecesarios[k] << " ";
                 }
                 archivo << endl;
+            }
+            else
+            {
+                archivo << productosAGuardar[i].insumosNecesarios[0].codigoInsumo << endl;
+                archivo << productosAGuardar[i].cantidadInsumosNecesarios[0] << endl;
             }
         }
 
@@ -477,9 +490,10 @@ void modificarInsumo(string codigoABuscar)
         cout << "No se encontró un producto con el código especificado." << endl;
     }
 }
-void eliminarInsumo(string codigoABuscar){
+void eliminarInsumo(string codigoABuscar)
+{
 
-int codigoAEliminar = -1;
+    int codigoAEliminar = -1;
     codigoAEliminar = buscarInsumo(codigoABuscar);
 
     if (codigoAEliminar != -1)
@@ -498,9 +512,9 @@ int codigoAEliminar = -1;
     {
         cout << "No se encontró un producto con el código especificado." << endl;
     }
-
 }
-void registrarEntradaSalidaInsumo(string codigoARegistrar){
+void registrarEntradaSalidaInsumo(string codigoARegistrar)
+{
     int opcion = 0;
     int cantidadARegistrar = 0;
     int codigoAModificar = buscarInsumo(codigoARegistrar);
@@ -542,5 +556,4 @@ void registrarEntradaSalidaInsumo(string codigoARegistrar){
             break;
         }
     }
-
 }
