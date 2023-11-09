@@ -32,6 +32,7 @@ void ingresarProducto()
         if (productoActual.numeroInsumosUsados != 0)
         {
             int cantidadPosible = calcularProductosDisponibles(productoActual, inventarioInsumo, ultimoRegistro);
+            productoActual.cantidadProducto = cantidadPosible;
             cout << "Se pueden elaborar " << cantidadPosible << " productos de " << productoActual.nombreProducto << endl;
             system("pause");
         }
