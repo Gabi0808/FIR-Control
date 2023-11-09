@@ -36,8 +36,8 @@ void ingresarProducto()
         }
         else
         {
-            /*Aqui deberia ir una funcion que calcule cuantos productos se pueden elaborar
-        en base a las existencias de insumos*/
+            int cantidadPosible = calcularProductosDisponibles(productoActual, inventarioInsumo, ultimoRegistro);
+            cout << "Se pueden elaborar " << cantidadPosible << " productos de " << productoActual.nombreProducto << endl;
         }
 
         inventarioProducto[ultimoRegistro] = productoActual;
@@ -49,6 +49,43 @@ void ingresarProducto()
     {
         cerr << "El inventario esta lleno, no se pueden agregar mas productos." << endl;
     }
+}
+
+int calcularProductosDisponibles(Producto producto, Insumo inventarioInsumos[], int numInsumos)
+{
+    int cantidadMinima = INT_MAX;
+
+    for (int i = 0; i < producto.numeroInsumosUsados; i++)
+    {
+        string codigoInsumoRequerido = producto.insumosNecesarios[i].codigoInsumo;
+        float cantidadRequerida = producto.cantidadInsumosNecesarios[i];
+        bool insumoEncontrado = false;
+
+        for (int j = 0; j < numInsumos; j++)
+        {
+            if (codigoInsumoRequerido == inventarioInsumos[j].codigoInsumo)
+            {
+                float cantidadDisponible = inventarioInsumos[j].cantidadInsumo;
+                int cantidadProductosPosibles = cantidadDisponible / cantidadRequerida;
+
+                if (cantidadProductosPosibles < cantidadMinima)
+                {
+                    cantidadMinima = cantidadProductosPosibles;
+                }
+
+                insumoEncontrado = true;
+                break;
+            }
+        }
+
+        if (!insumoEncontrado)
+        {
+            // No se encontró el insumo en el inventario, por lo que no se pueden hacer productos.
+            return 0;
+        }
+    }
+
+    return cantidadMinima;
 }
 
 void recuperarRegistroInventario(Producto productosARecuperar[], int &cantidadRegistros)

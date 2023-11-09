@@ -48,6 +48,7 @@ void sobreescribirDatosInsumos();
 int buscarInsumo(string codigoABuscar);
 void eliminarInsumo(string codigoABuscar);
 void registrarEntradaSalidaInsumo(string codigoARegistrar);
+int calcularProductosDisponibles(Producto producto, Insumo inventarioInsumos[], int numInsumos);
 
 // CRUD
 void recuperarRegistroInventario(Producto productosARecuperar[], int &cantidadRegistros);
@@ -62,8 +63,8 @@ void registrarEntradaSalida(string codigoARegistrar);
 
 typedef struct
 {
-    Producto productoOrdenado;
-    int cantidadProductoOrdenado;
+    Producto productoOrdenado[50];
+    int cantidadProductoOrdenado[50];
     string observacionesOrden;
     string detalleOrden;
 } Orden;
