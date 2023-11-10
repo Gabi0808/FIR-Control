@@ -47,11 +47,13 @@ void ingresarProducto()
         inventarioProducto[ultimoRegistro] = productoActual;
         ultimoRegistro++;
         cout << "El inventario se ha guardado en el archivo 'inventario.txt'." << endl;
+        system("pause");
         guardarProductos(inventarioProducto);
     }
     else
     {
         cerr << "El inventario esta lleno, no se pueden agregar mas productos." << endl;
+        system("pause");
     }
 }
 

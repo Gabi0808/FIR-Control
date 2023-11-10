@@ -246,6 +246,7 @@ void seleccionarAccionModuloInventario()
             cout << "Ingrese el codigo del producto que desea eliminar ";
             cin >> codigoABuscar;
             eliminarProducto(codigoABuscar);
+            system("pause");
             break;
         case 5:
             cout << "Ingrese el codigo del producto que desea modificar ";
@@ -417,6 +418,8 @@ void seleccionarAccionModuloMesa()
             return;
             break;
         default:
+            cout << "Seleccione una opcion valida. " << endl;
+            system("pause");
             break;
         }
     }
