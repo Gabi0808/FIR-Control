@@ -119,5 +119,11 @@ int ultimoRegistroOrdenes = 0;
 Orden ordenesAbiertas[50];
 Orden registroOrdenes[MAX];
 
+//Crud Facturacion
+string construirNumeroFactura();
+void generarFactura();
+void mostrarFacturas();
+void eliminarFactura();
+void modificarFactura();
 
 #endif
