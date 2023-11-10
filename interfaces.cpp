@@ -21,6 +21,7 @@ void controlFactura();
 void seleccionarAccionControlFactura();
 void seleccionarAccionControlInventario();
 void menuControlInventario();
+void menuSeleccionMesa();
 
 int login()
 {
@@ -341,7 +342,7 @@ void menuMF()
          << endl;
     cout << "1. Control de mesas y ordenes." << endl;
     cout << "2. Control de facturas" << endl;
-    cout << "3. Regresando al menu principal." << endl;
+    cout << "3. Regresar al menu principal." << endl;
 }
 
 void menuOrdenesYMesa()
@@ -389,7 +390,7 @@ void seleccionarAccionModuloMesa()
         switch (opcion)
         {
         case 1:
-            cout << "Funcion no Implementada";
+            seleccionarMesa();
             break;
         case 2:
             for (int i = 0; i < ultimoRegistroMesas; i++)
@@ -417,6 +418,57 @@ void seleccionarAccionModuloMesa()
             break;
         }
     }
+}
+
+void seleccionarMesa()
+{
+    int numeroMesa = 0;
+    string codigoProductoAEliminar;
+    cout << "¿Cuál mesa desea atender? ";
+    cin >> numeroMesa;
+
+    if (numeroMesa < 1 || numeroMesa > ultimoRegistroMesas)
+    {
+        cerr << "Número de mesa no válido." << endl;
+        return;
+    }
+
+    int opcion = 0;
+
+    while (opcion != 4)
+    {
+        menuSeleccionMesa();
+        cin >> opcion;
+
+        switch (opcion)
+        {
+        case 1:
+           
+            break;
+        case 2:
+            agregarProductoOrden(numeroMesa);
+            break;
+        case 3:
+            cout << "Ingrese el codigo del producto que desea eliminar de la orden: " << endl;
+            cin >> codigoProductoAEliminar;
+           eliminarProductoOrden(numeroMesa, codigoProductoAEliminar);
+            break;
+        case 4:
+            cout << "Regresando al menú anterior" << endl;
+            return;
+            break;
+        default:
+            cout << "Opción no válida" << endl;
+            break;
+        }
+    }
+}
+
+void menuSeleccionMesa(){
+   cout << " 1. Ver orden actual " << endl;
+   cout << " 2. Agregar producto a la Orden" << endl;
+   cout << " 3. Eliminar Producto de la Orden" << endl;
+   cout << " 4. Salir" << endl;
 }
 
 void seleccionarAccionModuloFacturacion()

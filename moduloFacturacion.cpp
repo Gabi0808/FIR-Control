@@ -57,7 +57,18 @@ void mostrarInfoMesas(Mesa mesaAMostrar)
 {
     cout << "Numero de mesa: " << mesaAMostrar.numeroMesa << endl;
     cout << "Estado de la mesa: " << mesaAMostrar.estadoMesa << endl;
-    cout << "Orden actual: " << mesaAMostrar.ordenActual.detalleOrden << endl;
+    cout << "\nOrden actual: " << endl;
+    cout << "Codigo de la orden: " << mesaAMostrar.ordenActual.codigoOrden << endl;
+    cout << "Numero de productos ordenados: " << mesaAMostrar.ordenActual.numeroProductosOrdenados << endl;
+
+    for (int i = 0; i < mesaAMostrar.ordenActual.numeroProductosOrdenados; i++)
+    {
+        cout << " Producto #" << i + 1 << ":" << endl;
+        cout << "\tCodigo del producto: " << mesaAMostrar.ordenActual.productoOrdenado[i].codigoProducto << endl;
+        cout << "\tNombre del producto: " << mesaAMostrar.ordenActual.productoOrdenado[i].nombreProducto << endl;
+        cout << "\tPrecio del producto: $" << mesaAMostrar.ordenActual.productoOrdenado[i].precioProducto << endl;
+        cout << "\tCantidad ordenada: " << mesaAMostrar.ordenActual.cantidadProductoOrdenado[i] << endl;
+    }
 }
 
 void guardarMesa(Mesa mesaAGuardar[])
@@ -104,7 +115,6 @@ void recuperarRegistroMesas(Mesa mesasARecuperar[], int &cantidadRegistros)
         {
             archivo.ignore();
             getline(archivo, mesasARecuperar[cantidadRegistros].estadoMesa);
-            archivo >> mesasARecuperar[cantidadRegistros].ordenActual.detalleOrden;
 
             cantidadRegistros++;
         }
@@ -115,6 +125,8 @@ void recuperarRegistroMesas(Mesa mesasARecuperar[], int &cantidadRegistros)
         cerr << "Error al abrir el archivo de las mesas" << endl;
     }
 }
+
+
 
 // CRUD ORDENES
 
@@ -285,8 +297,9 @@ void recuperarOrden(Orden ordenesARecuperar[], int &cantidadRegistroOrdenes)
         }
 
         cantidadRegistroOrdenes++;
+
+        archivo.close();
     }
-    archivo.close();
     else
     {
         cerr << "No se pudo abrir el archivo." << endl;
