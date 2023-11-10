@@ -40,7 +40,7 @@ void eliminarMesa()
     }
     if (mesaEncontrada != -1)
     {
-        for (int j = mesaEncontrada + 1; j < ultimoRegistroMesas; j++)
+        for (int j = mesaEncontrada; j < ultimoRegistroMesas - 1; j++)
         {
             informacionMesas[j] = informacionMesas[j + 1];
         }
@@ -54,6 +54,7 @@ void eliminarMesa()
     else
     {
         cout << "No se encontro una mesa con el numero " << mesaAEliminar << endl;
+        system("pause");
     }
 }
 
@@ -102,11 +103,15 @@ void sobreescribirDatosMesa()
         for (int i = 0; i < ultimoRegistroMesas; i++)
         {
             archivo << informacionMesas[i].numeroMesa << endl;
+            archivo << informacionMesas[i].estadoMesa << endl;
+            archivo << informacionMesas[i].ordenActual.codigoOrden << endl;
         }
+        archivo.close();
     }
     else
     {
-        cerr << "No se pudo abrir el archivo para sobreescribir." << endl;
+        cerr << "No se pudo abrir el archivo para sobreescribir. " << endl;
+        system("pause");
     }
     archivo.close();
 }
@@ -121,6 +126,7 @@ void recuperarRegistroMesas(Mesa mesasARecuperar[], int &cantidadRegistros)
         {
             archivo.ignore();
             getline(archivo, mesasARecuperar[cantidadRegistros].estadoMesa);
+            getline(archivo, mesasARecuperar[cantidadRegistros].ordenActual.codigoOrden);
 
             cantidadRegistros++;
         }
