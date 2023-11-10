@@ -115,7 +115,6 @@ void cerrarOrden(int numeroMesa);
 void mostrarOrden(Orden ordenAMostrar);
 
 int ultimoRegistroOrdenes = 0;
-int ultimoRegistroOrdenesAbiertas = 0;
 Orden ordenesAbiertas[50];
 Orden registroOrdenes[MAX];
 

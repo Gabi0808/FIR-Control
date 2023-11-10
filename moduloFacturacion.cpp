@@ -126,8 +126,6 @@ void recuperarRegistroMesas(Mesa mesasARecuperar[], int &cantidadRegistros)
     }
 }
 
-
-
 // CRUD ORDENES
 
 int obtenerFechaHoy()
@@ -174,7 +172,6 @@ void incializarOrden(int numeroMesa)
     ordenesAbiertas[numeroMesa].productoOrdenado[0].codigoProducto = "000000";
     ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[0] = 0;
     ordenesAbiertas[numeroMesa].numeroProductosOrdenados = 0;
-    ultimoRegistroOrdenesAbiertas++;
 }
 
 void agregarProductoOrden(int numeroMesa)
@@ -183,6 +180,7 @@ void agregarProductoOrden(int numeroMesa)
     Orden ordenActual;
     string codigoProductoIngresado;
 
+    ordenActual.codigoOrden = construirCodigoOrden(numeroMesa, obtenerFechaHoy());
     ordenActual.numeroProductosOrdenados = 0;
     for (int i = 0; i < 50; i++)
     {
@@ -200,27 +198,21 @@ void agregarProductoOrden(int numeroMesa)
         ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[i] = ordenActual.cantidadProductoOrdenado[i];
         ordenActual.numeroProductosOrdenados++;
     }
+    ordenesAbiertas[numeroMesa] = ordenActual;
     cout << "Productos guardados con exito." << endl;
 }
 
 void eliminarProductoOrden(int numeroMesa, string codigoProductoAEliminar)
 {
 
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < ordenesAbiertas[numeroMesa].numeroProductosOrdenados; i++)
     {
         if (ordenesAbiertas[numeroMesa].productoOrdenado[i].codigoProducto == codigoProductoAEliminar)
         {
-            ordenesAbiertas[numeroMesa].productoOrdenado[i].codigoProducto = "";
-            ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[i] = 0;
+            ordenesAbiertas[numeroMesa].productoOrdenado[i].codigoProducto = ordenesAbiertas[numeroMesa].productoOrdenado[i + 1].codigoProducto;
+            ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[i] = ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[i + 1];
+            ordenesAbiertas[numeroMesa].numeroProductosOrdenados--;
             cout << "Producto eliminado con éxito." << endl;
-
-            // Reorganizamos el arreglo para eliminar lugares en blanco
-            for (int j = i; j < ordenesAbiertas[numeroMesa].numeroProductosOrdenados; j++)
-            {
-                ordenesAbiertas[numeroMesa].productoOrdenado[j].codigoProducto = ordenesAbiertas[numeroMesa].productoOrdenado[j + 1].codigoProducto;
-            }
-            ordenesAbiertas[numeroMesa].productoOrdenado[ordenesAbiertas[numeroMesa].numeroProductosOrdenados - 1].codigoProducto = "";
-            ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[ordenesAbiertas[numeroMesa].numeroProductosOrdenados - 1] = 0;
 
             return;
         }
@@ -309,24 +301,24 @@ void recuperarOrden(Orden ordenesARecuperar[], int &cantidadRegistroOrdenes)
 void mostrarOrden(Orden ordenAMostrar)
 {
     int resultadoBusqueda = -1;
-    cout << "Codigo orden: " << ordenAMostrar.codigoOrden;
+    cout << "Codigo orden: " << ordenAMostrar.codigoOrden << endl;
     if (ordenAMostrar.numeroProductosOrdenados != 0)
     {
         for (int i = 0; i < ordenAMostrar.numeroProductosOrdenados; i++)
         {
             cout << "Codigo Producto " << i + 1 << ": " << ordenAMostrar.productoOrdenado[i].codigoProducto << endl;
-            resultadoBusqueda = buscarProducto(codigoABuscar);
+            resultadoBusqueda = buscarProducto(ordenAMostrar.productoOrdenado[i].codigoProducto);
             if (resultadoBusqueda != -1)
             {
-                cout << "Nombre Producto " << i + 1 << ": " << inventarioProducto[resultadoBusqueda].nombreProducto;
-                cout << "Precio Producto " << i + 1 << ": " << inventarioProducto[resultadoBusqueda].precioProducto;
-                cout << "Cantidad Producto "<< i + 1 << ": "<< ordenAMostrar.cantidadProductoOrdenado[i];
+                cout << "Nombre Producto " << i + 1 << ": " << inventarioProducto[resultadoBusqueda].nombreProducto << endl;
+                cout << "Precio Producto " << i + 1 << ": " << inventarioProducto[resultadoBusqueda].precioProducto << endl;
+                cout << "Cantidad Producto " << i + 1 << ": " << ordenAMostrar.cantidadProductoOrdenado[i] << endl;
             }
             else
             {
                 cout << "No se encontro producto con ese codigo." << endl;
             }
-           
         }
     }
+    cout << "------------------------------------" << endl;
 }
