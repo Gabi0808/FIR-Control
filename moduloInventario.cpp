@@ -386,6 +386,7 @@ void ingresarInsumo()
         ultimoRegistroInsumos++;
         cout << "El inventario de insumos se ha guardado en el archivo 'inventarioInsumos.txt'." << endl;
         guardarInsumos(inventarioInsumo);
+        system("pause");
     }
     else
     {
