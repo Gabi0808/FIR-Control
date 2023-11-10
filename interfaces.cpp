@@ -410,7 +410,7 @@ void seleccionarAccionModuloMesa()
             eliminarMesa();
             break;
         case 5:
-            cout << "Funcion no Implementada";
+            modificarMesa();
             break;
         case 6:
             cout << "Regresando al menu principal..." << endl;

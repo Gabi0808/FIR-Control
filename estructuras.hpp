@@ -100,6 +100,7 @@ void mostrarInfoMesas(Mesa mesaAMostrar);
 void agregarMesa();
 void guardarMesa(Mesa mesaAGuardar[]);
 void eliminarMesa();
+void modificarMesa();
 void actualizarEstadoMesa();
 void sobreescribirDatosMesa();
 void recuperarRegistroMesas(Mesa mesasARecuperar[], int &cantidadRegistros);

@@ -58,6 +58,45 @@ void eliminarMesa()
     }
 }
 
+void modificarMesa()
+{
+    int numeroMesa;
+    cout << "Ingrese el numero de la mesa a modificar: " << endl;
+    cin >> numeroMesa;
+
+    int mesaEncontrada = -1;
+    for (int i = 0; i < ultimoRegistroMesas; i++)
+    {
+        if (informacionMesas[i].numeroMesa == numeroMesa)
+        {
+            mesaEncontrada = i;
+            break;
+            ;
+        }
+    }
+    if (mesaEncontrada != -1)
+    {
+        cout << "\nInformacion actual de la mesa: " << endl;
+        mostrarInfoMesas(informacionMesas[mesaEncontrada]);
+
+        string nuevoEstado;
+        cout << "\nIngrese el nuevo estado de la mesa: " << endl;
+        cin >> nuevoEstado;
+
+        informacionMesas[mesaEncontrada].estadoMesa = nuevoEstado;
+
+        sobreescribirDatosMesa();
+
+        cout << "El estado de la mesa " << numeroMesa << "se ha modificado exitosamente." << endl;
+        system("pause");
+    }
+    else
+    {
+        cout << " No se encontro una mesa con el numero " << numeroMesa << endl;
+        system("pause");
+    }
+}
+
 void mostrarInfoMesas(Mesa mesaAMostrar)
 {
     cout << "Numero de mesa: " << mesaAMostrar.numeroMesa << endl;
