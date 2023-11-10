@@ -112,6 +112,7 @@ void eliminarProductoOrden(int numeroMesa, string codigoProductoAEliminar);
 void guardarOrden(Orden ordenesAGuardar[]);
 void recuperarOrden(Orden ordenesARecuperar[], int &cantidadRegistroOrdenes);
 void cerrarOrden(int numeroMesa);
+void mostrarOrden(Orden ordenAMostrar);
 
 int ultimoRegistroOrdenes = 0;
 int ultimoRegistroOrdenesAbiertas = 0;
