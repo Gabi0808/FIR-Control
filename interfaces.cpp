@@ -431,7 +431,7 @@ void seleccionarMesa()
 
     if (numeroMesa < 1 || numeroMesa > ultimoRegistroMesas)
     {
-        cerr << "Número de mesa no válido." << endl;
+        cerr << "Número de mesa no valido." << endl;
         return;
     }
     if (ordenesAbiertas[numeroMesa].numeroProductosOrdenados == 0)
@@ -449,8 +449,17 @@ void seleccionarMesa()
         switch (opcion)
         {
         case 1:
-            mostrarOrden(ordenesAbiertas[numeroMesa]);
+            if (ordenesAbiertas[numeroMesa - 1].numeroProductosOrdenados > 0)
+            {
+                mostrarOrden(ordenesAbiertas[numeroMesa]);
+            }
+            else
+            {
+                cout << "No hay ordenes abiertas en esta mesa" << endl;
+            }
+
             break;
+
         case 2:
             agregarProductoOrden(numeroMesa);
             break;
@@ -468,7 +477,7 @@ void seleccionarMesa()
             return;
             break;
         default:
-            cout << "Opción no válida" << endl;
+            cout << "Opcion no valida" << endl;
             break;
         }
     }

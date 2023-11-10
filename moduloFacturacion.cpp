@@ -8,6 +8,10 @@ void agregarMesa()
         Mesa nuevaMesa;
         cout << "\n\tNumero de mesa: ";
         cin >> nuevaMesa.numeroMesa;
+        nuevaMesa.estadoMesa = "libre";
+        nuevaMesa.ordenActual.codigoOrden = "No hay orden";
+        nuevaMesa.ordenActual.numeroProductosOrdenados = 0;
+
         informacionMesas[ultimoRegistroMesas] = nuevaMesa;
         ultimoRegistroMesas++;
         cout << " La nueva mesa se ha guardado en el archivo 'mesas.txt' ";
@@ -73,12 +77,14 @@ void mostrarInfoMesas(Mesa mesaAMostrar)
 
 void guardarMesa(Mesa mesaAGuardar[])
 {
-    ofstream archivo("mesas.txt", ios::app);
+    ofstream archivo("mesas.txt", ios::trunc);
     if (archivo.is_open())
     {
         for (int i = 0; i < ultimoRegistroMesas; i++)
         {
             archivo << mesaAGuardar[i].numeroMesa << endl;
+            archivo << mesaAGuardar[i].estadoMesa << endl;
+            archivo << mesaAGuardar[i].ordenActual.codigoOrden << endl;
         }
         archivo.close();
     }
