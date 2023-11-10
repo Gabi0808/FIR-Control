@@ -57,7 +57,7 @@ void mostrarInfoMesas(Mesa mesaAMostrar)
 {
     cout << "Numero de mesa: " << mesaAMostrar.numeroMesa << endl;
     cout << "Estado de la mesa: " << mesaAMostrar.estadoMesa << endl;
-    cout << "Orden actual: " << mesaAMostrar.ordenActual.detalleOrden << endl;
+
 }
 
 void guardarMesa(Mesa mesaAGuardar[])
@@ -104,7 +104,6 @@ void recuperarRegistroMesas(Mesa mesasARecuperar[], int &cantidadRegistros)
         {
             archivo.ignore();
             getline(archivo, mesasARecuperar[cantidadRegistros].estadoMesa);
-            archivo >> mesasARecuperar[cantidadRegistros].ordenActual.detalleOrden;
 
             cantidadRegistros++;
         }
@@ -285,10 +284,35 @@ void recuperarOrden(Orden ordenesARecuperar[], int &cantidadRegistroOrdenes)
         }
 
         cantidadRegistroOrdenes++;
+        archivo.close();
     }
-    archivo.close();
     else
     {
         cerr << "No se pudo abrir el archivo." << endl;
+    }
+}
+
+void mostrarOrden(Orden ordenAMostrar)
+{
+    int resultadoBusqueda = -1;
+    cout << "Codigo orden: " << ordenAMostrar.codigoOrden;
+    if (ordenAMostrar.numeroProductosOrdenados != 0)
+    {
+        for (int i = 0; i < ordenAMostrar.numeroProductosOrdenados; i++)
+        {
+            cout << "Codigo Producto " << i + 1 << ": " << ordenAMostrar.productoOrdenado[i].codigoProducto << endl;
+            resultadoBusqueda = buscarProducto(codigoABuscar);
+            if (resultadoBusqueda != -1)
+            {
+                cout << "Nombre Producto " << i + 1 << ": " << inventarioProducto[resultadoBusqueda].nombreProducto;
+                cout << "Precio Producto " << i + 1 << ": " << inventarioProducto[resultadoBusqueda].precioProducto;
+                cout << "Cantidad Producto "<< i + 1 << ": "<< ordenAMostrar.cantidadProductoOrdenado[i];
+            }
+            else
+            {
+                cout << "No se encontro producto con ese codigo." << endl;
+            }
+           
+        }
     }
 }
