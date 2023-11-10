@@ -315,7 +315,7 @@ void recuperarOrden(Orden ordenesARecuperar[], int &cantidadRegistroOrdenes)
 void mostrarOrden(Orden ordenAMostrar)
 {
     int resultadoBusqueda = -1;
-    cout << "Codigo orden: " << ordenAMostrar.codigoOrden;
+    cout << "Codigo orden: " << ordenAMostrar.codigoOrden << endl;
     if (ordenAMostrar.numeroProductosOrdenados != 0)
     {
         for (int i = 0; i < ordenAMostrar.numeroProductosOrdenados; i++)

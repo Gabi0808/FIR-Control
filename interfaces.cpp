@@ -429,7 +429,7 @@ void seleccionarMesa()
 
     if (numeroMesa < 1 || numeroMesa > ultimoRegistroMesas)
     {
-        cerr << "Número de mesa no válido." << endl;
+        cerr << "Número de mesa no valido." << endl;
         return;
     }
 
@@ -443,32 +443,42 @@ void seleccionarMesa()
         switch (opcion)
         {
         case 1:
-            mostrarOrden(ordenesAbiertas[numeroMesa]);
+            if (ordenesAbiertas[numeroMesa - 1].numeroProductosOrdenados > 0)
+            {
+                mostrarOrden(ordenesAbiertas[numeroMesa]);
+            }
+            else
+            {
+                cout << "No hay ordenes abiertas en esta mesa" << endl;
+            }
+
             break;
+
         case 2:
             agregarProductoOrden(numeroMesa);
             break;
         case 3:
             cout << "Ingrese el codigo del producto que desea eliminar de la orden: " << endl;
             cin >> codigoProductoAEliminar;
-           eliminarProductoOrden(numeroMesa, codigoProductoAEliminar);
+            eliminarProductoOrden(numeroMesa, codigoProductoAEliminar);
             break;
         case 4:
-            cout << "Regresando al menú anterior" << endl;
+            cout << "Regresando al menu anterior" << endl;
             return;
             break;
         default:
-            cout << "Opción no válida" << endl;
+            cout << "Opcion no valida" << endl;
             break;
         }
     }
 }
 
-void menuSeleccionMesa(){
-   cout << " 1. Ver orden actual " << endl;
-   cout << " 2. Agregar producto a la Orden" << endl;
-   cout << " 3. Eliminar Producto de la Orden" << endl;
-   cout << " 4. Salir" << endl;
+void menuSeleccionMesa()
+{
+    cout << " 1. Ver orden actual " << endl;
+    cout << " 2. Agregar producto a la Orden" << endl;
+    cout << " 3. Eliminar Producto de la Orden" << endl;
+    cout << " 4. Salir" << endl;
 }
 
 void seleccionarAccionModuloFacturacion()
