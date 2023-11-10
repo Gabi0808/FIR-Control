@@ -95,7 +95,7 @@ int ultimoRegistroMesas = 0;
 Mesa informacionMesas[MAX];
 Factura informacionFacturas[MAX];
 // CRUD
-void seleccionarMesa(Mesa mesaASeleccionar);
+void seleccionarMesa();
 void mostrarInfoMesas(Mesa mesaAMostrar);
 void agregarMesa();
 void guardarMesa(Mesa mesaAGuardar[]);

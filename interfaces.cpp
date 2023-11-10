@@ -424,7 +424,7 @@ void seleccionarMesa()
 {
     int numeroMesa = 0;
     string codigoProductoAEliminar;
-    cout << "¿Cuál mesa desea atender? ";
+    cout << " Cual mesa desea atender? ";
     cin >> numeroMesa;
 
     if (numeroMesa < 1 || numeroMesa > ultimoRegistroMesas)
@@ -443,7 +443,7 @@ void seleccionarMesa()
         switch (opcion)
         {
         case 1:
-           
+            mostrarOrden(ordenesAbiertas[numeroMesa]);
             break;
         case 2:
             agregarProductoOrden(numeroMesa);
