@@ -1,27 +1,15 @@
 1
-reservada
-No hay orden
-3
-libre
-No hay orden
-1
-reservada
-No hay orden
-3
 libre
 No hay orden
 2
 libre
 No hay orden
-4
+3
 libre
+No hay orden
+4
+reservada
 No hay orden
 5
-libre
-No hay orden
-6
-libre
-No hay orden
-7
 libre
 No hay orden

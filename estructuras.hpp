@@ -96,7 +96,7 @@ Mesa informacionMesas[MAX];
 Factura informacionFacturas[MAX];
 // CRUD
 void seleccionarMesa();
-void mostrarInfoMesas(Mesa mesaAMostrar);
+void mostrarInfoMesas(Mesa mesaAMostrar, Orden ordenAMostrar);
 void agregarMesa();
 void guardarMesa(Mesa mesaAGuardar[]);
 void eliminarMesa();
@@ -114,6 +114,7 @@ void guardarOrden(Orden ordenesAGuardar[]);
 void recuperarOrden(Orden ordenesARecuperar[], int &cantidadRegistroOrdenes);
 void cerrarOrden(int numeroMesa);
 void mostrarOrden(Orden ordenAMostrar);
+void registrarSalidaProductos(Orden ordenARegistrar);
 
 int ultimoRegistroOrdenes = 0;
 Orden ordenesAbiertas[50];

@@ -77,7 +77,7 @@ void modificarMesa()
     if (mesaEncontrada != -1)
     {
         cout << "\nInformacion actual de la mesa: " << endl;
-        mostrarInfoMesas(informacionMesas[mesaEncontrada]);
+        mostrarInfoMesas(informacionMesas[mesaEncontrada], ordenesAbiertas[mesaEncontrada]);
 
         string nuevoEstado;
         cout << "\nIngrese el nuevo estado de la mesa: " << endl;
@@ -87,7 +87,7 @@ void modificarMesa()
 
         sobreescribirDatosMesa();
 
-        cout << "El estado de la mesa " << numeroMesa << "se ha modificado exitosamente." << endl;
+        cout << "El estado de la mesa " << numeroMesa << " se ha modificado exitosamente." << endl;
         system("pause");
     }
     else
@@ -97,22 +97,12 @@ void modificarMesa()
     }
 }
 
-void mostrarInfoMesas(Mesa mesaAMostrar)
+void mostrarInfoMesas(Mesa mesaAMostrar, Orden ordenAMostrar)
 {
     cout << "Numero de mesa: " << mesaAMostrar.numeroMesa << endl;
     cout << "Estado de la mesa: " << mesaAMostrar.estadoMesa << endl;
-    cout << "\nOrden actual: " << endl;
-    cout << "Codigo de la orden: " << mesaAMostrar.ordenActual.codigoOrden << endl;
-    cout << "Numero de productos ordenados: " << mesaAMostrar.ordenActual.numeroProductosOrdenados << endl;
+    mostrarOrden(ordenAMostrar);
 
-    for (int i = 0; i < mesaAMostrar.ordenActual.numeroProductosOrdenados; i++)
-    {
-        cout << " Producto #" << i + 1 << ":" << endl;
-        cout << "\tCodigo del producto: " << mesaAMostrar.ordenActual.productoOrdenado[i].codigoProducto << endl;
-        cout << "\tNombre del producto: " << mesaAMostrar.ordenActual.productoOrdenado[i].nombreProducto << endl;
-        cout << "\tPrecio del producto: $" << mesaAMostrar.ordenActual.productoOrdenado[i].precioProducto << endl;
-        cout << "\tCantidad ordenada: " << mesaAMostrar.ordenActual.cantidadProductoOrdenado[i] << endl;
-    }
 }
 
 void guardarMesa(Mesa mesaAGuardar[])
@@ -185,12 +175,11 @@ int obtenerFechaHoy()
     time_t currentTime = chrono::system_clock::to_time_t(now);
     struct tm *tm = localtime(&currentTime);
 
-    // Extraer el día, mes y año
     int dia = tm->tm_mday;
-    int mes = tm->tm_mon + 1;      // El mes se almacena de 0 a 11, por lo que sumamos 1
-    int anio = tm->tm_year + 1900; // El año se almacena como el número de años desde 1900
+    int mes = tm->tm_mon + 1;
+    int anio = tm->tm_year + 1900;  
 
-    // Crear una cadena en formato DDMMAA
+
     stringstream fechaString;
     fechaString << setfill('0') << setw(2) << dia;
     fechaString << setfill('0') << setw(2) << mes;
@@ -204,12 +193,11 @@ int obtenerFechaHoy()
 
 string construirCodigoOrden(int numeroMesa, int fechaOrden)
 {
-
-    // Crear una cadena (string) para el código numérico
+numeroMesa++;
     stringstream codigo;
-    codigo << std::setfill('0') << std::setw(2) << numeroMesa;
-    codigo << std::setfill('0') << std::setw(6) << fechaOrden;
-    codigo << std::setfill('0') << std::setw(3) << ultimoRegistroOrdenes + 1;
+    codigo << setfill('0') << setw(2) << numeroMesa;
+    codigo << setfill('0') << setw(6) << fechaOrden;
+    codigo << setfill('0') << setw(3) << ultimoRegistroOrdenes + 1;
 
     string codigoNumerico = codigo.str();
 
@@ -276,6 +264,7 @@ void cerrarOrden(int numeroMesa)
     {
         registroOrdenes[ultimoRegistroOrdenes] = ordenesAbiertas[numeroMesa];
         ultimoRegistroOrdenes++;
+        registrarSalidaProductos(ordenesAbiertas[numeroMesa]);
         guardarOrden(registroOrdenes);
         incializarOrden(numeroMesa);
     }
@@ -372,4 +361,18 @@ void mostrarOrden(Orden ordenAMostrar)
         }
     }
     cout << "------------------------------------" << endl;
+}
+
+void registrarSalidaProductos(Orden ordenARegistrar)
+{
+    int resultadoBusqueda = -1;
+    for (int i = 0; i < ordenARegistrar.numeroProductosOrdenados; i++)
+    {
+       resultadoBusqueda = buscarProducto(ordenARegistrar.productoOrdenado[i].codigoProducto);
+       if (resultadoBusqueda != -1)
+       {
+            inventarioProducto[resultadoBusqueda].cantidadProducto -= ordenARegistrar.cantidadProductoOrdenado[i];
+       }
+       guardarProductos(inventarioProducto);
+    }
 }

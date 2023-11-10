@@ -398,7 +398,7 @@ void seleccionarAccionModuloMesa()
         case 2:
             for (int i = 0; i < ultimoRegistroMesas; i++)
             {
-                mostrarInfoMesas(informacionMesas[i]);
+                mostrarInfoMesas(informacionMesas[i], ordenesAbiertas[i]);
                 system("pause");
             }
             break;
@@ -431,12 +431,12 @@ void seleccionarMesa()
     string codigoProductoAEliminar;
     cout << " Cual mesa desea atender? ";
     cin >> numeroMesa;
-
     if (numeroMesa < 1 || numeroMesa > ultimoRegistroMesas)
     {
         cerr << "Número de mesa no valido." << endl;
         return;
     }
+    numeroMesa--;
     if (ordenesAbiertas[numeroMesa].numeroProductosOrdenados == 0)
     {
         incializarOrden(numeroMesa);
@@ -452,7 +452,7 @@ void seleccionarMesa()
         switch (opcion)
         {
         case 1:
-            if (ordenesAbiertas[numeroMesa - 1].numeroProductosOrdenados > 0)
+            if (ordenesAbiertas[numeroMesa].numeroProductosOrdenados > 0)
             {
                 mostrarOrden(ordenesAbiertas[numeroMesa]);
             }
