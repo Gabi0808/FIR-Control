@@ -207,7 +207,9 @@ void seleccionarAccionModuloInventario()
 {
     ultimoRegistro = 0;
     int resultadoBusqueda = -1;
+    recuperarRegistroInsumos(inventarioInsumo, ultimoRegistroInsumos);
     recuperarRegistroInventario(inventarioProducto, ultimoRegistro);
+    actualizarCantidadProductos();
     int opcion = 0;
     while (opcion != 7)
     {
@@ -294,8 +296,8 @@ void seleccionarAccionInsumos()
             break;
         case 3:
             cout << "Ingrese el codigo del insumo que desea buscar ";
-            cin >> codigoABuscar;
-            resultadoBusqueda = buscarInsumo(codigoABuscar);
+            cin >> codigoInsumoABuscar;
+            resultadoBusqueda = buscarInsumo(codigoInsumoABuscar);
             if (resultadoBusqueda != -1)
             {
                 mostrarInsumo(inventarioInsumo[resultadoBusqueda]);
@@ -310,18 +312,18 @@ void seleccionarAccionInsumos()
             break;
         case 4:
             cout << "Ingrese el codigo del insumo que desea eliminar";
-            cin >> codigoABuscar;
-            eliminarInsumo(codigoABuscar);
+            cin >> codigoInsumoABuscar;
+            eliminarInsumo(codigoInsumoABuscar);
             break;
         case 5:
             cout << "Ingrese el codigo del insumo que desea modificar ";
-            cin >> codigoABuscar;
-            modificarInsumo(codigoABuscar);
+            cin >> codigoInsumoABuscar;
+            modificarInsumo(codigoInsumoABuscar);
             break;
         case 6:
             cout << "Ingrese el codigo del insumo que entro o salio";
-            cin >> codigoABuscar;
-            registrarEntradaSalidaInsumo(codigoARegistrar);
+            cin >> codigoInsumoARegistrar;
+            registrarEntradaSalidaInsumo(codigoInsumoARegistrar);
             break;
         case 7:
             cout << "Regresando al menu principal..." << endl;

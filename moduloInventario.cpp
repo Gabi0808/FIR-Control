@@ -31,7 +31,7 @@ void ingresarProducto()
         }
         if (productoActual.numeroInsumosUsados != 0)
         {
-            int cantidadPosible = calcularProductosDisponibles(productoActual, inventarioInsumo, ultimoRegistro);
+            int cantidadPosible = calcularProductosDisponibles(productoActual, inventarioInsumo, ultimoRegistroInsumos);
             productoActual.cantidadProducto = cantidadPosible;
             cout << "Se pueden elaborar " << cantidadPosible << " productos de " << productoActual.nombreProducto << endl;
             system("pause");
@@ -225,6 +225,7 @@ void sobreescribirDatos()
             archivo << inventarioProducto[i].nombreProducto << endl;
             archivo << inventarioProducto[i].precioProducto << endl;
             archivo << inventarioProducto[i].cantidadProducto << endl;
+            archivo << inventarioProducto[i].numeroInsumosUsados << endl;
             if (inventarioProducto[i].numeroInsumosUsados != 0)
             {
                 for (int j = 0; j < inventarioProducto[i].numeroInsumosUsados; j++)
@@ -238,6 +239,11 @@ void sobreescribirDatos()
                     archivo << inventarioProducto[i].cantidadInsumosNecesarios[k] << " ";
                 }
                 archivo << endl;
+            }
+            else
+            {
+                archivo << inventarioProducto[i].insumosNecesarios[0].codigoInsumo << endl;
+                archivo << inventarioProducto[i].cantidadInsumosNecesarios[0] << endl;
             }
         }
     }
@@ -272,6 +278,7 @@ void eliminarProducto(string codigoABuscar)
 
 void modificarProducto(string codigoABuscar)
 {
+    string codigoInsumoIngresado;
     int codigoAModificar = buscarProducto(codigoABuscar);
 
     if (codigoAModificar != -1)
@@ -286,6 +293,35 @@ void modificarProducto(string codigoABuscar)
         cin >> inventarioProducto[codigoAModificar].precioProducto;
         cout << "Ingrese la nueva cantidad: ";
         cin >> inventarioProducto[codigoAModificar].cantidadProducto;
+        cout << "Ingrese los insumos que necesita el producto." << endl;
+        cout << "Escriba 'salir' si no desea ingresar mas insumos" << endl;
+        inventarioProducto[codigoAModificar].numeroInsumosUsados = 0;
+        for (; inventarioProducto[codigoAModificar].numeroInsumosUsados < 20; inventarioProducto[codigoAModificar].numeroInsumosUsados++)
+        {
+            cout << "Ingrese el codigo del insumo " << inventarioProducto[codigoAModificar].numeroInsumosUsados + 1 << endl;
+            cin >> codigoInsumoIngresado;
+            if (codigoInsumoIngresado == "salir")
+            {
+                break;
+            }
+            inventarioProducto[codigoAModificar].insumosNecesarios[inventarioProducto[codigoAModificar].numeroInsumosUsados].codigoInsumo = codigoInsumoIngresado;
+            cout << "Ingrese la cantidad necesaria de ese insumo" << endl;
+            cin >> inventarioProducto[codigoAModificar].cantidadInsumosNecesarios[inventarioProducto[codigoAModificar].numeroInsumosUsados];
+        }
+        if (inventarioProducto[codigoAModificar].numeroInsumosUsados != 0)
+        {
+            int cantidadPosible = calcularProductosDisponibles(inventarioProducto[codigoAModificar], inventarioInsumo, ultimoRegistroInsumos);
+            inventarioProducto[codigoAModificar].cantidadProducto = cantidadPosible;
+            cout << "Se pueden elaborar " << cantidadPosible << " productos de " << inventarioProducto[codigoAModificar].nombreProducto << endl;
+            system("pause");
+        }
+        else
+        {
+            inventarioProducto[codigoAModificar].insumosNecesarios[0].codigoInsumo = "N/A";
+            inventarioProducto[codigoAModificar].cantidadInsumosNecesarios[0] = 0;
+            cout << "Ingrese la cantidad del producto: ";
+            cin >> inventarioProducto[codigoAModificar].cantidadProducto;
+        }
 
         sobreescribirDatos();
     }
@@ -293,6 +329,19 @@ void modificarProducto(string codigoABuscar)
     {
         cout << "No se encontró un producto con el código especificado." << endl;
     }
+}
+
+void actualizarCantidadProductos()
+{
+
+    for (int i = 0; i < ultimoRegistro; i++)
+    {
+        if (inventarioProducto[i].numeroInsumosUsados != 0)
+        {
+            inventarioProducto[i].cantidadProducto = calcularProductosDisponibles(inventarioProducto[i], inventarioInsumo, ultimoRegistroInsumos);
+        }
+    }
+    sobreescribirDatos();
 }
 
 void registrarEntradaSalida(string codigoARegistrar)
@@ -540,7 +589,7 @@ void registrarEntradaSalidaInsumo(string codigoARegistrar)
             cin >> cantidadARegistrar;
             inventarioInsumo[codigoAModificar].cantidadInsumo += cantidadARegistrar;
 
-            sobreescribirDatos();
+            actualizarCantidadProductos();
             cout << "Entrada registrada exitosamente." << endl;
             system("pause");
 
@@ -550,7 +599,7 @@ void registrarEntradaSalidaInsumo(string codigoARegistrar)
             cin >> cantidadARegistrar;
             inventarioInsumo[codigoAModificar].cantidadInsumo -= cantidadARegistrar;
 
-            sobreescribirDatos();
+            actualizarCantidadProductos();
             break;
         case 3:
             cout << "Saliendo al menu..." << endl;

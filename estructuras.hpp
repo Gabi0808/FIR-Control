@@ -38,6 +38,8 @@ int ultimoRegistro = 0;
 int ultimoRegistroInsumos =0;
 Producto inventarioProducto[MAX];
 Insumo inventarioInsumo[MAX];
+string codigoInsumoABuscar;
+string codigoInsumoARegistrar;
 string codigoIngresado;
 string codigoABuscar;
 string codigoARegistrar;
@@ -54,6 +56,7 @@ int buscarInsumo(string codigoABuscar);
 void eliminarInsumo(string codigoABuscar);
 void registrarEntradaSalidaInsumo(string codigoARegistrar);
 int calcularProductosDisponibles(Producto producto, Insumo inventarioInsumos[], int numInsumos);
+void actualizarCantidadProductos();
 
 // CRUD
 void recuperarRegistroInventario(Producto productosARecuperar[], int &cantidadRegistros);
