@@ -532,7 +532,9 @@ void seleccionarAccionControlFactura()
         switch (opcion)
         {
         case 1:
-            cout << "Funcion no Implementada";
+            system("cls");
+            generarFactura(tipoFactura, numeroUnico);
+            system ("pause");
             break;
         case 2:
             cout << "Funcion no Implementada";

@@ -376,3 +376,51 @@ void registrarSalidaProductos(Orden ordenARegistrar)
        guardarProductos(inventarioProducto);
     }
 }
+
+string construirNumeroFactura(int tipoFactura, int &numeroUnico) {
+    time_t now = time(nullptr);
+    tm* timeinfo = localtime(&now);
+    int year = timeinfo->tm_year % 100;
+
+    string numeroFactura = "";
+
+    if (year < 10) {
+        numeroFactura += "0" + to_string(year);
+    } else {
+        numeroFactura += to_string(year);
+    }
+
+    if (tipoFactura == 1) {
+        numeroFactura += "01";
+    } else if (tipoFactura == 2) {
+        numeroFactura += "02";
+    } else {
+        return "Tipo de factura no valido";
+    }
+
+    if (numeroUnico < 10) {
+        numeroFactura += "0" + to_string(numeroUnico);
+    } else if (numeroUnico >= 10 && numeroUnico < 100) {
+        numeroFactura += to_string(numeroUnico);
+    } else {
+        return "Enumeración excede el límite";
+    }
+
+    numeroUnico++;
+
+    return numeroFactura;
+}
+
+void generarFactura(int tipoFactura, int &numeroUnico){
+    string factura = construirNumeroFactura(tipoFactura, numeroUnico);
+    int fecha = obtenerFechaHoy();
+    cout << "\t\t\t\tBAR BROTHER" << endl;
+    cout << "Barrio Luis Delgadillo frente a la pista de aterrizaje Siuna, RACCN" << endl;
+    cout << "RUC : 0011306740000X";
+    cout << "\t\t\t\tTelefono 2794-2387" << endl;
+    cout << "No. Factura " << factura << endl;
+    cout << "Fecha: " << fecha << endl;
+
+    cout << "Cantidad " << "\tDescripcion " << "\tPrecio" "\t\tTotal" << endl;
+
+}

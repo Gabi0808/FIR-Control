@@ -88,6 +88,7 @@ typedef struct
 typedef struct
 {
     Orden ordenCompleta;
+    string numeroFactura;
     float subtotal;
     float impuestos;
     float descuentos;
@@ -125,9 +126,10 @@ Orden registroOrdenes[MAX];
 
 //Crud Facturacion
 string construirNumeroFactura();
-void generarFactura();
+void generarFactura(int tipoFactura, int &numeroUnico);
 void mostrarFacturas();
 void eliminarFactura();
 void modificarFactura();
-
+int tipoFactura;
+int numeroUnico;
 #endif
