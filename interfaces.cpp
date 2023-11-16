@@ -524,6 +524,7 @@ void seleccionarAccionModuloFacturacion()
 
 void seleccionarAccionControlFactura()
 {
+    recuperarOrden(registroOrdenes, ultimoRegistroOrdenes);
     int opcion = 0;
     while (opcion != 7)
     {
@@ -533,7 +534,8 @@ void seleccionarAccionControlFactura()
         {
         case 1:
             system("cls");
-            generarFactura(tipoFactura, numeroUnico);
+            generarFactura(1, registroOrdenes[0]);
+            mostrarFactura(informacionFacturas[ultimoRegistroFacturas]);
             system ("pause");
             break;
         case 2:

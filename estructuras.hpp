@@ -87,17 +87,17 @@ typedef struct
 
 typedef struct
 {
+    int tipoFactura;
     Orden ordenCompleta;
     string numeroFactura;
     float subtotal;
     float impuestos;
-    float descuentos;
     float total;
 } Factura;
 
 int ultimoRegistroMesas = 0;
 Mesa informacionMesas[MAX];
-Factura informacionFacturas[MAX];
+
 // CRUD
 void seleccionarMesa();
 void mostrarInfoMesas(Mesa mesaAMostrar, Orden ordenAMostrar);
@@ -109,7 +109,8 @@ void actualizarEstadoMesa();
 void sobreescribirDatosMesa();
 void recuperarRegistroMesas(Mesa mesasARecuperar[], int &cantidadRegistros);
 
-int obtenerFechaHoy();
+int obtenerFechaHoyInt();
+string obtenerFechaHoy();
 string construirCodigoOrden(int numeroMesa, int fechaOrden);
 void incializarOrden(int numeroMesa);
 void agregarProductoOrden(int numeroMesa);
@@ -118,6 +119,7 @@ void guardarOrden(Orden ordenesAGuardar[]);
 void recuperarOrden(Orden ordenesARecuperar[], int &cantidadRegistroOrdenes);
 void cerrarOrden(int numeroMesa);
 void mostrarOrden(Orden ordenAMostrar);
+int buscarOrden(string codigoABuscar);
 void registrarSalidaProductos(Orden ordenARegistrar);
 
 int ultimoRegistroOrdenes = 0;
@@ -125,11 +127,15 @@ Orden ordenesAbiertas[50];
 Orden registroOrdenes[MAX];
 
 //Crud Facturacion
-string construirNumeroFactura();
-void generarFactura(int tipoFactura, int &numeroUnico);
+string construirCodigoFactura(int tipoFactura, int fechaFactura);
+void generarFactura(int tipoFactura, Orden ordenDetallada);
+float calcularSubtotal(Orden ordenDetallada);
+float calcularImpuesto (float subtotal, int tipoFactura);
+float calcularTotal(float impuestos, float subtotal);
 void mostrarFacturas();
 void eliminarFactura();
 void modificarFactura();
-int tipoFactura;
-int numeroUnico;
+void mostrarDetalleFactura(Orden ordenDetallada);
+int ultimoRegistroFacturas = 0;
+Factura informacionFacturas[MAX];
 #endif

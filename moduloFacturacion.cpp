@@ -102,7 +102,6 @@ void mostrarInfoMesas(Mesa mesaAMostrar, Orden ordenAMostrar)
     cout << "Numero de mesa: " << mesaAMostrar.numeroMesa << endl;
     cout << "Estado de la mesa: " << mesaAMostrar.estadoMesa << endl;
     mostrarOrden(ordenAMostrar);
-
 }
 
 void guardarMesa(Mesa mesaAGuardar[])
@@ -169,7 +168,7 @@ void recuperarRegistroMesas(Mesa mesasARecuperar[], int &cantidadRegistros)
 
 // CRUD ORDENES
 
-int obtenerFechaHoy()
+int obtenerFechaHoyInt()
 {
     auto now = chrono::system_clock::now();
     time_t currentTime = chrono::system_clock::to_time_t(now);
@@ -177,8 +176,7 @@ int obtenerFechaHoy()
 
     int dia = tm->tm_mday;
     int mes = tm->tm_mon + 1;
-    int anio = tm->tm_year + 1900;  
-
+    int anio = tm->tm_year + 1900;
 
     stringstream fechaString;
     fechaString << setfill('0') << setw(2) << dia;
@@ -191,9 +189,28 @@ int obtenerFechaHoy()
     return fechaInt;
 }
 
+string obtenerFechaHoy()
+{
+
+    auto now = chrono::system_clock::now();
+    time_t currentTime = chrono::system_clock::to_time_t(now);
+    struct tm *tm = localtime(&currentTime);
+
+    int dia = tm->tm_mday;
+    int mes = tm->tm_mon + 1;
+    int anio = tm->tm_year + 1900;
+
+    stringstream fechaString;
+    fechaString << setfill('0') << setw(2) << dia << '/';
+    fechaString << setfill('0') << setw(2) << mes << '/';
+    fechaString << setfill('0') << setw(2) << (anio % 100) << '/';
+
+    return fechaString.str();
+}
+
 string construirCodigoOrden(int numeroMesa, int fechaOrden)
 {
-numeroMesa++;
+    numeroMesa++;
     stringstream codigo;
     codigo << setfill('0') << setw(2) << numeroMesa;
     codigo << setfill('0') << setw(6) << fechaOrden;
@@ -207,7 +224,7 @@ numeroMesa++;
 void incializarOrden(int numeroMesa)
 {
 
-    ordenesAbiertas[numeroMesa].codigoOrden = construirCodigoOrden(numeroMesa, obtenerFechaHoy());
+    ordenesAbiertas[numeroMesa].codigoOrden = construirCodigoOrden(numeroMesa, obtenerFechaHoyInt());
     ordenesAbiertas[numeroMesa].productoOrdenado[0].codigoProducto = "000000";
     ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[0] = 0;
     ordenesAbiertas[numeroMesa].numeroProductosOrdenados = 0;
@@ -219,7 +236,7 @@ void agregarProductoOrden(int numeroMesa)
     Orden ordenActual;
     string codigoProductoIngresado;
 
-    ordenActual.codigoOrden = construirCodigoOrden(numeroMesa, obtenerFechaHoy());
+    ordenActual.codigoOrden = construirCodigoOrden(numeroMesa, obtenerFechaHoyInt());
     ordenActual.numeroProductosOrdenados = 0;
     for (int i = 0; i < 50; i++)
     {
@@ -363,64 +380,146 @@ void mostrarOrden(Orden ordenAMostrar)
     cout << "------------------------------------" << endl;
 }
 
+int buscarOrden(string codigoABuscar)
+{
+
+    for (int i = 0; i < ultimoRegistroOrdenes; i++)
+    {
+        if (registroOrdenes[i].codigoOrden == codigoABuscar)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
 void registrarSalidaProductos(Orden ordenARegistrar)
 {
     int resultadoBusqueda = -1;
     for (int i = 0; i < ordenARegistrar.numeroProductosOrdenados; i++)
     {
-       resultadoBusqueda = buscarProducto(ordenARegistrar.productoOrdenado[i].codigoProducto);
-       if (resultadoBusqueda != -1)
-       {
+        resultadoBusqueda = buscarProducto(ordenARegistrar.productoOrdenado[i].codigoProducto);
+        if (resultadoBusqueda != -1)
+        {
             inventarioProducto[resultadoBusqueda].cantidadProducto -= ordenARegistrar.cantidadProductoOrdenado[i];
-       }
-       guardarProductos(inventarioProducto);
+        }
+        guardarProductos(inventarioProducto);
     }
 }
 
-string construirNumeroFactura(int tipoFactura, int &numeroUnico) {
-    time_t now = time(nullptr);
-    tm* timeinfo = localtime(&now);
-    int year = timeinfo->tm_year % 100;
+string construirCodigoFactura(int tipoFactura, int fechaFactura)
+{
 
-    string numeroFactura = "";
+    stringstream codigo;
+    codigo << setfill('0') << setw(6) << fechaFactura;
+    codigo << setfill('0') << setw(2) << tipoFactura;
+    codigo << setfill('0') << setw(3) << ultimoRegistroFacturas + 1;
 
-    if (year < 10) {
-        numeroFactura += "0" + to_string(year);
-    } else {
-        numeroFactura += to_string(year);
-    }
+    string codigoNumerico = codigo.str();
 
-    if (tipoFactura == 1) {
-        numeroFactura += "01";
-    } else if (tipoFactura == 2) {
-        numeroFactura += "02";
-    } else {
-        return "Tipo de factura no valido";
-    }
-
-    if (numeroUnico < 10) {
-        numeroFactura += "0" + to_string(numeroUnico);
-    } else if (numeroUnico >= 10 && numeroUnico < 100) {
-        numeroFactura += to_string(numeroUnico);
-    } else {
-        return "Enumeración excede el límite";
-    }
-
-    numeroUnico++;
-
-    return numeroFactura;
+    return codigoNumerico;
 }
 
-void generarFactura(int tipoFactura, int &numeroUnico){
-    string factura = construirNumeroFactura(tipoFactura, numeroUnico);
-    int fecha = obtenerFechaHoy();
+float calcularSubtotal(Orden ordenDetallada)
+{
+    float subtotal = 0;
+    int resultadoBusqueda = -1;
+    for (int i = 0; i < ordenDetallada.numeroProductosOrdenados; i++)
+    {
+        resultadoBusqueda = buscarProducto(ordenDetallada.productoOrdenado[i].codigoProducto);
+        if (resultadoBusqueda != -1)
+        {
+            subtotal += inventarioProducto[resultadoBusqueda].precioProducto * ordenDetallada.cantidadProductoOrdenado[i];
+        }
+        else
+        {
+            cout << "No se encontro producto con ese codigo." << endl;
+        }
+    }
+    return subtotal;
+}
+
+float calcularImpuesto(float subtotal, int tipoFactura)
+{
+    float iva = 0;
+    if (tipoFactura != 1)
+    {
+        iva = subtotal * 0.15;
+        return iva;
+    }
+
+    return iva;
+}
+
+float calcularTotal(float impuestos, float subtotal)
+{
+    float total = 0;
+
+    total = impuestos + subtotal;
+
+    return total;
+}
+
+void generarFactura(int tipoFactura, Orden ordenDetallada)
+{
+    float subtotal = calcularSubtotal(ordenDetallada);
+    float impuestos = calcularImpuesto(subtotal, tipoFactura);
+    float total = calcularTotal(subtotal, impuestos);
+    informacionFacturas[ultimoRegistroFacturas].tipoFactura = tipoFactura;
+    informacionFacturas[ultimoRegistroFacturas].numeroFactura = construirCodigoFactura(tipoFactura, obtenerFechaHoyInt());
+    informacionFacturas[ultimoRegistroFacturas].ordenCompleta.codigoOrden = ordenDetallada.codigoOrden;
+    informacionFacturas[ultimoRegistroFacturas].subtotal = subtotal;
+    informacionFacturas[ultimoRegistroFacturas].impuestos = impuestos;
+    informacionFacturas[ultimoRegistroFacturas].total = total;
+}
+
+void mostrarFactura(Factura facturaAMostrar)
+{
+    int resultadoBusqueda = -1;
+    string fecha = obtenerFechaHoy();
     cout << "\t\t\t\tBAR BROTHER" << endl;
     cout << "Barrio Luis Delgadillo frente a la pista de aterrizaje Siuna, RACCN" << endl;
     cout << "RUC : 0011306740000X";
     cout << "\t\t\t\tTelefono 2794-2387" << endl;
-    cout << "No. Factura " << factura << endl;
+    cout << "No. Factura " << facturaAMostrar.numeroFactura << endl;
     cout << "Fecha: " << fecha << endl;
+    resultadoBusqueda = buscarOrden(facturaAMostrar.ordenCompleta.codigoOrden);
+    if (resultadoBusqueda != -1)
+    {
 
-    cout << "Cantidad " << "\tDescripcion " << "\tPrecio" "\t\tTotal" << endl;
+        mostrarDetalleFactura(registroOrdenes[resultadoBusqueda]);
 
+        cout << endl << "\t\t\tSubtotal: " << facturaAMostrar.subtotal << endl;
+        cout << "\t\t\tImpuestos: " << facturaAMostrar.impuestos << endl;
+        cout << "\t\t\tTotal: " << facturaAMostrar.total << endl;
+
+        cout << "-----------------------------------------" << endl;
+    }
+    else
+    {
+        cout << "No se encontro orden con ese codigo." << endl;
+    }
+}
+
+void mostrarDetalleFactura(Orden ordenDetallada)
+{
+    int resultadoBusqueda = -1;
+    cout << "Detalle de la Factura: " << endl
+         << endl;
+
+    cout << "Cantidad \tNombre del Producto \t\tPrecio" << endl;
+
+    for (int i = 0; i < ordenDetallada.numeroProductosOrdenados; i++)
+    {
+        resultadoBusqueda = buscarProducto(ordenDetallada.productoOrdenado[i].codigoProducto);
+        if (resultadoBusqueda != -1)
+        {
+
+            cout << ordenDetallada.cantidadProductoOrdenado[i] << "\t" << inventarioProducto[resultadoBusqueda].nombreProducto << "\t\t" << inventarioProducto[resultadoBusqueda].precioProducto << endl;
+        }
+        else
+        {
+            cout << "No se encontro producto con ese codigo." << endl;
+        }
+    }
 }
