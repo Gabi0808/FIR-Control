@@ -97,7 +97,6 @@ typedef struct
 
 int ultimoRegistroMesas = 0;
 Mesa informacionMesas[MAX];
-Factura informacionFacturas[MAX];
 // CRUD
 void seleccionarMesa();
 void mostrarInfoMesas(Mesa mesaAMostrar, Orden ordenAMostrar);
@@ -125,11 +124,16 @@ Orden ordenesAbiertas[50];
 Orden registroOrdenes[MAX];
 
 //Crud Facturacion
+int ultimoRegistroFacturas = 0;
+Factura informacionFacturas[MAX];
 string construirNumeroFactura();
 void generarFactura(int tipoFactura, int &numeroUnico);
 void mostrarFacturas();
 void eliminarFactura();
 void modificarFactura();
+void guardarFactura(Factura facturaAGuardar[]);
+void sobreescribirDatosFactura();
+void recuperarRegistroFactura(Factura facturasARecuperar[], int &cantidadRegistros);
 int tipoFactura;
 int numeroUnico;
 #endif

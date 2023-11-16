@@ -102,7 +102,6 @@ void mostrarInfoMesas(Mesa mesaAMostrar, Orden ordenAMostrar)
     cout << "Numero de mesa: " << mesaAMostrar.numeroMesa << endl;
     cout << "Estado de la mesa: " << mesaAMostrar.estadoMesa << endl;
     mostrarOrden(ordenAMostrar);
-
 }
 
 void guardarMesa(Mesa mesaAGuardar[])
@@ -177,8 +176,7 @@ int obtenerFechaHoy()
 
     int dia = tm->tm_mday;
     int mes = tm->tm_mon + 1;
-    int anio = tm->tm_year + 1900;  
-
+    int anio = tm->tm_year + 1900;
 
     stringstream fechaString;
     fechaString << setfill('0') << setw(2) << dia;
@@ -193,7 +191,7 @@ int obtenerFechaHoy()
 
 string construirCodigoOrden(int numeroMesa, int fechaOrden)
 {
-numeroMesa++;
+    numeroMesa++;
     stringstream codigo;
     codigo << setfill('0') << setw(2) << numeroMesa;
     codigo << setfill('0') << setw(6) << fechaOrden;
@@ -368,41 +366,55 @@ void registrarSalidaProductos(Orden ordenARegistrar)
     int resultadoBusqueda = -1;
     for (int i = 0; i < ordenARegistrar.numeroProductosOrdenados; i++)
     {
-       resultadoBusqueda = buscarProducto(ordenARegistrar.productoOrdenado[i].codigoProducto);
-       if (resultadoBusqueda != -1)
-       {
+        resultadoBusqueda = buscarProducto(ordenARegistrar.productoOrdenado[i].codigoProducto);
+        if (resultadoBusqueda != -1)
+        {
             inventarioProducto[resultadoBusqueda].cantidadProducto -= ordenARegistrar.cantidadProductoOrdenado[i];
-       }
-       guardarProductos(inventarioProducto);
+        }
+        guardarProductos(inventarioProducto);
     }
 }
 
-string construirNumeroFactura(int tipoFactura, int &numeroUnico) {
+string construirNumeroFactura(int tipoFactura, int &numeroUnico)
+{
     time_t now = time(nullptr);
-    tm* timeinfo = localtime(&now);
+    tm *timeinfo = localtime(&now);
     int year = timeinfo->tm_year % 100;
 
     string numeroFactura = "";
 
-    if (year < 10) {
+    if (year < 10)
+    {
         numeroFactura += "0" + to_string(year);
-    } else {
+    }
+    else
+    {
         numeroFactura += to_string(year);
     }
 
-    if (tipoFactura == 1) {
+    if (tipoFactura == 1)
+    {
         numeroFactura += "01";
-    } else if (tipoFactura == 2) {
+    }
+    else if (tipoFactura == 2)
+    {
         numeroFactura += "02";
-    } else {
+    }
+    else
+    {
         return "Tipo de factura no valido";
     }
 
-    if (numeroUnico < 10) {
+    if (numeroUnico < 10)
+    {
         numeroFactura += "0" + to_string(numeroUnico);
-    } else if (numeroUnico >= 10 && numeroUnico < 100) {
+    }
+    else if (numeroUnico >= 10 && numeroUnico < 100)
+    {
         numeroFactura += to_string(numeroUnico);
-    } else {
+    }
+    else
+    {
         return "Enumeración excede el límite";
     }
 
@@ -411,7 +423,8 @@ string construirNumeroFactura(int tipoFactura, int &numeroUnico) {
     return numeroFactura;
 }
 
-void generarFactura(int tipoFactura, int &numeroUnico){
+void generarFactura(int tipoFactura, int &numeroUnico)
+{
     string factura = construirNumeroFactura(tipoFactura, numeroUnico);
     int fecha = obtenerFechaHoy();
     cout << "\t\t\t\tBAR BROTHER" << endl;
@@ -421,6 +434,140 @@ void generarFactura(int tipoFactura, int &numeroUnico){
     cout << "No. Factura " << factura << endl;
     cout << "Fecha: " << fecha << endl;
 
-    cout << "Cantidad " << "\tDescripcion " << "\tPrecio" "\t\tTotal" << endl;
+    cout << "Cantidad "
+         << "\tDescripcion "
+         << "\tPrecio"
+            "\t\tTotal"
+         << endl;
+}
 
+void guardarFactura(Factura facturaAGuardar[])
+{
+    ofstream archivo("facturas.txt", ios::trunc);
+    if (archivo.is_open())
+    {
+        for (int i = 0; i < ultimoRegistroFacturas; i++)
+        {
+            archivo << facturaAGuardar[i].numeroFactura << endl;
+            archivo << facturaAGuardar[i].ordenCompleta.codigoOrden << endl;
+            archivo << facturaAGuardar[i].descuentos << endl;
+            archivo << facturaAGuardar[i].subtotal << endl;
+            archivo << facturaAGuardar[i].impuestos << endl;
+            archivo << facturaAGuardar[i].total << endl;
+        }
+        archivo.close();
+    }
+    else
+    {
+        cerr << "No se pudo abrir el archivo 'facturas.txt' " << endl;
+        system("pause");
+    }
+}
+
+void sobreescribirDatosFactura()
+{
+    ofstream archivo("facturas.txt", ios::trunc);
+    if (archivo.is_open())
+    {
+        for (int i = 0; i < ultimoRegistroFacturas; i++)
+        {
+            archivo << informacionFacturas[i].numeroFactura << endl;
+            archivo << informacionFacturas[i].ordenCompleta.codigoOrden << endl;
+            archivo << informacionFacturas[i].descuentos << endl;
+            archivo << informacionFacturas[i].subtotal << endl;
+            archivo << informacionFacturas[i].impuestos << endl;
+            archivo << informacionFacturas[i].total << endl;
+        }
+        archivo.close();
+    }
+    else
+    {
+        cerr << "No se pudo abrir el archivo para sobreescribir. " << endl;
+        system("pause");
+    }
+    archivo.close();
+}
+
+void recuperarRegistroFactura(Factura facturasARecuperar[], int &cantidadRegistros)
+{
+    ifstream archivo("facturas.txt");
+
+    if (archivo.is_open())
+    {
+        while (archivo >> facturasARecuperar[cantidadRegistros].numeroFactura)
+        {
+            archivo.ignore();
+            getline(archivo, facturasARecuperar[cantidadRegistros].ordenCompleta);
+
+            cantidadRegistros++;
+        }
+        archivo.close();
+    }
+    else
+    {
+        cerr << "Error al abrir el archivo de las facturas " << endl;
+        system("pause");
+    }
+}
+
+void eliminarFactura()
+{
+    string facturaAEliminar;
+    cout << "\nIngrese el numero de la factura a eliminar: ";
+    cin >> facturaAEliminar;
+
+    bool facturaEncontrada = false;
+    int indiceFacturaEncontrada = -1;
+
+    for (int i = 0; i < ultimoRegistroFacturas; i++)
+    {
+        if (informacionFacturas[i].numeroFactura == facturaAEliminar)
+        {
+            facturaEncontrada = true;
+            indiceFacturaEncontrada = i;
+            break;
+        }
+    }
+
+    if (facturaEncontrada)
+    {
+        for (int j = indiceFacturaEncontrada; j < ultimoRegistroFacturas - 1; j++)
+        {
+            informacionFacturas[j] = informacionFacturas[j + 1];
+        }
+        ultimoRegistroFacturas--;
+
+        sobreescribirDatosFactura();
+
+        cout << "La factura " << facturaAEliminar << " ha sido eliminada exitosamente." << endl;
+    }
+    else
+    {
+        cout << "No se encontro una factura con el número " << facturaAEliminar << endl;
+    }
+}
+
+void agregarFactura(){
+    if (ultimoRegistroFacturas < MAX)
+    {
+        Factura nuevaFactura;
+        cout << "\n\tNumero de factura: " << endl;
+        cin >> nuevaFactura.numeroFactura;
+        cout << "Ingrese el subtotal de la factura: " << endl;
+        nuevaFactura.subtotal;
+        cout << "Ingrese los impuestos: " << endl;
+        cin >> nuevaFactura.impuestos;
+        nuevaFactura.total = nuevaFactura.subtotal + nuevaFactura.impuestos;
+
+        informacionFacturas[ultimoRegistroFacturas] = nuevaFactura;
+        ultimoRegistroFacturas++;
+        cout << " La nueva factura se ha guardado en el archivo 'facturas.txt' ";
+        guardarFactura;
+
+    }
+    else 
+    {
+        cerr << "No se pueden agregar mas facturas" << endl;
+        system("pause");
+    }
 }
