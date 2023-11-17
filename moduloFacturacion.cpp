@@ -489,7 +489,8 @@ void mostrarFactura(Factura facturaAMostrar)
 
         mostrarDetalleFactura(registroOrdenes[resultadoBusqueda]);
 
-        cout << endl << "\t\t\tSubtotal: " << facturaAMostrar.subtotal << endl;
+        cout << endl
+             << "\t\t\tSubtotal: " << facturaAMostrar.subtotal << endl;
         cout << "\t\t\tImpuestos: " << facturaAMostrar.impuestos << endl;
         cout << "\t\t\tTotal: " << facturaAMostrar.total << endl;
 
@@ -522,4 +523,168 @@ void mostrarDetalleFactura(Orden ordenDetallada)
             cout << "No se encontro producto con ese codigo." << endl;
         }
     }
+}
+
+void guardarFactura(Factura facturaAGuardar[])
+{
+    ofstream archivo("facturas.txt", ios::trunc);
+    if (archivo.is_open())
+    {
+        for (int i = 0; i < ultimoRegistroFacturas; i++)
+        {
+            archivo << facturaAGuardar[i].numeroFactura << endl;
+            archivo << facturaAGuardar[i].ordenCompleta.codigoOrden << endl;
+            archivo << facturaAGuardar[i].subtotal << endl;
+            archivo << facturaAGuardar[i].impuestos << endl;
+            archivo << facturaAGuardar[i].total << endl;
+        }
+        archivo.close();
+    }
+    else
+    {
+        cerr << "No se pudo abrir el archivo 'facturas.txt' " << endl;
+        system("pause");
+    }
+}
+
+void sobreescribirDatosFactura()
+{
+    ofstream archivo("facturas.txt", ios::trunc);
+    if (archivo.is_open())
+    {
+        for (int i = 0; i < ultimoRegistroFacturas; i++)
+        {
+            archivo << informacionFacturas[i].numeroFactura << endl;
+            archivo << informacionFacturas[i].ordenCompleta.codigoOrden << endl;
+            archivo << informacionFacturas[i].subtotal << endl;
+            archivo << informacionFacturas[i].impuestos << endl;
+            archivo << informacionFacturas[i].total << endl;
+        }
+        archivo.close();
+    }
+    else
+    {
+        cerr << "No se pudo abrir el archivo para sobreescribir. " << endl;
+        system("pause");
+    }
+    archivo.close();
+}
+
+void eliminarFactura()
+{
+    string facturaAEliminar;
+    cout << "\nIngrese el numero de la factura a eliminar: ";
+    cin >> facturaAEliminar;
+
+    bool facturaEncontrada = false;
+    int indiceFacturaEncontrada = -1;
+
+    for (int i = 0; i < ultimoRegistroFacturas; i++)
+    {
+        if (informacionFacturas[i].numeroFactura == facturaAEliminar)
+        {
+            facturaEncontrada = true;
+            indiceFacturaEncontrada = i;
+            break;
+        }
+    }
+
+    if (facturaEncontrada)
+    {
+        for (int j = indiceFacturaEncontrada; j < ultimoRegistroFacturas - 1; j++)
+        {
+            informacionFacturas[j] = informacionFacturas[j + 1];
+        }
+        ultimoRegistroFacturas--;
+
+        sobreescribirDatosFactura();
+
+        cout << "La factura " << facturaAEliminar << " ha sido eliminada exitosamente." << endl;
+    }
+    else
+    {
+        cout << "No se encontro una factura con el número " << facturaAEliminar << endl;
+    }
+}
+
+void agregarFactura()
+{
+    if (ultimoRegistroFacturas < MAX)
+    {
+        Factura nuevaFactura;
+        cout << "\n\tNumero de factura: " << endl;
+        cin >> nuevaFactura.numeroFactura;
+        cout << "Ingrese el subtotal de la factura: " << endl;
+        nuevaFactura.subtotal;
+        cout << "Ingrese los impuestos: " << endl;
+        cin >> nuevaFactura.impuestos;
+        nuevaFactura.total = nuevaFactura.subtotal + nuevaFactura.impuestos;
+
+        informacionFacturas[ultimoRegistroFacturas] = nuevaFactura;
+        ultimoRegistroFacturas++;
+        cout << " La nueva factura se ha guardado en el archivo 'facturas.txt' ";
+        guardarFactura;
+    }
+    else
+    {
+        cerr << "No se pueden agregar mas facturas" << endl;
+        system("pause");
+    }
+}
+
+void modificarFactura()
+{
+    string numeroFactura;
+    cout << "Ingrese el numero de la factura a modificar: " << endl;
+    cin >> numeroFactura;
+
+    bool facturaEncontrada = false;
+    int indiceFacturaEncontrada = -1;
+
+    for (int i = 0; i < ultimoRegistroFacturas; i++)
+    {
+        if (informacionFacturas[i].numeroFactura == numeroFactura)
+        {
+            facturaEncontrada = true;
+            indiceFacturaEncontrada = i;
+            break;
+        }
+    }
+    if (facturaEncontrada != -1)
+    {
+        cout << "\nInformacion actual de la factura: " << endl;
+        mostrarInfoFacturas(informacionFacturas[facturaEncontrada]);
+
+        float nuevoSubtotal;
+        float nuevosImpuestos;
+        float nuevoTotal;
+
+        cout << "Ingrese el nuevo subtotal: " << endl;
+        cin >> nuevoSubtotal;
+        cout << "Ingrese los nuevos impuestos: " << endl;
+        cin >> nuevosImpuestos;
+        nuevoTotal = nuevoSubtotal + nuevosImpuestos;
+
+        informacionFacturas[facturaEncontrada].subtotal = nuevoSubtotal;
+        informacionFacturas[facturaEncontrada].impuestos = nuevosImpuestos;
+        informacionFacturas[facturaEncontrada].total = nuevoTotal;
+
+        sobreescribirDatosFactura();
+
+        cout << "Los datos de la factura " << numeroFactura << " se han modificado exitosamente." << endl;
+        system("pause");
+    }
+    else
+    {
+        cerr << "La factura no existe en el registro. No es posible realizar la operación solicitada." << endl;
+        system ("pause");
+    }
+}
+
+void mostrarInfoFacturas(Factura facturaAMostrar)
+{
+    cout << "Numero de factura: " << facturaAMostrar.numeroFactura << endl;
+    cout << "Subtotal: $" << facturaAMostrar.subtotal << endl;
+    cout << "Impuestos: $" << facturaAMostrar.impuestos << endl;
+    cout << "Total: $" << facturaAMostrar.total << endl;
 }

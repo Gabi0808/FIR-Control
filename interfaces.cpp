@@ -21,7 +21,11 @@ void controlFactura();
 void seleccionarAccionControlFactura();
 void seleccionarAccionControlInventario();
 void menuControlInventario();
-void menuSeleccionMesa();
+void ordenesActivas();
+void ordenMesas();
+void seleccionarAccionOrden();
+
+
 
 int login()
 {
@@ -207,9 +211,7 @@ void seleccionarAccionModuloInventario()
 {
     ultimoRegistro = 0;
     int resultadoBusqueda = -1;
-    recuperarRegistroInsumos(inventarioInsumo, ultimoRegistroInsumos);
     recuperarRegistroInventario(inventarioProducto, ultimoRegistro);
-    actualizarCantidadProductos();
     int opcion = 0;
     while (opcion != 7)
     {
@@ -248,7 +250,6 @@ void seleccionarAccionModuloInventario()
             cout << "Ingrese el codigo del producto que desea eliminar ";
             cin >> codigoABuscar;
             eliminarProducto(codigoABuscar);
-            system("pause");
             break;
         case 5:
             cout << "Ingrese el codigo del producto que desea modificar ";
@@ -296,8 +297,8 @@ void seleccionarAccionInsumos()
             break;
         case 3:
             cout << "Ingrese el codigo del insumo que desea buscar ";
-            cin >> codigoInsumoABuscar;
-            resultadoBusqueda = buscarInsumo(codigoInsumoABuscar);
+            cin >> codigoABuscar;
+            resultadoBusqueda = buscarInsumo(codigoABuscar);
             if (resultadoBusqueda != -1)
             {
                 mostrarInsumo(inventarioInsumo[resultadoBusqueda]);
@@ -312,18 +313,18 @@ void seleccionarAccionInsumos()
             break;
         case 4:
             cout << "Ingrese el codigo del insumo que desea eliminar";
-            cin >> codigoInsumoABuscar;
-            eliminarInsumo(codigoInsumoABuscar);
+            cin >> codigoABuscar;
+            eliminarInsumo(codigoABuscar);
             break;
         case 5:
             cout << "Ingrese el codigo del insumo que desea modificar ";
-            cin >> codigoInsumoABuscar;
-            modificarInsumo(codigoInsumoABuscar);
+            cin >> codigoABuscar;
+            modificarInsumo(codigoABuscar);
             break;
         case 6:
             cout << "Ingrese el codigo del insumo que entro o salio";
-            cin >> codigoInsumoARegistrar;
-            registrarEntradaSalidaInsumo(codigoInsumoARegistrar);
+            cin >> codigoABuscar;
+            registrarEntradaSalidaInsumo(codigoARegistrar);
             break;
         case 7:
             cout << "Regresando al menu principal..." << endl;
@@ -345,7 +346,7 @@ void menuMF()
          << endl;
     cout << "1. Control de mesas y ordenes." << endl;
     cout << "2. Control de facturas" << endl;
-    cout << "3. Regresar al menu principal." << endl;
+    cout << "3. Regresando al menu principal." << endl;
 }
 
 void menuOrdenesYMesa()
@@ -367,6 +368,64 @@ void menuOrdenesYMesa()
     cout << "6. Regresar al menu principal." << endl;
 }
 
+void ordenesActivas()
+{
+    system("cls");
+    cout << "Seleccione la Mesa que desea usar." << endl
+         << endl;
+    cout << "1. ???? ." << endl;
+    cout << "2. ????." << endl;
+    cout << "3. ????." << endl;
+    cout << "4. ????''." << endl;
+    cout << "5. ????." << endl;
+    cout << "6. ???? ." << endl;
+}
+
+
+void ordenMesas()
+{
+
+system("cls");
+    cout << "Control de ordenes." << endl
+         << endl;
+    cout << "Seleccione la opcion a realizar." << endl
+         << endl;
+    cout << "1. Ver estado de la orden." << endl;
+    cout << "2. Agregar producto." << endl;
+    cout << "3. Eliminar producto." << endl;
+    cout << "4. Regresar al menu principal." << endl;
+
+}
+
+void seleccionarAccionOrden()
+{
+    int opcion = 0;
+        while (opcion != 4)
+    {
+        ordenMesas();
+        cin >> opcion;
+        switch (opcion)
+        {
+        case 1:
+            cout << "Funcion no implementada";
+            break;
+        case 2:
+            cout << "Funcion No implementada";
+            break;
+        case 3:
+            cout << "Funcion no implementada";
+            break;
+        case 4:
+            cout << "Regresando al menu principal" << endl;
+            return;
+        default:
+            break;
+        }
+    }
+}
+
+
+
 void controlFactura()
 {
     system("cls");
@@ -374,7 +433,7 @@ void controlFactura()
          << endl;
     cout << "Seleccione la opcion a realizar." << endl
          << endl;
-    cout << "1. Generar Factura." << endl;
+    cout << "1. Seleccionar Factura." << endl;
     cout << "2. Mostrar informacion de Facturas." << endl;
     cout << "3. Agregar Factura." << endl;
     cout << "4. Eliminar Factura." << endl;
@@ -395,12 +454,12 @@ void seleccionarAccionModuloMesa()
         switch (opcion)
         {
         case 1:
-            seleccionarMesa();
+            cout << "Funcion no Implementada";
             break;
         case 2:
             for (int i = 0; i < ultimoRegistroMesas; i++)
             {
-                mostrarInfoMesas(informacionMesas[i], ordenesAbiertas[i]);
+                mostrarInfoMesas(informacionMesas[i]);
                 system("pause");
             }
             break;
@@ -413,88 +472,16 @@ void seleccionarAccionModuloMesa()
             eliminarMesa();
             break;
         case 5:
-            modificarMesa();
+            cout << "Funcion no Implementada";
             break;
         case 6:
             cout << "Regresando al menu principal..." << endl;
             return;
             break;
         default:
-            cout << "Seleccione una opcion valida. " << endl;
-            system("pause");
             break;
         }
     }
-}
-
-void seleccionarMesa()
-{
-    int numeroMesa = 0;
-    string codigoProductoAEliminar;
-    cout << " Cual mesa desea atender? ";
-    cin >> numeroMesa;
-    if (numeroMesa < 1 || numeroMesa > ultimoRegistroMesas)
-    {
-        cerr << "Número de mesa no valido." << endl;
-        return;
-    }
-    numeroMesa--;
-    if (ordenesAbiertas[numeroMesa].numeroProductosOrdenados == 0)
-    {
-        incializarOrden(numeroMesa);
-    }
-
-    int opcion = 0;
-
-    while (opcion != 5)
-    {
-        menuSeleccionMesa();
-        cin >> opcion;
-
-        switch (opcion)
-        {
-        case 1:
-            if (ordenesAbiertas[numeroMesa].numeroProductosOrdenados > 0)
-            {
-                mostrarOrden(ordenesAbiertas[numeroMesa]);
-            }
-            else
-            {
-                cout << "No hay ordenes abiertas en esta mesa" << endl;
-            }
-
-            break;
-
-        case 2:
-            agregarProductoOrden(numeroMesa);
-            break;
-        case 3:
-            cout << "Ingrese el codigo del producto que desea eliminar de la orden: " << endl;
-            cin >> codigoProductoAEliminar;
-            eliminarProductoOrden(numeroMesa, codigoProductoAEliminar);
-            break;
-        case 4:
-            cerrarOrden(numeroMesa);
-            break;
-
-        case 5:
-            cout << "Regresando al menú anterior" << endl;
-            return;
-            break;
-        default:
-            cout << "Opcion no valida" << endl;
-            break;
-        }
-    }
-}
-
-void menuSeleccionMesa()
-{
-    cout << " 1. Ver orden actual " << endl;
-    cout << " 2. Agregar producto a la Orden" << endl;
-    cout << " 3. Eliminar Producto de la Orden" << endl;
-    cout << " 4. Cerrar Orden" << endl;
-    cout << " 5. Salir" << endl;
 }
 
 void seleccionarAccionModuloFacturacion()
@@ -524,7 +511,6 @@ void seleccionarAccionModuloFacturacion()
 
 void seleccionarAccionControlFactura()
 {
-    recuperarOrden(registroOrdenes, ultimoRegistroOrdenes);
     int opcion = 0;
     while (opcion != 7)
     {
@@ -533,10 +519,7 @@ void seleccionarAccionControlFactura()
         switch (opcion)
         {
         case 1:
-            system("cls");
-            generarFactura(1, registroOrdenes[0]);
-            mostrarFactura(informacionFacturas[ultimoRegistroFacturas]);
-            system ("pause");
+            cout << "Funcion no Implementada";
             break;
         case 2:
             cout << "Funcion no Implementada";
