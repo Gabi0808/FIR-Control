@@ -25,8 +25,6 @@ void ordenesActivas();
 void ordenMesas();
 void seleccionarAccionOrden();
 
-
-
 int login()
 {
     string usuario, contrasena;
@@ -59,7 +57,7 @@ int login()
         }
         else
         {
-            cout << "Usuario o contrasena erroneo, intente de nuevo";
+            cout << "Usuario o contrasena Incorrecto, intente de nuevo";
             access--;
             system("pause");
         }
@@ -198,6 +196,7 @@ void menuInsumos()
     system("cls");
     cout << "Insumos del inventario" << endl;
     cout << "\nSeleccione la opcion a realizar." << endl;
+    cout << "Cantidad de registros: " << ultimoRegistroInsumos << endl;
     cout << "1. Ver insumos." << endl;
     cout << "2. Agregar insumo." << endl;
     cout << "3. Buscar insumo." << endl;
@@ -376,16 +375,15 @@ void ordenesActivas()
     cout << "1. ???? ." << endl;
     cout << "2. ????." << endl;
     cout << "3. ????." << endl;
-    cout << "4. ????''." << endl;
+    cout << "4. ????." << endl;
     cout << "5. ????." << endl;
     cout << "6. ???? ." << endl;
 }
 
-
 void ordenMesas()
 {
 
-system("cls");
+    system("cls");
     cout << "Control de ordenes." << endl
          << endl;
     cout << "Seleccione la opcion a realizar." << endl
@@ -394,13 +392,12 @@ system("cls");
     cout << "2. Agregar producto." << endl;
     cout << "3. Eliminar producto." << endl;
     cout << "4. Regresar al menu principal." << endl;
-
 }
 
 void seleccionarAccionOrden()
 {
     int opcion = 0;
-        while (opcion != 4)
+    while (opcion != 4)
     {
         ordenMesas();
         cin >> opcion;
@@ -423,8 +420,6 @@ void seleccionarAccionOrden()
         }
     }
 }
-
-
 
 void controlFactura()
 {
@@ -454,8 +449,8 @@ void seleccionarAccionModuloMesa()
         switch (opcion)
         {
         case 1:
-        seleccionarMesa();
-        break;
+            seleccionarMesa();
+            break;
         case 2:
             for (int i = 0; i < ultimoRegistroMesas; i++)
             {
@@ -579,7 +574,6 @@ void seleccionarMesa()
     }
 }
 
-
 void seleccionarAccionControlFactura()
 {
     recuperarOrden(registroOrdenes, ultimoRegistroOrdenes);
@@ -594,7 +588,7 @@ void seleccionarAccionControlFactura()
             system("cls");
             generarFactura(1, registroOrdenes[0]);
             mostrarFactura(informacionFacturas[ultimoRegistroFacturas]);
-            system ("pause");
+            system("pause");
             break;
         case 2:
             cout << "Funcion no Implementada";
@@ -606,7 +600,7 @@ void seleccionarAccionControlFactura()
             break;
         case 4:
             eliminarFactura();
-           break;
+            break;
         case 5:
             modificarFactura();
             break;

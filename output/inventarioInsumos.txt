@@ -46,7 +46,7 @@ Lt
 020406
 Alitas
 160
-10
+100
 unidades
 020407
 Piernas de pollo 
