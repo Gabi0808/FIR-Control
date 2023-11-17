@@ -381,6 +381,88 @@ void mostrarOrden(Orden ordenAMostrar)
     cout << "------------------------------------" << endl;
 }
 
+void agregarOrden()
+{
+    Orden nuevaOrden;
+    string codigoProductoIngresado;
+    int numeroMesa;
+    cout << "Ingrese el numero de mesa en que se sirvio la orden" << endl;
+    cin >> numeroMesa;
+    nuevaOrden.codigoOrden = construirCodigoOrden(numeroMesa, obtenerFechaHoyInt());
+    nuevaOrden.numeroProductosOrdenados = 0;
+    for (int i = 0; i < 50; i++)
+    {
+        cout << "Escriba 'salir' si termino de agregar productos a la orden." << endl;
+        cout << "Ingrese el codigo del producto que desea agregar: ";
+        cin >> codigoProductoIngresado;
+        if (codigoProductoIngresado == "salir")
+        {
+            break;
+        }
+        nuevaOrden.productoOrdenado[i].codigoProducto = codigoProductoIngresado;
+        cout << "Ingrese la cantidad de producto ordenado: ";
+        cin >> nuevaOrden.cantidadProductoOrdenado[i];
+        nuevaOrden.numeroProductosOrdenados++;
+    }
+    registroOrdenes[ultimoRegistroOrdenes] = nuevaOrden;
+    guardarOrden(registroOrdenes);
+    cout << "Orden guardada con exito." << endl;
+}
+
+void modificarOrden(string codigoAModificar)
+{
+    string codigoProductoIngresado;
+    int numeroMesa;
+    int ordenAModificar = buscarOrden(codigoAModificar);
+    if (ordenAModificar != -1)
+    {
+        cout << "Ingrese el numero de mesa en que se sirvio la orden" << endl;
+        cin >> numeroMesa;
+        registroOrdenes[ordenAModificar].codigoOrden = construirCodigoOrden(numeroMesa, obtenerFechaHoyInt());
+        registroOrdenes[ordenAModificar].numeroProductosOrdenados = 0;
+        for (int i = 0; i < 50; i++)
+        {
+            cout << "Escriba 'salir' si termino de agregar productos a la orden." << endl;
+            cout << "Ingrese el codigo del producto que desea agregar: ";
+            cin >> codigoProductoIngresado;
+            if (codigoProductoIngresado == "salir")
+            {
+                break;
+            }
+            registroOrdenes[ordenAModificar].productoOrdenado[i].codigoProducto = codigoProductoIngresado;
+            cout << "Ingrese la cantidad de producto ordenado: ";
+            cin >> registroOrdenes[ordenAModificar].cantidadProductoOrdenado[i];
+            registroOrdenes[ordenAModificar].numeroProductosOrdenados++;
+        }
+        guardarOrden(registroOrdenes);
+        cout << "Orden modificada con exito." << endl;
+    }
+    else
+    {
+
+        cout << "No se encontro una orden con el codigo especificado. " << endl;
+    }
+}
+
+void eliminarOrden(string codigoAEliminar)
+{
+    int ordenAEliminar = -1;
+    ordenAEliminar = buscarOrden(codigoAEliminar);
+    if (ordenAEliminar != -1)
+    {
+        for (int i = 0; i < ultimoRegistroOrdenes; i++)
+        {
+            registroOrdenes[i] = registroOrdenes[i + 1];
+        }
+        ultimoRegistroOrdenes--;
+        guardarOrden(registroOrdenes);
+    }
+    else
+    {
+        cout << "No se encontro una orden con codigo especificado." << endl;
+    }
+}
+
 int buscarOrden(string codigoABuscar)
 {
 

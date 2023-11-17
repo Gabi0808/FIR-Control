@@ -21,11 +21,10 @@ void controlFactura();
 void seleccionarAccionControlFactura();
 void seleccionarAccionControlInventario();
 void menuControlInventario();
-void ordenesActivas();
-void ordenMesas();
+void menuOrdenes();
+void menuMesas();
+void ordenAbiertaMesas();
 void seleccionarAccionOrden();
-
-
 
 int login()
 {
@@ -344,12 +343,13 @@ void menuMF()
          << endl;
     cout << "Seleccione la opcion a realizar." << endl
          << endl;
-    cout << "1. Control de mesas y ordenes." << endl;
-    cout << "2. Control de facturas" << endl;
-    cout << "3. Regresando al menu principal." << endl;
+    cout << "1. Control de mesas." << endl;
+    cout << "2. Control de ordenes." << endl;
+    cout << "3. Control de facturas." << endl;
+    cout << "4. Regresar al menu principal." << endl;
 }
 
-void menuOrdenesYMesa()
+void menuMesas()
 {
     /*Hay que añadir una seccion de caja chica, asi como un menu de facturacion para controlar de mejor manera
     los pedidos a proveedores*/
@@ -368,24 +368,24 @@ void menuOrdenesYMesa()
     cout << "6. Regresar al menu principal." << endl;
 }
 
-void ordenesActivas()
+void menuOrdenes()
 {
     system("cls");
     cout << "Seleccione la Mesa que desea usar." << endl
          << endl;
-    cout << "1. ???? ." << endl;
-    cout << "2. ????." << endl;
-    cout << "3. ????." << endl;
-    cout << "4. ????''." << endl;
-    cout << "5. ????." << endl;
-    cout << "6. ???? ." << endl;
+    cout << "1. Ver registro de ordenes." << endl;
+    cout << "2. Agregar registro de orden." << endl;
+    cout << "3. Eliminar Orden." << endl;
+    cout << "4. Modificar Registro de orden." << endl;
+    cout << "5. Buscar orden." << endl;
+    cout << "6. Regresar al menu principal." << endl;
 }
 
 
-void ordenMesas()
+void ordenAbiertaMesas()
 {
 
-system("cls");
+    system("cls");
     cout << "Control de ordenes." << endl
          << endl;
     cout << "Seleccione la opcion a realizar." << endl
@@ -394,15 +394,14 @@ system("cls");
     cout << "2. Agregar producto." << endl;
     cout << "3. Eliminar producto." << endl;
     cout << "4. Regresar al menu principal." << endl;
-
 }
 
 void seleccionarAccionOrden()
 {
     int opcion = 0;
-        while (opcion != 4)
+    while (opcion != 4)
     {
-        ordenMesas();
+        ordenAbiertaMesas();
         cin >> opcion;
         switch (opcion)
         {
@@ -423,8 +422,6 @@ void seleccionarAccionOrden()
         }
     }
 }
-
-
 
 void controlFactura()
 {
@@ -454,8 +451,8 @@ void seleccionarAccionModuloMesa()
         switch (opcion)
         {
         case 1:
-        seleccionarMesa();
-        break;
+            seleccionarMesa();
+            break;
         case 2:
             for (int i = 0; i < ultimoRegistroMesas; i++)
             {
@@ -579,7 +576,6 @@ void seleccionarMesa()
     }
 }
 
-
 void seleccionarAccionControlFactura()
 {
     recuperarOrden(registroOrdenes, ultimoRegistroOrdenes);
@@ -594,7 +590,7 @@ void seleccionarAccionControlFactura()
             system("cls");
             generarFactura(1, registroOrdenes[0]);
             mostrarFactura(informacionFacturas[ultimoRegistroFacturas]);
-            system ("pause");
+            system("pause");
             break;
         case 2:
             cout << "Funcion no Implementada";
@@ -606,7 +602,7 @@ void seleccionarAccionControlFactura()
             break;
         case 4:
             eliminarFactura();
-           break;
+            break;
         case 5:
             modificarFactura();
             break;
