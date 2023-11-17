@@ -472,6 +472,8 @@ void generarFactura(int tipoFactura, Orden ordenDetallada)
     informacionFacturas[ultimoRegistroFacturas].subtotal = subtotal;
     informacionFacturas[ultimoRegistroFacturas].impuestos = impuestos;
     informacionFacturas[ultimoRegistroFacturas].total = total;
+
+    ultimoRegistroFacturas++;
 }
 
 void mostrarFactura(Factura facturaAMostrar)
