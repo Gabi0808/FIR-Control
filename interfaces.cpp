@@ -454,8 +454,8 @@ void seleccionarAccionModuloMesa()
         switch (opcion)
         {
         case 1:
-            cout << "Funcion no Implementada";
-            break;
+        seleccionarMesa();
+        break;
         case 2:
             for (int i = 0; i < ultimoRegistroMesas; i++)
             {
@@ -508,6 +508,77 @@ void seleccionarAccionModuloFacturacion()
         }
     }
 }
+
+void menuSeleccionMesa()
+{
+    cout << " 1. Ver orden actual " << endl;
+    cout << " 2. Agregar producto a la Orden" << endl;
+    cout << " 3. Eliminar Producto de la Orden" << endl;
+    cout << " 4. Cerrar Orden" << endl;
+    cout << " 5. Salir" << endl;
+}
+
+void seleccionarMesa()
+{
+    int numeroMesa = 0;
+    string codigoProductoAEliminar;
+    cout << " Cual mesa desea atender? ";
+    cin >> numeroMesa;
+    if (numeroMesa < 1 || numeroMesa > ultimoRegistroMesas)
+    {
+        cerr << "Número de mesa no valido." << endl;
+        return;
+    }
+    numeroMesa--;
+    if (ordenesAbiertas[numeroMesa].numeroProductosOrdenados == 0)
+    {
+        incializarOrden(numeroMesa);
+    }
+
+    int opcion = 0;
+
+    while (opcion != 5)
+    {
+        menuSeleccionMesa();
+        cin >> opcion;
+
+        switch (opcion)
+        {
+        case 1:
+            if (ordenesAbiertas[numeroMesa].numeroProductosOrdenados > 0)
+            {
+                mostrarOrden(ordenesAbiertas[numeroMesa]);
+            }
+            else
+            {
+                cout << "No hay ordenes abiertas en esta mesa" << endl;
+            }
+
+            break;
+
+        case 2:
+            agregarProductoOrden(numeroMesa);
+            break;
+        case 3:
+            cout << "Ingrese el codigo del producto que desea eliminar de la orden: " << endl;
+            cin >> codigoProductoAEliminar;
+            eliminarProductoOrden(numeroMesa, codigoProductoAEliminar);
+            break;
+        case 4:
+            cerrarOrden(numeroMesa);
+            break;
+
+        case 5:
+            cout << "Regresando al menú anterior" << endl;
+            return;
+            break;
+        default:
+            cout << "Opcion no valida" << endl;
+            break;
+        }
+    }
+}
+
 
 void seleccionarAccionControlFactura()
 {
