@@ -390,11 +390,12 @@ void ordenAbiertaMesas()
          << endl;
     cout << "Seleccione la opcion a realizar." << endl
          << endl;
-    cout << "1. Ver estado de la orden." << endl;
-    cout << "2. Agregar producto." << endl;
-    cout << "3. Eliminar producto." << endl;
-    cout << "4. Regresar al menu principal." << endl;
-
+    cout << "1. Mostrar registro de ordenes. " << endl;
+    cout << "2. Buscar orden por codigo. " << endl;
+    cout << "3. Agregar orden. " << endl;
+    cout << "4. Eliminar orden. " << endl;
+    cout << "5. Modificar orden. " << endl;
+    cout << "6. Regresar al menu principal." << endl;
 }
 
 void seleccionarAccionOrden()
@@ -404,7 +405,7 @@ void seleccionarAccionOrden()
     recuperarOrden(registroOrdenes, ultimoRegistroOrdenes);
     recuperarRegistroInventario(inventarioProducto, ultimoRegistro);
     int opcion = 0;
-        while (opcion != 4)
+    while (opcion != 4)
     {
         ordenAbiertaMesas();
         cin >> opcion;
@@ -449,6 +450,8 @@ void seleccionarAccionOrden()
             return;
             break;
         default:
+            cout << "Opcion no valida. Ingrese una opcion correcta";
+            system("pause");
             break;
         }
     }
