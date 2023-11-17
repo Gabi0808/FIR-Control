@@ -1,8 +1,3 @@
-020304
-turquita de mono
-23
-200
-lbs
 020103
 carne de res
 180
@@ -13,3 +8,48 @@ tajadas
 12
 4
 lbs
+0505
+Queso
+80
+2
+lb
+020202
+Tortillas
+5
+20
+kg
+040507
+Limon
+10
+20
+lb
+020405
+Pollo entero
+120
+5
+lb
+070809
+Ensalada de Repollo
+20
+20
+lb
+112501
+Flor de cana 7 anos (shots)
+90
+10
+lt
+112502
+Ultra Lite LT (shots)
+45
+10
+Lt
+020406
+Alitas
+160
+10
+unidades
+020407
+Piernas de pollo 
+160
+10
+unidades
