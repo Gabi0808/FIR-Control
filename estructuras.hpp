@@ -142,6 +142,7 @@ void sobreescribirDatosFactura();
 void recuperarRegistroFactura(Factura facturasARecuperar[], int &cantidadRegistros);
 void mostrarDetalleFactura(Orden ordenDetallada);
 void mostrarInfoFacturas(Factura facturaAMostrar);
+void agregarOrdenFactura();
 int ultimoRegistroFacturas = 0;
 Factura informacionFacturas[MAX];
 #endif

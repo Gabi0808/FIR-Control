@@ -318,6 +318,7 @@ void guardarOrden(Orden ordenesAGuardar[])
         archivo.close();
 
         cout << "El inventario se ha guardado en el archivo 'inventario.txt'." << endl;
+        system("pause");
     }
     else
     {
@@ -611,25 +612,53 @@ void eliminarFactura()
 
 void agregarFactura()
 {
+    int resultadoBusqueda = -1;
+
     if (ultimoRegistroFacturas < MAX)
     {
         Factura nuevaFactura;
-        cout << "\n\tNumero de factura: " << endl;
-        cin >> nuevaFactura.numeroFactura;
-        cout << "Ingrese el subtotal de la factura: " << endl;
-        nuevaFactura.subtotal;
-        cout << "Ingrese los impuestos: " << endl;
-        cin >> nuevaFactura.impuestos;
-        nuevaFactura.total = nuevaFactura.subtotal + nuevaFactura.impuestos;
+        cout << "\n\tIngrese el tipo de factura: " << endl;
+        cout << "\t1. Cliente cuota fija " << endl;
+        cout << "\t2. Cliente " << endl;
+        cout << "\t3. Proveedores " << endl;
+        cin >> nuevaFactura.tipoFactura;
+
+        if (nuevaFactura.tipoFactura == 1 || nuevaFactura.tipoFactura == 2)
+        {
+            cout << "Ingrese el codigo de la orden: ";
+            cin >> nuevaFactura.ordenCompleta.codigoOrden;
+            buscarOrden(nuevaFactura.ordenCompleta.codigoOrden);
+            if (resultadoBusqueda != -1)
+            {
+                float subtotal = calcularSubtotal(registroOrdenes[resultadoBusqueda]);
+                float impuestos = calcularImpuesto(subtotal, nuevaFactura.tipoFactura);
+                float total = calcularTotal(subtotal, impuestos);
+                nuevaFactura.subtotal = subtotal;
+                nuevaFactura.impuestos = impuestos;
+                nuevaFactura.total = total;
+            }
+        }
+        else
+        {
+            cout << "Ingrese el subtotal de la factura: ";
+            cin >> nuevaFactura.subtotal;
+
+            cout << "Ingrese los impuestos: ";
+            cin >> nuevaFactura.impuestos;
+            nuevaFactura.total = nuevaFactura.subtotal + nuevaFactura.impuestos;
+        }
+
+        nuevaFactura.numeroFactura = construirCodigoFactura(nuevaFactura.tipoFactura, obtenerFechaHoyInt());
 
         informacionFacturas[ultimoRegistroFacturas] = nuevaFactura;
         ultimoRegistroFacturas++;
-        cout << " La nueva factura se ha guardado en el archivo 'facturas.txt' ";
-        guardarFactura;
+
+        cout << "La nueva factura se ha guardado en el archivo 'facturas.txt'." << endl;
+        guardarFactura(informacionFacturas);
     }
     else
     {
-        cerr << "No se pueden agregar mas facturas" << endl;
+        cerr << "No se pueden agregar más facturas." << endl;
         system("pause");
     }
 }
@@ -679,7 +708,7 @@ void modificarFactura()
     else
     {
         cerr << "La factura no existe en el registro. No es posible realizar la operación solicitada." << endl;
-        system ("pause");
+        system("pause");
     }
 }
 

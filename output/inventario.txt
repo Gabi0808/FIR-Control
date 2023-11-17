@@ -1,7 +1,7 @@
 081301
 tona lata 355ml
 40
-82
+52
 0
 N/A
 0
@@ -15,7 +15,7 @@ carne asada
 080501
 victoria lata 355ml
 45
-90
+86
 0
 N/A
 0
@@ -40,3 +40,171 @@ Paquete Marlboro Rojo
 0
 N/A
 0
+081401
+Heineken
+45
+25
+0
+N/A
+0
+081402
+Corona 
+100
+20
+1
+040507 
+1 
+081601
+Bliss
+80
+20
+0
+N/A
+0
+041001
+Choricitos 
+65
+10
+0
+N/A
+0
+091101
+Coca-Cola 
+30
+15
+0
+N/A
+0
+091102
+Coca Lata
+35
+15
+0
+N/A
+0
+091103
+Hic
+30
+20
+0
+N/A
+0
+091104
+Jugo del Valle
+30
+10
+0
+N/A
+0
+091105
+Power
+40
+10
+0
+N/A
+0
+091106
+Gatorade
+45
+12
+0
+N/A
+0
+091107
+Botella Agua Lt
+35
+6
+0
+N/A
+0
+091108
+Agua 500ml
+35
+5
+0
+N/A
+0
+081403
+Smirnoff
+90
+15
+0
+N/A
+0
+081404
+Cerveza Sol
+70
+8
+0
+N/A
+0
+081302
+Tona Lite
+45
+10
+0
+N/A
+0
+080502
+Victoria Frost
+30
+13
+0
+N/A
+0
+081304
+Hard Seltzer
+50
+20
+0
+N/A
+0
+082501
+Seltzer Flor de cana
+45
+15
+0
+N/A
+0
+112502
+Ultra Lite Lt
+430
+10
+0
+N/A
+0
+112503
+Extra Lite Lt
+430
+5
+0
+N/A
+0
+112504
+Gran Reserva 
+380
+4
+0
+N/A
+0
+112505
+Etiqueta negra
+340
+4
+0
+N/A
+0
+112507
+Shot 7 anos
+50
+1000
+1
+112501 
+0.01 
+112508
+Ultra Lite (shots)
+45
+1000
+1
+112502 
+0.01 
