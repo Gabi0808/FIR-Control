@@ -118,11 +118,12 @@ void guardarOrden(Orden ordenesAGuardar[]);
 void recuperarOrden(Orden ordenesARecuperar[], int &cantidadRegistroOrdenes);
 void cerrarOrden(int numeroMesa);
 void mostrarOrden(Orden ordenAMostrar);
-void modificarOrden(Orden ordenAModificar);
-void eliminarOrden(Orden ordenAEliminar);
+void modificarOrden(string codigoAModificar);
+void eliminarOrden(string codigoAEliminar);
 void agregarOrden();
 int buscarOrden(string codigoABuscar);
 void registrarSalidaProductos(Orden ordenARegistrar);
+void mostrarInfoOrdenes(Orden ordenAMostrar);
 
 int ultimoRegistroOrdenes = 0;
 Orden ordenesAbiertas[50];

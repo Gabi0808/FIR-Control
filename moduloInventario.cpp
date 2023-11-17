@@ -272,7 +272,7 @@ void eliminarProducto(string codigoABuscar)
     }
     else
     {
-        cout << "No se encontró un producto con el código especificado." << endl;
+        cout << "No se encontro un producto con el código especificado." << endl;
     }
 }
 
