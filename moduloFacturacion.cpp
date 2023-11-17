@@ -717,3 +717,11 @@ void mostrarInfoFacturas(Factura facturaAMostrar)
     cout << "Impuestos: $" << facturaAMostrar.impuestos << endl;
     cout << "Total: $" << facturaAMostrar.total << endl;
 }
+
+void mostrarInfoOrdenes(Orden ordenAMostrar[], int cantidadOrdenes){
+for (int i =0; i < cantidadOrdenes; i++){
+    cout << "Orden # " << i+1 << ":" <<endl;
+    mostrarOrden(ordenAMostrar[i]);
+    cout<<endl;
+}
+}

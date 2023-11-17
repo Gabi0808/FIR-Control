@@ -120,6 +120,7 @@ void cerrarOrden(int numeroMesa);
 void mostrarOrden(Orden ordenAMostrar);
 int buscarOrden(string codigoABuscar);
 void registrarSalidaProductos(Orden ordenARegistrar);
+void mostrarInfoOrdenes(Orden ordenAMostrar);
 
 int ultimoRegistroOrdenes = 0;
 Orden ordenesAbiertas[50];
