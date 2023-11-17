@@ -433,7 +433,7 @@ void controlFactura()
          << endl;
     cout << "Seleccione la opcion a realizar." << endl
          << endl;
-    cout << "1. Seleccionar Factura." << endl;
+    cout << "1. Generar Factura." << endl;
     cout << "2. Mostrar informacion de Facturas." << endl;
     cout << "3. Agregar Factura." << endl;
     cout << "4. Eliminar Factura." << endl;

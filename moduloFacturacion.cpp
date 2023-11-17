@@ -318,6 +318,7 @@ void guardarOrden(Orden ordenesAGuardar[])
         archivo.close();
 
         cout << "El inventario se ha guardado en el archivo 'inventario.txt'." << endl;
+        system("pause");
     }
     else
     {

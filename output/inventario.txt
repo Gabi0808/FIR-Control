@@ -1,7 +1,7 @@
 081301
 tona lata 355ml
 40
-58
+52
 0
 N/A
 0
@@ -190,7 +190,7 @@ N/A
 112505
 Etiqueta negra
 340
-5
+4
 0
 N/A
 0
