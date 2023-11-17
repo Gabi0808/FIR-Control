@@ -542,16 +542,19 @@ void seleccionarAccionControlFactura()
             cout << "Funcion no Implementada";
             break;
         case 3:
-            cout << "Funcion no Implementada";
+            agregarFactura();
+            system("pause");
+            cout << "La factura ha sido agregada exitosamente " << endl;
             break;
         case 4:
-            cout << "Funcion no Implementada";
-            break;
+            eliminarFactura();
+           break;
         case 5:
-            cout << "Funcion no Implementada";
+            modificarFactura();
             break;
         case 6:
             cout << "Regresando al menu principal..." << endl;
+            system("pause");
             return;
             break;
         default:

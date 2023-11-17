@@ -1,7 +1,7 @@
 081301
 tona lata 355ml
 40
-88
+82
 0
 N/A
 0
@@ -29,7 +29,7 @@ N/A
 051201
 Paquete Modern
 40
-100
+99
 0
 N/A
 0
