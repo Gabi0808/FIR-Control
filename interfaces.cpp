@@ -459,7 +459,7 @@ void seleccionarAccionModuloMesa()
         case 2:
             for (int i = 0; i < ultimoRegistroMesas; i++)
             {
-                mostrarInfoMesas(informacionMesas[i]);
+                mostrarInfoMesas(informacionMesas[i], ordenesAbiertas[i]);
                 system("pause");
             }
             break;
@@ -511,6 +511,7 @@ void seleccionarAccionModuloFacturacion()
 
 void seleccionarAccionControlFactura()
 {
+    recuperarOrden(registroOrdenes, ultimoRegistroOrdenes);
     int opcion = 0;
     while (opcion != 7)
     {
@@ -519,22 +520,28 @@ void seleccionarAccionControlFactura()
         switch (opcion)
         {
         case 1:
-            cout << "Funcion no Implementada";
+            system("cls");
+            generarFactura(1, registroOrdenes[0]);
+            mostrarFactura(informacionFacturas[ultimoRegistroFacturas]);
+            system ("pause");
             break;
         case 2:
             cout << "Funcion no Implementada";
             break;
         case 3:
-            cout << "Funcion no Implementada";
+            agregarFactura();
+            system("pause");
+            cout << "La factura ha sido agregada exitosamente " << endl;
             break;
         case 4:
-            cout << "Funcion no Implementada";
-            break;
+            eliminarFactura();
+           break;
         case 5:
-            cout << "Funcion no Implementada";
+            modificarFactura();
             break;
         case 6:
             cout << "Regresando al menu principal..." << endl;
+            system("pause");
             return;
             break;
         default:
