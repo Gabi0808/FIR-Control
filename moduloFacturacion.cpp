@@ -583,7 +583,7 @@ void mostrarFactura(Factura facturaAMostrar)
     cout << "Barrio Luis Delgadillo frente a la pista de aterrizaje Siuna, RACCN" << endl;
     cout << "RUC : 0011306740000X";
     cout << "\t\t\t\tTelefono 2794-2387" << endl;
-    cout << "No. Factura " << facturaAMostrar.numeroFactura << "\tNumero de orden: " << facturaAMostrar.ordenCompleta.codigoOrden << endl;
+    cout << "No. Factura " << facturaAMostrar.numeroFactura << "\t\tNumero de orden: " << facturaAMostrar.ordenCompleta.codigoOrden << endl;
     cout << "Fecha: " << fecha << endl;
     resultadoBusqueda = buscarOrden(facturaAMostrar.ordenCompleta.codigoOrden);
     if (resultadoBusqueda != -1)
