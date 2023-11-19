@@ -58,7 +58,7 @@ int login()
         }
         else
         {
-            cout << "Usuario o contrasena Incorrecto, intente de nuevo";
+            cout << "Usuario o contrasena Incorrecto, intente de nuevo" << endl;
             access--;
             system("pause");
         }
@@ -622,8 +622,10 @@ void controlFactura()
 
 void seleccionarAccionControlFactura()
 {
-
+    string codigoOrden;
+    int tipoFactura;
     int opcion = 0;
+    int resultadoBusqueda = -1;
     while (opcion != 7)
     {
         controlFactura();
@@ -631,7 +633,24 @@ void seleccionarAccionControlFactura()
         switch (opcion)
         {
         case 1:
-            cout << "Funcion en trabajo"<<endl;
+
+            cout << "Ingrese el tipo de factura " << endl;
+            cin >> tipoFactura;
+            cout << "Ingrese el codigo de la orden " << endl;
+            cin >> codigoOrden;
+
+            resultadoBusqueda = buscarOrden(codigoOrden);
+            if (resultadoBusqueda != -1)
+            {
+                generarFactura(tipoFactura, registroOrdenes[resultadoBusqueda]);
+                guardarFactura(informacionFacturas);
+                cout << "Factura generada exitosamente. " << endl;
+                mostrarFactura(informacionFacturas[ultimoRegistroFacturas]);
+            }
+            else
+            {
+                cout << "No se encontro una orden con el codigo " << codigoOrden << endl;
+            }
             system("pause");
             break;
         case 2:
