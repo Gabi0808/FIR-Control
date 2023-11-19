@@ -150,4 +150,17 @@ void mostrarRegistroFactura(Factura facturaAMostrar);
 
 int ultimoRegistroFacturas = 0;
 Factura informacionFacturas[MAX];
+
+//CRUD Modulo generacion de reportes
+
+typedef struct
+{
+    string fechaTransaccion;
+    int tipoTransaccion;
+    Factura detalleTransaccion;
+} Transaccion;
+
+int ultimoRegistroTransaccion = 0;
+Transaccion registroTransacciones[MAX];
+
 #endif
