@@ -118,8 +118,8 @@ void guardarOrden(Orden ordenesAGuardar[]);
 void recuperarOrden(Orden ordenesARecuperar[], int &cantidadRegistroOrdenes);
 void cerrarOrden(int numeroMesa);
 void mostrarOrden(Orden ordenAMostrar);
-void modificarOrden(string codigoAModificar);
-void eliminarOrden(string codigoAEliminar);
+void modificarOrden(Orden ordenAModificar);
+void eliminarOrden(Orden ordenAEliminar);
 void agregarOrden();
 int buscarOrden(string codigoABuscar);
 void registrarSalidaProductos(Orden ordenARegistrar);
@@ -146,6 +146,8 @@ void recuperarRegistroFactura(Factura facturasARecuperar[], int &cantidadRegistr
 void mostrarDetalleFactura(Orden ordenDetallada);
 void mostrarInfoFacturas();
 void agregarOrdenFactura();
+void mostrarRegistroFactura(Factura facturaAMostrar);
+
 int ultimoRegistroFacturas = 0;
 Factura informacionFacturas[MAX];
 #endif

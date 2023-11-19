@@ -58,7 +58,7 @@ int login()
         }
         else
         {
-            cout << "Usuario o contrasena erroneo, intente de nuevo";
+            cout << "Usuario o contrasena Incorrecto, intente de nuevo";
             access--;
             system("pause");
         }
@@ -208,6 +208,7 @@ void menuInsumos()
     system("cls");
     cout << "Insumos del inventario" << endl;
     cout << "\nSeleccione la opcion a realizar." << endl;
+    cout << "Cantidad de registros: " << ultimoRegistroInsumos << endl;
     cout << "1. Ver insumos." << endl;
     cout << "2. Agregar insumo." << endl;
     cout << "3. Buscar insumo." << endl;
@@ -380,12 +381,12 @@ void menuOrdenes()
     system("cls");
     cout << "Seleccione la Mesa que desea usar." << endl
          << endl;
-    cout << "1. Ver registro de ordenes." << endl;
-    cout << "2. Agregar registro de orden." << endl;
-    cout << "3. Eliminar Orden." << endl;
-    cout << "4. Modificar Registro de orden." << endl;
-    cout << "5. Buscar orden." << endl;
-    cout << "6. Regresar al menu principal." << endl;
+    cout << "1. ." << endl;
+    cout << "2. " << endl;
+    cout << "3. " << endl;
+    cout << "4. " << endl;
+    cout << "5. " << endl;
+    cout << "6. " << endl;
 }
 
 void ordenAbiertaMesas()
@@ -396,11 +397,11 @@ void ordenAbiertaMesas()
          << endl;
     cout << "Seleccione la opcion a realizar." << endl
          << endl;
-    cout << "1. Ver registro ordenes." << endl;
-    cout << "2. Buscar Orden" << endl;
-    cout << "3. Agregar Orden." << endl;
-    cout << "4. Eliminar Orden." << endl;
-    cout << "5. Modificar Orden." << endl;
+    cout << "1. Mostrar registro de ordenes. " << endl;
+    cout << "2. Buscar orden por codigo. " << endl;
+    cout << "3. Agregar orden. " << endl;
+    cout << "4. Eliminar orden. " << endl;
+    cout << "5. Modificar orden. " << endl;
     cout << "6. Regresar al menu principal." << endl;
 }
 
@@ -409,7 +410,7 @@ void seleccionarAccionOrden()
     int resultadoBusqueda = -1;
     string codigoOrdenABuscar;
     int opcion = 0;
-    while (opcion != 6)
+    while (opcion != 4)
     {
         ordenAbiertaMesas();
         cin >> opcion;
@@ -454,6 +455,8 @@ void seleccionarAccionOrden()
             return;
             break;
         default:
+            cout << "Opcion no valida. Ingrese una opcion correcta";
+            system("pause");
             break;
         }
     }

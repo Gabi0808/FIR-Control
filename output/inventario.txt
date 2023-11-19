@@ -8,14 +8,14 @@ N/A
 010101
 carne asada
 150
-2
+0
 2
 020103 020301 
 0.5 2 
 080501
 victoria lata 355ml
 45
-86
+85
 0
 N/A
 0
@@ -71,7 +71,7 @@ N/A
 091101
 Coca-Cola 
 30
-15
+14
 0
 N/A
 0
@@ -208,3 +208,10 @@ Ultra Lite (shots)
 1
 112502 
 0.01 
+020202
+Alitas de Pollo
+160
+1
+1
+020406 
+10 
