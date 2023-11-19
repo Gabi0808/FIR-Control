@@ -13,18 +13,18 @@ No hay orden
 5
 libre
 No hay orden
-1
+6
 libre
 No hay orden
-2
+7
 libre
 No hay orden
-3
+8
 libre
 No hay orden
-4
+9
 reservada
 No hay orden
-5
+10
 libre
 No hay orden

@@ -283,6 +283,8 @@ void cerrarOrden(int numeroMesa)
         ultimoRegistroOrdenes++;
         registrarSalidaProductos(ordenesAbiertas[numeroMesa]);
         guardarOrden(registroOrdenes);
+        generarFactura(1, registroOrdenes[numeroMesa]);
+        guardarFactura(informacionFacturas);
         incializarOrden(numeroMesa);
     }
     else
@@ -344,9 +346,8 @@ void recuperarOrden(Orden ordenesARecuperar[], int &cantidadRegistroOrdenes)
             {
                 archivo >> ordenesARecuperar[cantidadRegistroOrdenes].cantidadProductoOrdenado[k];
             }
+            cantidadRegistroOrdenes++;
         }
-
-        cantidadRegistroOrdenes++;
 
         archivo.close();
     }
@@ -485,8 +486,23 @@ void registrarSalidaProductos(Orden ordenARegistrar)
         if (resultadoBusqueda != -1)
         {
             inventarioProducto[resultadoBusqueda].cantidadProducto -= ordenARegistrar.cantidadProductoOrdenado[i];
+            registrarEntradaSalidaInsumo(ordenARegistrar.productoOrdenado[i].codigoProducto);
         }
-        guardarProductos(inventarioProducto);
+        sobreescribirDatos();
+    }
+}
+
+void registrarSalidaInsumos(Producto productoARegistrar)
+{
+    int resultadoBusqueda = -1;
+    for (int i = 0; i < productoARegistrar.numeroInsumosUsados; i++)
+    {
+        resultadoBusqueda = buscarInsumo(productoARegistrar.insumosNecesarios[i].codigoInsumo);
+        if (resultadoBusqueda != -1)
+        {
+            inventarioInsumo[resultadoBusqueda].cantidadInsumo -= productoARegistrar.cantidadInsumosNecesarios[i];
+        }
+        sobreescribirDatosInsumos();
     }
 }
 
@@ -566,7 +582,7 @@ void mostrarFactura(Factura facturaAMostrar)
     cout << "Barrio Luis Delgadillo frente a la pista de aterrizaje Siuna, RACCN" << endl;
     cout << "RUC : 0011306740000X";
     cout << "\t\t\t\tTelefono 2794-2387" << endl;
-    cout << "No. Factura " << facturaAMostrar.numeroFactura << endl;
+    cout << "No. Factura " << facturaAMostrar.numeroFactura << "\tNumero de orden: " << facturaAMostrar.ordenCompleta.codigoOrden << endl;
     cout << "Fecha: " << fecha << endl;
     resultadoBusqueda = buscarOrden(facturaAMostrar.ordenCompleta.codigoOrden);
     if (resultadoBusqueda != -1)
@@ -745,29 +761,28 @@ void agregarFactura()
     }
 }
 
-void modificarFactura()
+int buscarFactura(string codigoABuscar)
 {
-    string numeroFactura;
-    cout << "Ingrese el numero de la factura a modificar: " << endl;
-    cin >> numeroFactura;
-
-    bool facturaEncontrada = false;
-    int indiceFacturaEncontrada = -1;
-
     for (int i = 0; i < ultimoRegistroFacturas; i++)
     {
-        if (informacionFacturas[i].numeroFactura == numeroFactura)
+        if (informacionFacturas[i].numeroFactura == codigoABuscar)
         {
-            facturaEncontrada = true;
-            indiceFacturaEncontrada = i;
-            break;
+            return i;
         }
     }
-    if (facturaEncontrada != -1)
+    return -1;
+}
+
+void modificarFactura(string codigoAModificar)
+{
+    string numeroFactura;
+    int facturaAModificar = -1;
+    facturaAModificar = buscarFactura(codigoAModificar);
+
+    if (facturaAModificar != -1)
     {
         cout << "\nInformacion actual de la factura: " << endl;
-        mostrarInfoFacturas(informacionFacturas[facturaEncontrada]);
-
+        mostrarFactura(informacionFacturas[facturaAModificar]);
         float nuevoSubtotal;
         float nuevosImpuestos;
         float nuevoTotal;
@@ -778,9 +793,9 @@ void modificarFactura()
         cin >> nuevosImpuestos;
         nuevoTotal = nuevoSubtotal + nuevosImpuestos;
 
-        informacionFacturas[facturaEncontrada].subtotal = nuevoSubtotal;
-        informacionFacturas[facturaEncontrada].impuestos = nuevosImpuestos;
-        informacionFacturas[facturaEncontrada].total = nuevoTotal;
+        informacionFacturas[facturaAModificar].subtotal = nuevoSubtotal;
+        informacionFacturas[facturaAModificar].impuestos = nuevosImpuestos;
+        informacionFacturas[facturaAModificar].total = nuevoTotal;
 
         sobreescribirDatosFactura();
 
@@ -794,18 +809,45 @@ void modificarFactura()
     }
 }
 
-void mostrarInfoFacturas(Factura facturaAMostrar)
+void mostrarInfoFacturas()
 {
-    cout << "Numero de factura: " << facturaAMostrar.numeroFactura << endl;
-    cout << "Subtotal: $" << facturaAMostrar.subtotal << endl;
-    cout << "Impuestos: $" << facturaAMostrar.impuestos << endl;
-    cout << "Total: $" << facturaAMostrar.total << endl;
+    for (int i = 0; i < ultimoRegistroFacturas; i++)
+    {
+        mostrarFactura(informacionFacturas[i]);
+    }
 }
 
-void mostrarInfoOrdenes(Orden ordenAMostrar[], int cantidadOrdenes){
-for (int i =0; i < cantidadOrdenes; i++){
-    cout << "Orden # " << i+1 << ":" <<endl;
-    mostrarOrden(ordenAMostrar[i]);
-    cout<<endl;
+void mostrarInfoOrdenes(Orden ordenAMostrar[], int cantidadOrdenes)
+{
+    for (int i = 0; i < cantidadOrdenes; i++)
+    {
+        cout << "Orden # " << i + 1 << ":" << endl;
+        mostrarOrden(ordenAMostrar[i]);
+        cout << endl;
+    }
 }
+
+void recuperarRegistroFactura(Factura facturasARecuperar[], int &cantidadRegistros)
+{
+
+    ifstream archivo("facturas.txt");
+
+    if (archivo.is_open())
+    {
+        while (archivo >> facturasARecuperar[cantidadRegistros].numeroFactura)
+        {
+            archivo.ignore();
+            archivo >> facturasARecuperar[cantidadRegistros].ordenCompleta.codigoOrden;
+            archivo >> facturasARecuperar[cantidadRegistros].subtotal;
+            archivo >> facturasARecuperar[cantidadRegistros].impuestos;
+            archivo >> facturasARecuperar[cantidadRegistros].total;
+            cantidadRegistros++;
+        }
+
+        archivo.close();
+    }
+    else
+    {
+        cerr << "No se pudo abrir el archivo." << endl;
+    }
 }

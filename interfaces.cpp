@@ -97,6 +97,16 @@ void menuPrincipal(int accesType)
 void seleccionarAccion(int accessType)
 {
     menuPrincipal(accessType);
+    ultimoRegistro = 0;
+    ultimoRegistroFacturas = 0;
+    ultimoRegistroInsumos = 0;
+    ultimoRegistroMesas = 0;
+    ultimoRegistroOrdenes = 0;
+    recuperarRegistroInsumos(inventarioInsumo, ultimoRegistroInsumos);
+    recuperarRegistroInventario(inventarioProducto, ultimoRegistro);
+    recuperarRegistroMesas(informacionMesas, ultimoRegistroMesas);
+    recuperarOrden(registroOrdenes, ultimoRegistroOrdenes);
+    recuperarRegistroFactura(informacionFacturas, ultimoRegistroFacturas);
     int opcion;
     if (accessType == 2)
         do
@@ -145,7 +155,8 @@ void seleccionarAccion(int accessType)
 void menuControlInventario()
 {
     system("cls");
-    cout << "Seleccione una opcion: " << endl;
+    cout << "Seleccione una opcion: " << endl
+         << endl;
     cout << "\t1. Control de productos " << endl;
     cout << "\t2. Control de insumos" << endl;
     cout << "\t3. Salir. " << endl;
@@ -208,9 +219,7 @@ void menuInsumos()
 
 void seleccionarAccionModuloInventario()
 {
-    ultimoRegistro = 0;
     int resultadoBusqueda = -1;
-    recuperarRegistroInventario(inventarioProducto, ultimoRegistro);
     int opcion = 0;
     while (opcion != 7)
     {
@@ -273,9 +282,7 @@ void seleccionarAccionModuloInventario()
 
 void seleccionarAccionInsumos()
 {
-    ultimoRegistroInsumos = 0;
     int resultadoBusqueda = -1;
-    recuperarRegistroInsumos(inventarioInsumo, ultimoRegistroInsumos);
     int opcion = 0;
     while (opcion != 7)
     {
@@ -401,8 +408,6 @@ void seleccionarAccionOrden()
 {
     int resultadoBusqueda = -1;
     string codigoOrdenABuscar;
-    recuperarOrden(registroOrdenes, ultimoRegistroOrdenes);
-    recuperarRegistroInventario(inventarioProducto, ultimoRegistro);
     int opcion = 0;
     while (opcion != 6)
     {
@@ -454,30 +459,12 @@ void seleccionarAccionOrden()
     }
 }
 
-void controlFactura()
-{
-    system("cls");
-    cout << "Control de Facturas." << endl
-         << endl;
-    cout << "Seleccione la opcion a realizar." << endl
-         << endl;
-    cout << "1. Generar Factura." << endl;
-    cout << "2. Mostrar informacion de Facturas." << endl;
-    cout << "3. Agregar Factura." << endl;
-    cout << "4. Eliminar Factura." << endl;
-    cout << "5. Modificar Factura." << endl;
-    cout << "6. Regresar al menu principal." << endl;
-}
-
 void seleccionarAccionModuloMesa()
 {
-    recuperarRegistroInventario(inventarioProducto, ultimoRegistro);
-    recuperarRegistroInsumos(inventarioInsumo, ultimoRegistroInsumos);
-    recuperarRegistroMesas(informacionMesas, ultimoRegistroMesas);
     int opcion = 0;
     while (opcion != 6)
     {
-        menuOrdenesYMesa();
+        menuMesas();
         cin >> opcion;
         switch (opcion)
         {
@@ -562,6 +549,7 @@ void seleccionarMesa()
     if (numeroMesa < 1 || numeroMesa > ultimoRegistroMesas)
     {
         cerr << "Número de mesa no valido." << endl;
+        system("pause");
         return;
     }
     numeroMesa--;
@@ -614,9 +602,24 @@ void seleccionarMesa()
     }
 }
 
+void controlFactura()
+{
+    system("cls");
+    cout << "Control de Facturas." << endl
+         << endl;
+    cout << "Seleccione la opcion a realizar." << endl
+         << endl;
+    cout << "1. Generar Factura." << endl;
+    cout << "2. Mostrar informacion de Facturas." << endl;
+    cout << "3. Agregar Factura." << endl;
+    cout << "4. Eliminar Factura." << endl;
+    cout << "5. Modificar Factura." << endl;
+    cout << "6. Regresar al menu principal." << endl;
+}
+
 void seleccionarAccionControlFactura()
 {
-    recuperarOrden(registroOrdenes, ultimoRegistroOrdenes);
+
     int opcion = 0;
     while (opcion != 7)
     {
@@ -625,13 +628,12 @@ void seleccionarAccionControlFactura()
         switch (opcion)
         {
         case 1:
-            system("cls");
-            generarFactura(1, registroOrdenes[0]);
-            mostrarFactura(informacionFacturas[ultimoRegistroFacturas]);
+            cout << "Funcion en trabajo"<<endl;
             system("pause");
             break;
         case 2:
-            cout << "Funcion no Implementada";
+            mostrarInfoFacturas();
+            system("pause");
             break;
         case 3:
             agregarFactura();
@@ -642,7 +644,6 @@ void seleccionarAccionControlFactura()
             eliminarFactura();
             break;
         case 5:
-            modificarFactura();
             break;
         case 6:
             cout << "Regresando al menu principal..." << endl;
