@@ -319,7 +319,7 @@ void guardarOrden(Orden ordenesAGuardar[])
 
         archivo.close();
 
-        cout << "El inventario se ha guardado en el archivo 'inventario.txt'." << endl;
+        cout << "La orden se ha guardado en 'registroOrdenes.txt'." << endl;
         system("pause");
     }
     else
@@ -406,6 +406,7 @@ void agregarOrden()
         nuevaOrden.numeroProductosOrdenados++;
     }
     registroOrdenes[ultimoRegistroOrdenes] = nuevaOrden;
+    ultimoRegistroOrdenes++;
     guardarOrden(registroOrdenes);
     cout << "Orden guardada con exito." << endl;
 }
@@ -486,7 +487,7 @@ void registrarSalidaProductos(Orden ordenARegistrar)
         if (resultadoBusqueda != -1)
         {
             inventarioProducto[resultadoBusqueda].cantidadProducto -= ordenARegistrar.cantidadProductoOrdenado[i];
-            registrarEntradaSalidaInsumo(ordenARegistrar.productoOrdenado[i].codigoProducto);
+            registrarSalidaInsumos(ordenARegistrar.productoOrdenado[i]);
         }
         sobreescribirDatos();
     }

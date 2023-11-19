@@ -71,7 +71,7 @@ N/A
 091101
 Coca-Cola 
 30
-14
+12
 0
 N/A
 0
@@ -134,7 +134,7 @@ N/A
 081404
 Cerveza Sol
 70
-8
+7
 0
 N/A
 0
@@ -211,7 +211,7 @@ Ultra Lite (shots)
 020202
 Alitas de Pollo
 160
-1
+0
 1
 020406 
 10 
