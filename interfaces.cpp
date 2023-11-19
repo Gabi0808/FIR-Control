@@ -25,6 +25,7 @@ void menuOrdenes();
 void menuMesas();
 void ordenAbiertaMesas();
 void seleccionarAccionOrden();
+void menuSeleccionMesa();
 
 int login()
 {
@@ -202,22 +203,6 @@ void menuModuloInventario()
     cout << "6. Registrar entrada/salida." << endl;
     cout << "7. Regresar al menu principal." << endl;
 }
-
-void menuInsumos()
-{
-    system("cls");
-    cout << "Insumos del inventario" << endl;
-    cout << "\nSeleccione la opcion a realizar." << endl;
-    cout << "Cantidad de registros: " << ultimoRegistroInsumos << endl;
-    cout << "1. Ver insumos." << endl;
-    cout << "2. Agregar insumo." << endl;
-    cout << "3. Buscar insumo." << endl;
-    cout << "4. Eliminar insumo." << endl;
-    cout << "5. Modificar insumo." << endl;
-    cout << "6. Registrar entrada/salida de insumo." << endl;
-    cout << "7. Volver al menu principal." << endl;
-}
-
 void seleccionarAccionModuloInventario()
 {
     int resultadoBusqueda = -1;
@@ -281,6 +266,21 @@ void seleccionarAccionModuloInventario()
     }
 }
 
+void menuInsumos()
+{
+    system("cls");
+    cout << "Insumos del inventario" << endl;
+    cout << "\nSeleccione la opcion a realizar." << endl;
+    cout << "Cantidad de registros: " << ultimoRegistroInsumos << endl;
+    cout << "1. Ver insumos." << endl;
+    cout << "2. Agregar insumo." << endl;
+    cout << "3. Buscar insumo." << endl;
+    cout << "4. Eliminar insumo." << endl;
+    cout << "5. Modificar insumo." << endl;
+    cout << "6. Registrar entrada/salida de insumo." << endl;
+    cout << "7. Volver al menu principal." << endl;
+}
+
 void seleccionarAccionInsumos()
 {
     int resultadoBusqueda = -1;
@@ -342,19 +342,6 @@ void seleccionarAccionInsumos()
             break;
         }
     }
-}
-
-void menuMF()
-{
-    system("cls");
-    cout << "Modulo de Facturacion." << endl
-         << endl;
-    cout << "Seleccione la opcion a realizar." << endl
-         << endl;
-    cout << "1. Control de mesas." << endl;
-    cout << "2. Control de ordenes." << endl;
-    cout << "3. Control de facturas." << endl;
-    cout << "4. Regresar al menu principal." << endl;
 }
 
 void menuMesas()
@@ -462,6 +449,51 @@ void seleccionarAccionOrden()
     }
 }
 
+void menuMF()
+{
+    system("cls");
+    cout << "Modulo de Facturacion." << endl
+         << endl;
+    cout << "Seleccione la opcion a realizar." << endl
+         << endl;
+    cout << "1. Control de mesas." << endl;
+    cout << "2. Control de ordenes." << endl;
+    cout << "3. Control de facturas." << endl;
+    cout << "4. Regresar al menu principal." << endl;
+}
+
+void seleccionarAccionModuloFacturacion()
+{
+    int opcion = 0;
+    while (opcion != 4)
+    {
+        menuMF();
+        cin >> opcion;
+        switch (opcion)
+        {
+        case 1:
+            seleccionarAccionModuloMesa();
+            break;
+        case 2:
+            seleccionarAccionOrden();
+            system("pause");
+            break;
+        case 3:
+            seleccionarAccionControlFactura();
+            system("pause");
+            break;
+        case 4:
+            cout << "Regresando al menu principal...";
+            system("pause");
+            return;
+            break;
+        default:
+            cout << "Ingrese una opcion valida";
+            break;
+        }
+    }
+}
+
 void seleccionarAccionModuloMesa()
 {
     int opcion = 0;
@@ -497,38 +529,6 @@ void seleccionarAccionModuloMesa()
             return;
             break;
         default:
-            break;
-        }
-    }
-}
-
-void seleccionarAccionModuloFacturacion()
-{
-    int opcion = 0;
-    while (opcion != 4)
-    {
-        menuMF();
-        cin >> opcion;
-        switch (opcion)
-        {
-        case 1:
-            seleccionarAccionModuloMesa();
-            break;
-        case 2:
-            seleccionarAccionOrden();
-            system("pause");
-            break;
-        case 3:
-            seleccionarAccionControlFactura();
-            system("pause");
-            break;
-        case 4:
-            cout << "Regresando al menu principal...";
-            system("pause");
-            return;
-            break;
-        default:
-            cout << "Ingrese una opcion valida";
             break;
         }
     }
@@ -631,7 +631,7 @@ void seleccionarAccionControlFactura()
         switch (opcion)
         {
         case 1:
-            cout << "Funcion en trabajo"<<endl;
+            cout << "Funcion en trabajo" << endl;
             system("pause");
             break;
         case 2:
