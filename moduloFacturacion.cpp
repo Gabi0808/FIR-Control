@@ -221,7 +221,7 @@ string construirCodigoOrden(int numeroMesa, int fechaOrden)
     return codigoNumerico;
 }
 
-void incializarOrden(int numeroMesa)
+void inicializarOrden(int numeroMesa)
 {
 
     ordenesAbiertas[numeroMesa].codigoOrden = construirCodigoOrden(numeroMesa, obtenerFechaHoyInt());
@@ -256,6 +256,8 @@ void agregarProductoOrden(int numeroMesa)
     }
     ordenesAbiertas[numeroMesa] = ordenActual;
     cout << "Productos guardados con exito." << endl;
+    cout << "La mesa # " << numeroMesa + 1 << " ha sido marcada como ocupada. " << endl;
+
 }
 
 void eliminarProductoOrden(int numeroMesa, string codigoProductoAEliminar)
@@ -285,7 +287,7 @@ void cerrarOrden(int numeroMesa)
         guardarOrden(registroOrdenes);
         generarFactura(1, registroOrdenes[numeroMesa]);
         guardarFactura(informacionFacturas);
-        incializarOrden(numeroMesa);
+        inicializarOrden(numeroMesa);
     }
     else
     {

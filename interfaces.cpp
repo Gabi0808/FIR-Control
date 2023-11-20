@@ -556,9 +556,17 @@ void seleccionarMesa()
         return;
     }
     numeroMesa--;
+    if (informacionMesas[numeroMesa].estadoMesa=="libre"){
+        informacionMesas[numeroMesa].estadoMesa = "ocupada";
+    } else {
+        cout << " La mesa # "<< numeroMesa+1 << "no esta disponible " << endl;
+        system("pause");
+        return;
+    }
+
     if (ordenesAbiertas[numeroMesa].numeroProductosOrdenados == 0)
     {
-        incializarOrden(numeroMesa);
+        inicializarOrden(numeroMesa);
     }
 
     int opcion = 0;
@@ -595,7 +603,7 @@ void seleccionarMesa()
             break;
 
         case 5:
-            cout << "Regresando al menú anterior" << endl;
+            cout << "Regresando al menu anterior" << endl;
             return;
             break;
         default:
