@@ -270,7 +270,7 @@ void eliminarProductoOrden(int numeroMesa, string codigoProductoAEliminar)
             ordenesAbiertas[numeroMesa].productoOrdenado[i].codigoProducto = ordenesAbiertas[numeroMesa].productoOrdenado[i + 1].codigoProducto;
             ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[i] = ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[i + 1];
             ordenesAbiertas[numeroMesa].numeroProductosOrdenados--;
-            cout << "Producto eliminado con éxito." << endl;
+            cout << "Producto eliminado con exito." << endl;
 
             return;
         }

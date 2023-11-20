@@ -549,6 +549,7 @@ void seleccionarMesa()
     string codigoProductoAEliminar;
     cout << " Cual mesa desea atender? ";
     cin >> numeroMesa;
+    int respuesta;
     if (numeroMesa < 1 || numeroMesa > ultimoRegistroMesas)
     {
         cerr << "Número de mesa no valido." << endl;
@@ -559,9 +560,20 @@ void seleccionarMesa()
     if (informacionMesas[numeroMesa].estadoMesa=="libre"){
         informacionMesas[numeroMesa].estadoMesa = "ocupada";
     } else {
-        cout << " La mesa # "<< numeroMesa+1 << "no esta disponible " << endl;
-        system("pause");
-        return;
+        cout << " La mesa #"<< numeroMesa+1 << " esta siendo ocupada " << endl;
+        cout << "Ingrese una opcion" << endl;
+        cout << " 1. Seleccionar otra mesa" << endl;
+        cout << " 2. Manejar orden de la mesa " << numeroMesa+1 << endl;
+
+        cin >> respuesta;
+        if(respuesta == 1){
+            return;
+        } else if (respuesta == 2){
+            system("cls");
+        } else {
+            cout << "Opcion invalida " << endl;
+            return;
+        }
     }
 
     if (ordenesAbiertas[numeroMesa].numeroProductosOrdenados == 0)
@@ -642,7 +654,7 @@ void seleccionarAccionControlFactura()
         {
         case 1:
 
-            cout << "Ingrese el tipo de factura " << endl;
+            cout << "Ingrese el tipo de factura (1- Cliente Cuota Fija 2- Cliente 3- Proveedor)" << endl;
             cin >> tipoFactura;
             cout << "Ingrese el codigo de la orden " << endl;
             cin >> codigoOrden;

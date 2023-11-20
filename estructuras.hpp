@@ -130,6 +130,13 @@ int ultimoRegistroOrdenes = 0;
 Orden ordenesAbiertas[50];
 Orden registroOrdenes[MAX];
 
+//Crud proveedores
+int ultimoRegistroOrdenesProveedor = 0;
+void guardarOrdenProveedor();
+void agregarOrdenProveedor();
+void mostrarInfoProveedores();
+
+
 //Crud Facturacion
 string construirCodigoFactura(int tipoFactura, int fechaFactura);
 void generarFactura(int tipoFactura, Orden ordenDetallada);
