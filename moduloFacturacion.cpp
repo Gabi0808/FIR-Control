@@ -719,32 +719,19 @@ void agregarFactura()
         cout << "\n\tIngrese el tipo de factura: " << endl;
         cout << "\t1. Cliente cuota fija " << endl;
         cout << "\t2. Cliente " << endl;
-        cout << "\t3. Proveedores " << endl;
         cin >> nuevaFactura.tipoFactura;
 
-        if (nuevaFactura.tipoFactura == 1 || nuevaFactura.tipoFactura == 2)
+        cout << "Ingrese el codigo de la orden: ";
+        cin >> nuevaFactura.ordenCompleta.codigoOrden;
+        buscarOrden(nuevaFactura.ordenCompleta.codigoOrden);
+        if (resultadoBusqueda != -1)
         {
-            cout << "Ingrese el codigo de la orden: ";
-            cin >> nuevaFactura.ordenCompleta.codigoOrden;
-            buscarOrden(nuevaFactura.ordenCompleta.codigoOrden);
-            if (resultadoBusqueda != -1)
-            {
-                float subtotal = calcularSubtotal(registroOrdenes[resultadoBusqueda]);
-                float impuestos = calcularImpuesto(subtotal, nuevaFactura.tipoFactura);
-                float total = calcularTotal(subtotal, impuestos);
-                nuevaFactura.subtotal = subtotal;
-                nuevaFactura.impuestos = impuestos;
-                nuevaFactura.total = total;
-            }
-        }
-        else
-        {
-            cout << "Ingrese el subtotal de la factura: ";
-            cin >> nuevaFactura.subtotal;
-
-            cout << "Ingrese los impuestos: ";
-            cin >> nuevaFactura.impuestos;
-            nuevaFactura.total = nuevaFactura.subtotal + nuevaFactura.impuestos;
+            float subtotal = calcularSubtotal(registroOrdenes[resultadoBusqueda]);
+            float impuestos = calcularImpuesto(subtotal, nuevaFactura.tipoFactura);
+            float total = calcularTotal(subtotal, impuestos);
+            nuevaFactura.subtotal = subtotal;
+            nuevaFactura.impuestos = impuestos;
+            nuevaFactura.total = total;
         }
 
         nuevaFactura.numeroFactura = construirCodigoFactura(nuevaFactura.tipoFactura, obtenerFechaHoyInt());
