@@ -162,5 +162,11 @@ typedef struct
 
 int ultimoRegistroTransaccion = 0;
 Transaccion registroTransacciones[MAX];
+void generarReporteConsumo();
+void generarReporteInventario();
+void generarHistorialTransacciones();
+void generarReporteControlFacturas();
+
+
 
 #endif
