@@ -603,7 +603,7 @@ void seleccionarMesa()
             break;
 
         case 2:
-            agregarProductoOrden(numeroMesa);
+            agregarProductoOrden(numeroMesa, ordenesAbiertas[numeroMesa]);
             break;
         case 3:
             cout << "Ingrese el codigo del producto que desea eliminar de la orden: " << endl;
@@ -634,10 +634,9 @@ void controlFactura()
          << endl;
     cout << "1. Generar Factura." << endl;
     cout << "2. Mostrar informacion de Facturas." << endl;
-    cout << "3. Agregar Factura." << endl;
-    cout << "4. Eliminar Factura." << endl;
-    cout << "5. Modificar Factura." << endl;
-    cout << "6. Regresar al menu principal." << endl;
+    cout << "3. Eliminar Factura." << endl;
+    cout << "4. Modificar Factura." << endl;
+    cout << "5. Regresar al menu principal." << endl;
 }
 
 void seleccionarAccionControlFactura()
@@ -646,7 +645,7 @@ void seleccionarAccionControlFactura()
     int tipoFactura;
     int opcion = 0;
     int resultadoBusqueda = -1;
-    while (opcion != 7)
+    while (opcion != 5)
     {
         controlFactura();
         cin >> opcion;
@@ -654,7 +653,7 @@ void seleccionarAccionControlFactura()
         {
         case 1:
 
-            cout << "Ingrese el tipo de factura (1- Cliente Cuota Fija 2- Cliente 3- Proveedor)" << endl;
+            cout << "Ingrese el tipo de factura (1- Cliente Cuota Fija 2- Cliente)" << endl;
             cin >> tipoFactura;
             cout << "Ingrese el codigo de la orden " << endl;
             cin >> codigoOrden;
@@ -686,11 +685,8 @@ void seleccionarAccionControlFactura()
             eliminarFactura();
             break;
         case 5:
-            break;
-        case 6:
-            cout << "Regresando al menu principal..." << endl;
+        cout << "Regresando al menu principal..." << endl;
             system("pause");
-            return;
             break;
         default:
             cout << "Seleccione una opcion valida. ";

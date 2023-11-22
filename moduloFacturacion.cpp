@@ -230,36 +230,80 @@ void inicializarOrden(int numeroMesa)
     ordenesAbiertas[numeroMesa].numeroProductosOrdenados = 0;
 }
 
-void agregarProductoOrden(int numeroMesa)
+void agregarProductoOrden(int numeroMesa, Orden ordenActual)
 {
-
-    Orden ordenActual;
+    int cantidadOrdenada = 0;
+    int resultadoBusqueda = -1;
     string codigoProductoIngresado;
 
-    ordenActual.codigoOrden = construirCodigoOrden(numeroMesa, obtenerFechaHoyInt());
-    ordenActual.numeroProductosOrdenados = 0;
-    for (int i = 0; i < 50; i++)
+    if (ordenActual.numeroProductosOrdenados == 0)
     {
-        cout << "Escriba 'salir' si termino de agregar productos a la orden." << endl;
-        cout << "Ingrese el codigo del producto que desea agregar: ";
-        cin >> codigoProductoIngresado;
-        if (codigoProductoIngresado == "salir")
+        ordenActual.codigoOrden = construirCodigoOrden(numeroMesa, obtenerFechaHoyInt());
+        ordenActual.numeroProductosOrdenados = 0;
+        for (int i = 0; i < 50; i++)
         {
-            break;
+            cout << "Escriba '0' si termino de agregar productos a la orden." << endl;
+            cout << "Ingrese el codigo del producto que desea agregar: ";
+            cin >> codigoProductoIngresado;
+            if (codigoProductoIngresado == "0")
+            {
+                break;
+            }
+            ordenActual.productoOrdenado[i].codigoProducto = codigoProductoIngresado;
+            cout << "Ingrese la cantidad de producto ordenado: ";
+            cin >> ordenActual.cantidadProductoOrdenado[i];
+            ordenesAbiertas[numeroMesa].productoOrdenado[i].codigoProducto = ordenActual.productoOrdenado[i].codigoProducto;
+            ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[i] = ordenActual.cantidadProductoOrdenado[i];
+            ordenActual.numeroProductosOrdenados++;
         }
-        ordenActual.productoOrdenado[i].codigoProducto = codigoProductoIngresado;
-        cout << "Ingrese la cantidad de producto ordenado: ";
-        cin >> ordenActual.cantidadProductoOrdenado[i];
-        ordenesAbiertas[numeroMesa].productoOrdenado[i].codigoProducto = ordenActual.productoOrdenado[i].codigoProducto;
-        ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[i] = ordenActual.cantidadProductoOrdenado[i];
-        ordenActual.numeroProductosOrdenados++;
+        ordenesAbiertas[numeroMesa] = ordenActual;
+        cout << "Productos guardados con exito." << endl;
+        cout << "La mesa # " << numeroMesa + 1 << " ha sido marcada como ocupada. " << endl;
     }
-    ordenesAbiertas[numeroMesa] = ordenActual;
-    cout << "Productos guardados con exito." << endl;
-    cout << "La mesa # " << numeroMesa + 1 << " ha sido marcada como ocupada. " << endl;
+    else
+    {
+        for (int i = ordenActual.numeroProductosOrdenados; i < 50; i++)
+        {
 
+            cout << "Escriba '0' si termino de agregar productos a la orden." << endl;
+            cout << "Ingrese el codigo del producto que desea agregar: ";
+            cin >> codigoProductoIngresado;
+            if (codigoProductoIngresado == "0")
+            {
+                break;
+            }
+            else
+            {
+                for (int j = 0; j < ordenActual.numeroProductosOrdenados; j++)
+                {
+                    if (ordenActual.productoOrdenado[j].codigoProducto == codigoProductoIngresado)
+                    {
+                        resultadoBusqueda = j;
+                    }
+                }
+                if (resultadoBusqueda != -1)
+                {
+                    cout << "Ingrese la cantidad de producto ordenado: ";
+                    cin >> cantidadOrdenada;
+                    ordenActual.cantidadProductoOrdenado[resultadoBusqueda] += cantidadOrdenada;
+                    ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[resultadoBusqueda] = ordenActual.cantidadProductoOrdenado[resultadoBusqueda];
+                    
+                }
+                else
+                {
+                    ordenActual.productoOrdenado[i].codigoProducto = codigoProductoIngresado;
+                    cout << "Ingrese la cantidad de producto ordenado: ";
+                    cin >> ordenActual.cantidadProductoOrdenado[i];
+                    ordenesAbiertas[numeroMesa].productoOrdenado[i].codigoProducto = ordenActual.productoOrdenado[i].codigoProducto;
+                    ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[i] = ordenActual.cantidadProductoOrdenado[i];
+                    ordenActual.numeroProductosOrdenados++;
+                }
+            }
+        }
+        ordenesAbiertas[numeroMesa] = ordenActual;
+        cout << "Productos guardados con exito." << endl;
+    }
 }
-
 void eliminarProductoOrden(int numeroMesa, string codigoProductoAEliminar)
 {
 
