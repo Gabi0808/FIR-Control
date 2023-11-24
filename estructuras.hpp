@@ -45,6 +45,7 @@ string codigoABuscar;
 string codigoARegistrar;
 Producto productoEncontrado;
 Insumo insumoEncontrado;
+
 //CRUD
 void recuperarRegistroInsumos(Insumo insumosARecuperar[], int &cantidadRegistrosInsumos);
 void ingresarInsumo();
