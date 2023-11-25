@@ -1,14 +1,14 @@
 081301
 tona lata 355ml
 40
-27
+23
 0
 N/A
 0
 010101
 carne asada
 150
--3
+-4
 2
 020103 020301 
 0.5 2 
@@ -22,14 +22,14 @@ N/A
 112501
 Flor de cana 7 anos 1L
 700
-8
+7
 0
 N/A
 0
 051201
 Paquete Modern
 40
-96
+93
 0
 N/A
 0

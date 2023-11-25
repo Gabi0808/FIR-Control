@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include "moduloInventario.cpp"
 #include "moduloFacturacion.cpp"
+#include "moduloReportes.cpp"
 
 using namespace std;
 
@@ -803,7 +804,9 @@ void seleccionarModuloReportes()
         switch (option)
         {
         case 1:
-            cout << "Funcion no Implementada";
+            generarReporteConsumo(1);
+            mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+            system("pause");
             break;
         case 2:
             cout << "Funcion no Implementada";

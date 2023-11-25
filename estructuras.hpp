@@ -30,12 +30,11 @@ typedef struct
     int numeroInsumosUsados;
     Insumo insumosNecesarios[20];
     float cantidadInsumosNecesarios[20];
-    
 
 } Producto;
 
 int ultimoRegistro = 0;
-int ultimoRegistroInsumos =0;
+int ultimoRegistroInsumos = 0;
 Producto inventarioProducto[MAX];
 Insumo inventarioInsumo[MAX];
 string codigoInsumoABuscar;
@@ -76,7 +75,7 @@ typedef struct
     int numeroProductosOrdenados;
     Producto productoOrdenado[50];
     int cantidadProductoOrdenado[50];
-    
+
 } Orden;
 
 typedef struct
@@ -131,18 +130,11 @@ int ultimoRegistroOrdenes = 0;
 Orden ordenesAbiertas[50];
 Orden registroOrdenes[MAX];
 
-//Crud proveedores
-int ultimoRegistroOrdenesProveedor = 0;
-void guardarOrdenProveedor();
-void agregarOrdenProveedor();
-void mostrarInfoProveedores();
-
-
-//Crud Facturacion
+// Crud Facturacion
 string construirCodigoFactura(int tipoFactura, int fechaFactura);
 void generarFactura(int tipoFactura, Orden ordenDetallada);
 float calcularSubtotal(Orden ordenDetallada);
-float calcularImpuesto (float subtotal, int tipoFactura);
+float calcularImpuesto(float subtotal, int tipoFactura);
 float calcularTotal(float impuestos, float subtotal);
 void mostrarFacturas();
 void eliminarFactura();
@@ -159,22 +151,41 @@ void mostrarRegistroFactura(Factura facturaAMostrar);
 int ultimoRegistroFacturas = 0;
 Factura informacionFacturas[MAX];
 
-//CRUD Modulo generacion de reportes
+// CRUD Modulo generacion de reportes
 
 typedef struct
 {
-    string fechaTransaccion;
-    int tipoTransaccion;
-    Factura detalleTransaccion;
-} Transaccion;
+    string fechaReporte;
+    int tipoReporte;
+    string periodoReporte;
+    string detalleReporte[100];
 
-int ultimoRegistroTransaccion = 0;
-Transaccion registroTransacciones[MAX];
-void generarReporteConsumo();
+} Reporte;
+
+typedef struct
+{
+    int numeroProductosmovidos;
+    string productosMovidos[100];
+    int cantidadProductosMovidos[100];
+
+} ProductosMovidos;
+
+int ultimoRegistroReportes = 0;
+int ultimoRegistroProductosEnReporte = 0;
+Reporte reportesGenerados[MAX];
+ProductosMovidos productosEnReporte[MAX];
+string obtenerFechaHoyComparar();
+int extraerDiaFactura(string codigoFactura);
+int extraerMesFactura(string codigoFactura);
+int extraerAnioFactura(string codigoFactura);
+void generarReporteConsumo(int tipoReporte);
+void extraerProductosHoy(const string &ordenAExtraer, ProductosMovidos &productosACopiar);
+void extraerProductosSemana();
+void extraerProductosMes();
+void determinarPeriodo();
 void generarReporteInventario();
 void generarHistorialTransacciones();
 void generarReporteControlFacturas();
-
-
+void mostrarReporte(Reporte reporteAMostrar);
 
 #endif
