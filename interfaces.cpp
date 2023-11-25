@@ -2,6 +2,7 @@
 #include <string>
 #include "moduloInventario.cpp"
 #include "moduloFacturacion.cpp"
+#include "moduloReportes.cpp"
 
 using namespace std;
 
@@ -557,20 +558,28 @@ void seleccionarMesa()
         return;
     }
     numeroMesa--;
-    if (informacionMesas[numeroMesa].estadoMesa=="libre"){
+    if (informacionMesas[numeroMesa].estadoMesa == "libre")
+    {
         informacionMesas[numeroMesa].estadoMesa = "ocupada";
-    } else {
-        cout << " La mesa #"<< numeroMesa+1 << " esta siendo ocupada " << endl;
+    }
+    else
+    {
+        cout << " La mesa #" << numeroMesa + 1 << " esta siendo ocupada " << endl;
         cout << "Ingrese una opcion" << endl;
         cout << " 1. Seleccionar otra mesa" << endl;
-        cout << " 2. Manejar orden de la mesa " << numeroMesa+1 << endl;
+        cout << " 2. Manejar orden de la mesa " << numeroMesa + 1 << endl;
 
         cin >> respuesta;
-        if(respuesta == 1){
+        if (respuesta == 1)
+        {
             return;
-        } else if (respuesta == 2){
+        }
+        else if (respuesta == 2)
+        {
             system("cls");
-        } else {
+        }
+        else
+        {
             cout << "Opcion invalida " << endl;
             return;
         }
@@ -685,7 +694,7 @@ void seleccionarAccionControlFactura()
             eliminarFactura();
             break;
         case 5:
-        cout << "Regresando al menu principal..." << endl;
+            cout << "Regresando al menu principal..." << endl;
             system("pause");
             break;
         default:
@@ -718,7 +727,9 @@ void seleccionarModuloReportes()
         switch (option)
         {
         case 1:
-            cout << "Funcion no Implementada";
+            generarReporteConsumo(1);
+            mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+            system("pause");
             break;
         case 2:
             cout << "Funcion no Implementada";
