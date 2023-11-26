@@ -864,15 +864,19 @@ void seleccionarModuloReportes()
         switch (option)
         {
         case 1:
-            generarReporteConsumo(1);
+            generarReporteConsumoDiario();
             mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
             system("pause");
             break;
         case 2:
-            cout << "Funcion no Implementada";
+            generarReporteConsumoSemanal();
+            mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+            system("pause");
             break;
         case 3:
-            cout << "Funcion no Implementada";
+            generarReporteConsumoMes();
+            mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+            system("pause");
             break;
         case 4:
             cout << "Funcion no Implementada";
