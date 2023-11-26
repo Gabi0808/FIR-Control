@@ -91,7 +91,6 @@ void generarReporteConsumoSemanal()
     int ordenExtraida, dia, mes, anio = 0;
 
     substringFecha = obtenerFechaHoyComparar();
-    cout << substringFecha << endl;
     dia = stoi(substringFecha.substr(0, 2));
     mes = stoi(substringFecha.substr(2, 2));
     anio = stoi(substringFecha.substr(4, 2));
@@ -103,8 +102,6 @@ void generarReporteConsumoSemanal()
     for (int k = 0; k < 7; k++)
     {
         substringFecha = periodoTiempo[k];
-        cout << substringFecha << endl;
-        system("pause");
         for (int j = 0; j < ultimoRegistroOrdenes; j++)
         {
             substringAComparar = registroOrdenes[j].codigoOrden.substr(2, 6);
