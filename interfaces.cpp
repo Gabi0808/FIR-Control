@@ -191,7 +191,7 @@ void seleccionarAccionControlInventario()
     do
     {
         menuControlInventario();
-        cout << "\nIngrese una opcion: ";
+        cout << "Ingrese una opcion: ";
         string input;
         cin >> input;
 
@@ -363,93 +363,71 @@ void seleccionarAccionInsumos()
 {
     int resultadoBusqueda = -1;
     int opcion = 0;
-
-    do
+    while (opcion != 7)
     {
-        menuModuloInventario();
-        cout << "Ingrese la opcion a realizar: ";
-        string input;
-        cin >> input;
-
-        bool esNumero = true;
-        for (char c : input)
+        menuInsumos();
+        cin >> opcion;
+        switch (opcion)
         {
-            if (!isdigit(c))
+        case 1:
+            for (int i = 0; i < ultimoRegistroInsumos; i++)
             {
-                esNumero = false;
-                break;
+                mostrarInsumo(inventarioInsumo[i]);
             }
-        }
-
-        if (esNumero)
-        {
-            opcion = stoi(input);
-            switch (opcion)
-            {
-            case 1:
-                for (int i = 0; i < ultimoRegistroInsumos; i++)
-                {
-                    mostrarInsumo(inventarioInsumo[i]);
-                }
-                system("pause");
-
-                break;
-            case 2:
-                ingresarInsumo();
-                break;
-            case 3:
-                cout << "Ingrese el codigo del insumo que desea buscar ";
-                cin >> codigoABuscar;
-                resultadoBusqueda = buscarInsumo(codigoABuscar);
-                if (resultadoBusqueda != -1)
-                {
-                    mostrarInsumo(inventarioInsumo[resultadoBusqueda]);
-                    system("pause");
-                }
-                else
-                {
-                    cout << "No se encontro un insumo con ese codigo. " << endl;
-                }
-
-                system("pause");
-                break;
-            case 4:
-                cout << "Ingrese el codigo del insumo que desea eliminar";
-                cin >> codigoABuscar;
-                eliminarInsumo(codigoABuscar);
-                break;
-            case 5:
-                cout << "Ingrese el codigo del insumo que desea modificar ";
-                cin >> codigoABuscar;
-                modificarInsumo(codigoABuscar);
-                break;
-            case 6:
-                cout << "Ingrese el codigo del insumo que entro o salio";
-                cin >> codigoABuscar;
-                registrarEntradaSalidaInsumo(codigoARegistrar);
-                break;
-            case 7:
-                cout << "Regresando al menu principal..." << endl;
-                return;
-                break;
-            default:
-                cout << "Seleccione una opcion valida";
-                break;
-            }
-        }
-        else
-        {
-            cout << "\n\nIngrese un numero valido. " << endl;
-            opcion = -1;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             system("pause");
+
+            break;
+        case 2:
+            ingresarInsumo();
+            break;
+        case 3:
+            cout << "Ingrese el codigo del insumo que desea buscar ";
+            cin >> codigoABuscar;
+            resultadoBusqueda = buscarInsumo(codigoABuscar);
+            if (resultadoBusqueda != -1)
+            {
+                mostrarInsumo(inventarioInsumo[resultadoBusqueda]);
+                system("pause");
+            }
+            else
+            {
+                cout << "No se encontro un insumo con ese codigo. " << endl;
+            }
+
+            system("pause");
+            break;
+        case 4:
+            cout << "Ingrese el codigo del insumo que desea eliminar";
+            cin >> codigoABuscar;
+            eliminarInsumo(codigoABuscar);
+            break;
+        case 5:
+            cout << "Ingrese el codigo del insumo que desea modificar ";
+            cin >> codigoABuscar;
+            modificarInsumo(codigoABuscar);
+            break;
+        case 6:
+            cout << "Ingrese el codigo del insumo que entro o salio";
+            cin >> codigoABuscar;
+            registrarEntradaSalidaInsumo(codigoARegistrar);
+            break;
+        case 7:
+            cout << "Regresando al menu principal..." << endl;
+            return;
+            break;
+        default:
+            cout << "Seleccione una opcion valida";
+            break;
         }
-    } while (opcion != 7);
+    }
 }
 
 void menuMesas()
 {
+    /*Hay que añadir una seccion de caja chica, asi como un menu de facturacion para controlar de mejor manera
+    los pedidos a proveedores*/
+    /*Hay que añadir el control de cuanto rinden los ingredientes, ejemplo cuantos platos salen de x cantidad de carne
+    o cuantos tragos salen de una botella*/
     system("cls");
     cout << "Control de ordenes y mesas." << endl
          << endl;
@@ -497,82 +475,56 @@ void seleccionarAccionOrden()
     int resultadoBusqueda = -1;
     string codigoOrdenABuscar;
     int opcion = 0;
-
-    do
+    while (opcion != 4)
     {
         ordenAbiertaMesas();
-        cout << "Ingrese la opcion a realizar: ";
-        string input;
-        cin >> input;
-
-        bool esNumero = true;
-        for (char c : input)
+        cin >> opcion;
+        switch (opcion)
         {
-            if (!isdigit(c))
-            {
-                esNumero = false;
-                break;
-            }
-        }
-
-        if (esNumero)
-        {
-            opcion = stoi(input);
-            switch (opcion)
-            {
-            case 1:
-                mostrarInfoOrdenes(registroOrdenes, ultimoRegistroOrdenes);
-                system("pause");
-                break;
-            case 2:
-                cout << "Ingrese el codigo del producto que desea buscar ";
-                cin >> codigoABuscar;
-                resultadoBusqueda = buscarProducto(codigoABuscar);
-                if (resultadoBusqueda != -1)
-                {
-                    mostrarOrden(registroOrdenes[resultadoBusqueda]);
-                    system("pause");
-                }
-                else
-                {
-                    cout << "No se encontro orden con ese codigo." << endl;
-                }
-
-                system("pause");
-                break;
-            case 3:
-                system("cls");
-                agregarOrden();
-                break;
-            case 4:
-                cout << "Ingrese el codigo de la orden que desea eliminar ";
-                cin >> codigoOrdenABuscar;
-                eliminarOrden(codigoOrdenABuscar);
-                break;
-            case 5:
-                cout << "Ingrese el codigo de la orden que desea modificar ";
-                cin >> codigoOrdenABuscar;
-                modificarOrden(codigoOrdenABuscar);
-                break;
-            case 6:
-                cout << "Regresando al menu principal" << endl;
-                return;
-                break;
-            default:
-                cout << "Opcion no valida. Ingrese una opcion correcta";
-                system("pause");
-                break;
-            }
-        }
-        else
-        {
-            cout << "\n\n\nIngrese un numero valido. " << endl;
-            opcion = -1;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        case 1:
+            mostrarInfoOrdenes(registroOrdenes, ultimoRegistroOrdenes);
             system("pause");
+            break;
+        case 2:
+            cout << "Ingrese el codigo del producto que desea buscar ";
+            cin >> codigoABuscar;
+            resultadoBusqueda = buscarProducto(codigoABuscar);
+            if (resultadoBusqueda != -1)
+            {
+                mostrarOrden(registroOrdenes[resultadoBusqueda]);
+                system("pause");
+            }
+            else
+            {
+                cout << "No se encontro orden con ese codigo." << endl;
+            }
+
+            system("pause");
+            break;
+        case 3:
+            system("cls");
+            agregarOrden();
+            break;
+        case 4:
+            cout << "Ingrese el codigo de la orden que desea eliminar ";
+            cin >> codigoOrdenABuscar;
+            eliminarOrden(codigoOrdenABuscar);
+            break;
+        case 5:
+            cout << "Ingrese el codigo de la orden que desea modificar ";
+            cin >> codigoOrdenABuscar;
+            modificarOrden(codigoOrdenABuscar);
+            break;
+        case 6:
+            cout << "Regresando al menu principal" << endl;
+            return;
+            break;
+        default:
+            cout << "Opcion no valida. Ingrese una opcion correcta";
+            system("pause");
+            break;
         }
-    } while (opcion != 4);
+    }
 }
 
 void menuMF()
@@ -673,40 +625,28 @@ void seleccionarMesa()
 {
     int numeroMesa = 0;
     string codigoProductoAEliminar;
-    cout << "Cual mesa desea atender? ";
+    cout << " Cual mesa desea atender? ";
     cin >> numeroMesa;
-
-    if (cin.fail())
-    {
-        cerr << "Entrada invalida. Por favor, ingrese un numero valido." << endl;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        system("pause");
-        return;
-    }
-
+    int respuesta;
     if (numeroMesa < 1 || numeroMesa > ultimoRegistroMesas)
     {
-        cerr << "Numero de mesa no valido." << endl;
+        cerr << "Número de mesa no valido." << endl;
         system("pause");
         return;
     }
-
     numeroMesa--;
-
     if (informacionMesas[numeroMesa].estadoMesa == "libre")
     {
         informacionMesas[numeroMesa].estadoMesa = "ocupada";
     }
     else
     {
-        int respuesta;
-        cout << "La mesa #" << numeroMesa + 1 << " esta siendo ocupada" << endl;
-        cout << "Ingrese una opcion:" << endl;
-        cout << "1. Seleccionar otra mesa" << endl;
-        cout << "2. Manejar orden de la mesa " << numeroMesa + 1 << endl;
-        cin >> respuesta;
+        cout << " La mesa #" << numeroMesa + 1 << " esta siendo ocupada " << endl;
+        cout << "Ingrese una opcion" << endl;
+        cout << " 1. Seleccionar otra mesa" << endl;
+        cout << " 2. Manejar orden de la mesa " << numeroMesa + 1 << endl;
 
+        cin >> respuesta;
         if (respuesta == 1)
         {
             return;
@@ -717,8 +657,7 @@ void seleccionarMesa()
         }
         else
         {
-            cout << "Opcion invalida." << endl;
-            system("pause");
+            cout << "Opcion invalida " << endl;
             return;
         }
     }
@@ -746,7 +685,9 @@ void seleccionarMesa()
             {
                 cout << "No hay ordenes abiertas en esta mesa" << endl;
             }
+
             break;
+
         case 2:
             agregarProductoOrden(numeroMesa, ordenesAbiertas[numeroMesa]);
             break;
@@ -758,14 +699,13 @@ void seleccionarMesa()
         case 4:
             cerrarOrden(numeroMesa);
             break;
+
         case 5:
             cout << "Regresando al menu anterior" << endl;
-            system("pause");
             return;
             break;
         default:
             cout << "Opcion no valida" << endl;
-            system("pause");
             break;
         }
     }
