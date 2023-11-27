@@ -1,7 +1,7 @@
 081301
 tona lata 355ml
 40
-23
+3
 0
 N/A
 0
@@ -36,7 +36,7 @@ N/A
 051301
 Paquete Marlboro Rojo
 110
-100
+97
 0
 N/A
 0

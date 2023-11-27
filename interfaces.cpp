@@ -950,4 +950,36 @@ void seleccionarModuloReportes()
             system("pause");
         }
     } while (opcion != 6);
+        cin >> option;
+        switch (option)
+        {
+        case 1:
+            generarReporteConsumoDiario();
+            mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+            system("pause");
+            break;
+        case 2:
+            generarReporteConsumoSemanal();
+            mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+            system("pause");
+            break;
+        case 3:
+            generarReporteConsumoMes();
+            mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+            system("pause");
+            break;
+        case 4:
+            cout << "Funcion no Implementada";
+            break;
+        case 5:
+            cout << "Funcion no Implementada";
+            break;
+        case 6:
+            cout << "Regresando al menu principal..." << endl;
+            break;
+        default:
+            cout << "Ingresar opcion valida" << endl;
+            break;
+        }
+    }
 }
