@@ -89,7 +89,7 @@ void generarReporteConsumoSemanal()
     string substringFecha;
     string periodoTiempo[7];
     int ordenExtraida, dia, mes, anio = 0;
-
+    nuevoReporte.tipoReporte = 2;
     substringFecha = obtenerFechaHoyComparar();
     dia = stoi(substringFecha.substr(0, 2));
     mes = stoi(substringFecha.substr(2, 2));
@@ -120,6 +120,20 @@ void generarReporteConsumoSemanal()
     ultimoRegistroProductosEnReporte++;
 }
 
+string formatoFechaAMostrar(string fecha)
+{
+    int dia = stoi(fecha.substr(0, 2));
+    int mes = stoi(fecha.substr(2, 2));
+    int anio = stoi(fecha.substr(4, 2));
+
+    stringstream fechaString;
+    fechaString << setfill('0') << setw(2) << dia << '/';
+    fechaString << setfill('0') << setw(2) << mes << '/';
+    fechaString << setfill('0') << setw(2) << (anio % 100);
+
+    return fechaString.str();
+}
+
 void generarReporteConsumoMes()
 {
 
@@ -128,7 +142,7 @@ void generarReporteConsumoMes()
     string substringFecha;
     string mesString;
     int ordenExtraida = 0;
-
+    nuevoReporte.tipoReporte = 3;
     mesString = obtenerFechaHoyComparar();
     substringFecha = mesString.substr(2, 2);
 
@@ -248,18 +262,20 @@ void mostrarReporte(Reporte reporteAMostrar, ProductosMovidos productosReportado
     {
     case 1:
         cout << "Diario " << endl;
+        cout << "Periodo de reporte: " << obtenerFechaHoy();
         break;
     case 2:
         cout << "Semanal" << endl;
+        cout << "Periodo de reporte: " << formatoFechaAMostrar(reporteAMostrar.periodoReporte) << " hasta " << obtenerFechaHoy() << endl
+             << endl;
         break;
     case 3:
         cout << "Mensual" << endl;
+        cout << "Periodo de reporte: Mes " << reporteAMostrar.periodoReporte << endl;
         break;
     default:
         break;
     }
-    cout << "Periodo de reporte: " << reporteAMostrar.periodoReporte << endl
-         << endl;
     cout << "Se consumieron en total " << productosReportados.numeroProductosmovidos << " productos distintos" << endl
          << endl;
     cout << "Detalle de productos que fueron consumidos: " << endl

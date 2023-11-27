@@ -203,7 +203,7 @@ string obtenerFechaHoy()
     stringstream fechaString;
     fechaString << setfill('0') << setw(2) << dia << '/';
     fechaString << setfill('0') << setw(2) << mes << '/';
-    fechaString << setfill('0') << setw(2) << (anio % 100) << '/';
+    fechaString << setfill('0') << setw(2) << (anio % 100);
 
     return fechaString.str();
 }
