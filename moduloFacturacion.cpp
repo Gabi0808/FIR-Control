@@ -287,7 +287,6 @@ void agregarProductoOrden(int numeroMesa, Orden ordenActual)
                     cin >> cantidadOrdenada;
                     ordenActual.cantidadProductoOrdenado[resultadoBusqueda] += cantidadOrdenada;
                     ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[resultadoBusqueda] = ordenActual.cantidadProductoOrdenado[resultadoBusqueda];
-                    
                 }
                 else
                 {
@@ -323,8 +322,22 @@ void eliminarProductoOrden(int numeroMesa, string codigoProductoAEliminar)
 
 void cerrarOrden(int numeroMesa)
 {
+    int resultadoBusqueda = -1;
     if (ordenesAbiertas[numeroMesa].numeroProductosOrdenados != 0)
     {
+        for (int j = 0; j < ordenesAbiertas[numeroMesa].numeroProductosOrdenados; j++)
+        {
+            resultadoBusqueda = buscarProducto(ordenesAbiertas[numeroMesa].productoOrdenado[j].codigoProducto);
+            if (resultadoBusqueda != -1)
+            {
+                if (inventarioProducto[resultadoBusqueda].cantidadProducto < ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[j])
+                {
+                    cout << "No hay suficiente stock del producto " << ordenesAbiertas[numeroMesa].productoOrdenado[j].codigoProducto << ". Elimine el producto y vuelva a intentar." << endl;
+                    system("pause");
+                    return;
+                }
+            }
+        }
         registroOrdenes[ultimoRegistroOrdenes] = ordenesAbiertas[numeroMesa];
         ultimoRegistroOrdenes++;
         registrarSalidaProductos(ordenesAbiertas[numeroMesa]);
