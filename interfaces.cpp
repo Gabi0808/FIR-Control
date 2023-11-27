@@ -773,6 +773,9 @@ void seleccionarMesa()
             break;
         case 4:
             cerrarOrden(numeroMesa);
+            system("pause");
+            system("clear");
+            
             break;
         case 5:
             cout << "Regresando al menu anterior" << endl;
