@@ -886,8 +886,8 @@ void menuModuloReportes()
     cout << "\nSeleccione la opcion a realizar " << endl;
     cout << "\n\n\t1. Generar reporte de consumo diario " << endl;
     cout << "\t2. Generar reporte de ventas semanal" << endl;
-    cout << "\t2. Generar reporte de consumo mensual " << endl;
-    cout << "\t3. Volver al menu principal" << endl;
+    cout << "\t3. Generar reporte de consumo mensual " << endl;
+    cout << "\t4. Volver al menu principal" << endl;
 }
 
 void seleccionarModuloReportes()
@@ -927,7 +927,7 @@ void seleccionarModuloReportes()
             case 3:
                 generarReporteConsumoMes();
                 mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
-                break;
+                system("pause");
                 break;
             case 4:
                 cout << "Regresando al menu principal..." << endl;

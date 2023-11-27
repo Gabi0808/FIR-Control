@@ -241,8 +241,9 @@ string determinarPeriodo(int &dia, int &mes, int &anio)
 void mostrarReporte(Reporte reporteAMostrar, ProductosMovidos productosReportados)
 {
     int resultadoBusqueda = -1;
+    system("cls");
     cout << "Reporte generado en la fecha: " << reporteAMostrar.fechaReporte << endl;
-    cout << "Reporte ";
+    cout << "\nReporte ";
     switch (reporteAMostrar.tipoReporte)
     {
     case 1:
@@ -271,7 +272,7 @@ void mostrarReporte(Reporte reporteAMostrar, ProductosMovidos productosReportado
         if (resultadoBusqueda != -1)
         {
 
-            cout << productosReportados.cantidadProductosMovidos[i] << "\t" << inventarioProducto[resultadoBusqueda].nombreProducto << "\t\t" << inventarioProducto[resultadoBusqueda].precioProducto << endl;
+            cout << productosReportados.cantidadProductosMovidos[i] << "\t\t" << inventarioProducto[resultadoBusqueda].nombreProducto << "\t\t\t" << inventarioProducto[resultadoBusqueda].precioProducto << endl;
         }
         else
         {
