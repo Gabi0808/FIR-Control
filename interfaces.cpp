@@ -884,12 +884,10 @@ void menuModuloReportes()
     system("cls");
     cout << "Generacion de reportes " << endl;
     cout << "\nSeleccione la opcion a realizar " << endl;
-    cout << "\n\n\t1. Generar reporte de consumo semanal " << endl;
+    cout << "\n\n\t1. Generar reporte de consumo diario " << endl;
+    cout << "\t2. Generar reporte de ventas semanal" << endl;
     cout << "\t2. Generar reporte de consumo mensual " << endl;
-    cout << "\t3. Generar reporte de control de inventario " << endl;
-    cout << "\t4. Generar historial de transacciones " << endl;
-    cout << "\t5. Generar reporte de control de facturas " << endl;
-    cout << "\t6. Volver al menu principal" << endl;
+    cout << "\t3. Volver al menu principal" << endl;
 }
 
 void seleccionarModuloReportes()
@@ -917,25 +915,24 @@ void seleccionarModuloReportes()
             switch (opcion)
             {
             case 1:
-                generarReporteConsumo(1);
+                generarReporteConsumoDiario();
                 mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
                 system("pause");
                 break;
             case 2:
-                generarReporteConsumo(2);
+                generarReporteConsumoSemanal();
+                mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+                system("pause");
                 break;
             case 3:
-                cout << "Funcion no Implementada";
+                generarReporteConsumoMes();
+                mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+                break;
                 break;
             case 4:
-                cout << "Funcion no Implementada";
-                break;
-            case 5:
-                cout << "Funcion no Implementada";
-                break;
-            case 6:
                 cout << "Regresando al menu principal..." << endl;
-                break;
+                system("pause");
+                return;
             default:
                 cout << "Ingresar opcion valida" << endl;
                 break;
@@ -949,37 +946,5 @@ void seleccionarModuloReportes()
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             system("pause");
         }
-    } while (opcion != 6);
-        cin >> option;
-        switch (option)
-        {
-        case 1:
-            generarReporteConsumoDiario();
-            mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
-            system("pause");
-            break;
-        case 2:
-            generarReporteConsumoSemanal();
-            mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
-            system("pause");
-            break;
-        case 3:
-            generarReporteConsumoMes();
-            mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
-            system("pause");
-            break;
-        case 4:
-            cout << "Funcion no Implementada";
-            break;
-        case 5:
-            cout << "Funcion no Implementada";
-            break;
-        case 6:
-            cout << "Regresando al menu principal..." << endl;
-            break;
-        default:
-            cout << "Ingresar opcion valida" << endl;
-            break;
-        }
-    }
+    } while (opcion != 3);
 }
