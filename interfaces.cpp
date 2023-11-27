@@ -424,10 +424,6 @@ void seleccionarAccionInsumos()
 
 void menuMesas()
 {
-    /*Hay que añadir una seccion de caja chica, asi como un menu de facturacion para controlar de mejor manera
-    los pedidos a proveedores*/
-    /*Hay que añadir el control de cuanto rinden los ingredientes, ejemplo cuantos platos salen de x cantidad de carne
-    o cuantos tragos salen de una botella*/
     system("cls");
     cout << "Control de ordenes y mesas." << endl
          << endl;
@@ -543,73 +539,126 @@ void menuMF()
 void seleccionarAccionModuloFacturacion()
 {
     int opcion = 0;
-    while (opcion != 4)
+
+    do
     {
         menuMF();
-        cin >> opcion;
-        switch (opcion)
+        string input;
+        cin >> input;
+
+        bool esNumero = true;
+        for (char c : input)
         {
-        case 1:
-            seleccionarAccionModuloMesa();
-            break;
-        case 2:
-            seleccionarAccionOrden();
-            system("pause");
-            break;
-        case 3:
-            seleccionarAccionControlFactura();
-            system("pause");
-            break;
-        case 4:
-            cout << "Regresando al menu principal...";
-            system("pause");
-            return;
-            break;
-        default:
-            cout << "Ingrese una opcion valida";
-            break;
+            if (!isdigit(c))
+            {
+                esNumero = false;
+                break;
+            }
         }
-    }
+
+        if (esNumero)
+        {
+            opcion = stoi(input);
+
+            switch (opcion)
+            {
+            case 1:
+                seleccionarAccionModuloMesa();
+                break;
+            case 2:
+                seleccionarAccionOrden();
+                system("pause");
+                break;
+            case 3:
+                seleccionarAccionControlFactura();
+                system("pause");
+                break;
+            case 4:
+                cout << "Regresando al menu principal...";
+                system("pause");
+                return;
+                break;
+            default:
+                cout << "Ingrese una opcion valida";
+                break;
+            }
+        }
+        else
+        {
+            cout << "Ingrese un numero valido. " << endl;
+            opcion = -1;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            system("pause");
+        }
+    } while (opcion != 4);
 }
 
 void seleccionarAccionModuloMesa()
 {
     int opcion = 0;
-    while (opcion != 6)
+
+    do
     {
         menuMesas();
-        cin >> opcion;
-        switch (opcion)
+        string input;
+        cin >> input;
+
+        bool esNumero = true;
+        for (char c : input)
         {
-        case 1:
-            seleccionarMesa();
-            break;
-        case 2:
-            for (int i = 0; i < ultimoRegistroMesas; i++)
+            if (!isdigit(c))
             {
-                mostrarInfoMesas(informacionMesas[i], ordenesAbiertas[i]);
-                system("pause");
+                esNumero = false;
+                break;
             }
-            break;
-        case 3:
-            agregarMesa();
-            system("pause");
-            cout << "La mesa ha sido agregada exitosamente ";
-            break;
-        case 4:
-            eliminarMesa();
-            break;
-        case 5:
-            cout << "Funcion no Implementada";
-            break;
-        case 6:
-            cout << "Regresando al menu principal..." << endl;
-            return;
-            break;
-        default:
-            break;
         }
-    }
+
+        if (esNumero)
+        {
+            opcion = stoi(input);
+
+            switch (opcion)
+            {
+            case 1:
+                seleccionarMesa();
+                break;
+            case 2:
+                for (int i = 0; i < ultimoRegistroMesas; i++)
+                {
+                    mostrarInfoMesas(informacionMesas[i], ordenesAbiertas[i]);
+                    system("pause");
+                }
+                break;
+            case 3:
+                agregarMesa();
+                system("pause");
+                cout << "La mesa ha sido agregada exitosamente ";
+                break;
+            case 4:
+                eliminarMesa();
+                break;
+            case 5:
+                modificarMesa();
+                break;
+            case 6:
+                cout << "Regresando al menu principal..." << endl;
+                system("pause");
+                return;
+                break;
+            default:
+                break;
+            }
+        }
+        else
+        {
+            cout << "\n\nIngrese un numero valido. " << endl;
+            opcion = -1;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            system("pause");
+        }
+    } while (opcion != 6);
 }
 
 void menuSeleccionMesa()
@@ -625,28 +674,48 @@ void seleccionarMesa()
 {
     int numeroMesa = 0;
     string codigoProductoAEliminar;
-    cout << " Cual mesa desea atender? ";
+    cout << "Cual mesa desea atender? ";
     cin >> numeroMesa;
+
+    if (cin.fail())
+    {
+        cerr << "Entrada invalida. Por favor, ingrese un numero valido." << endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        system("pause");
+        return;
+    }
+
     int respuesta;
     if (numeroMesa < 1 || numeroMesa > ultimoRegistroMesas)
     {
-        cerr << "Número de mesa no valido." << endl;
+        cerr << "Numero de mesa no valido." << endl;
         system("pause");
         return;
     }
     numeroMesa--;
+
     if (informacionMesas[numeroMesa].estadoMesa == "libre")
     {
         informacionMesas[numeroMesa].estadoMesa = "ocupada";
     }
     else
     {
-        cout << " La mesa #" << numeroMesa + 1 << " esta siendo ocupada " << endl;
+        cout << "La mesa #" << numeroMesa + 1 << " esta siendo ocupada" << endl;
         cout << "Ingrese una opcion" << endl;
-        cout << " 1. Seleccionar otra mesa" << endl;
-        cout << " 2. Manejar orden de la mesa " << numeroMesa + 1 << endl;
+        cout << "1. Seleccionar otra mesa" << endl;
+        cout << "2. Manejar orden de la mesa " << numeroMesa + 1 << endl;
 
         cin >> respuesta;
+        if (cin.fail())
+        {
+            cerr << "Entrada invalida. Por favor, ingrese un numero valido." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            system("pause");
+            return;
+        }
+
         if (respuesta == 1)
         {
             return;
@@ -674,6 +743,14 @@ void seleccionarMesa()
         menuSeleccionMesa();
         cin >> opcion;
 
+        if (cin.fail())
+        {
+            cerr << "Entrada invalida. Por favor, ingrese un numero valido." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+
         switch (opcion)
         {
         case 1:
@@ -685,9 +762,7 @@ void seleccionarMesa()
             {
                 cout << "No hay ordenes abiertas en esta mesa" << endl;
             }
-
             break;
-
         case 2:
             agregarProductoOrden(numeroMesa, ordenesAbiertas[numeroMesa]);
             break;
@@ -699,7 +774,6 @@ void seleccionarMesa()
         case 4:
             cerrarOrden(numeroMesa);
             break;
-
         case 5:
             cout << "Regresando al menu anterior" << endl;
             return;
@@ -731,105 +805,146 @@ void seleccionarAccionControlFactura()
     int tipoFactura;
     int opcion = 0;
     int resultadoBusqueda = -1;
-    while (opcion != 5)
+
+    do
     {
         controlFactura();
-        cin >> opcion;
-        switch (opcion)
+        string input;
+        cin >> input;
+
+        bool esNumero = true;
+        for (char c : input)
         {
-        case 1:
-
-            cout << "Ingrese el tipo de factura (1- Cliente Cuota Fija 2- Cliente)" << endl;
-            cin >> tipoFactura;
-            cout << "Ingrese el codigo de la orden " << endl;
-            cin >> codigoOrden;
-
-            resultadoBusqueda = buscarOrden(codigoOrden);
-            if (resultadoBusqueda != -1)
+            if (!isdigit(c))
             {
-                generarFactura(tipoFactura, registroOrdenes[resultadoBusqueda]);
-                guardarFactura(informacionFacturas);
-                cout << "Factura generada exitosamente. " << endl;
-                mostrarFactura(informacionFacturas[ultimoRegistroFacturas - 1]);
+                esNumero = false;
+                break;
             }
-            else
-            {
-                cout << "No se encontro una orden con el codigo " << codigoOrden << endl;
-            }
-            system("pause");
-            break;
-        case 2:
-            mostrarInfoFacturas();
-            system("pause");
-            break;
-        case 3:
-            agregarFactura();
-            system("pause");
-            cout << "La factura ha sido agregada exitosamente " << endl;
-            break;
-        case 4:
-            eliminarFactura();
-            break;
-        case 5:
-            cout << "Regresando al menu principal..." << endl;
-            system("pause");
-            break;
-        default:
-            cout << "Seleccione una opcion valida. ";
-            break;
         }
-    }
+        if (esNumero)
+        {
+            opcion = stoi(input);
+            switch (opcion)
+            {
+            case 1:
+
+                cout << "Ingrese el tipo de factura (1- Cliente Cuota Fija 2- Cliente)" << endl;
+                cin >> tipoFactura;
+                cout << "Ingrese el codigo de la orden " << endl;
+                cin >> codigoOrden;
+
+                resultadoBusqueda = buscarOrden(codigoOrden);
+                if (resultadoBusqueda != -1)
+                {
+                    generarFactura(tipoFactura, registroOrdenes[resultadoBusqueda]);
+                    guardarFactura(informacionFacturas);
+                    cout << "Factura generada exitosamente. " << endl;
+                    mostrarFactura(informacionFacturas[ultimoRegistroFacturas - 1]);
+                }
+                else
+                {
+                    cout << "No se encontro una orden con el codigo " << codigoOrden << endl;
+                }
+                system("pause");
+                break;
+            case 2:
+                mostrarInfoFacturas();
+                system("pause");
+                break;
+            case 3:
+                agregarFactura();
+                system("pause");
+                cout << "La factura ha sido agregada exitosamente " << endl;
+                break;
+            case 4:
+                eliminarFactura();
+                break;
+            case 5:
+                cout << "Regresando al menu principal..." << endl;
+                system("pause");
+                break;
+            default:
+                cout << "Seleccione una opcion valida. ";
+                break;
+            }
+        }
+        else
+        {
+            cout << "\n\nIngrese un numero valido. " << endl;
+            opcion = -1;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            system("pause");
+        }
+    } while (opcion != 5);
 }
 
 void menuModuloReportes()
 {
     system("cls");
     cout << "Generacion de reportes " << endl;
-    cout << "Seleccione la opcion a realizar " << endl;
-    cout << "1. Generar reporte de consumo semanal " << endl;
-    cout << "2. Generar reporte de consumo mensual " << endl;
-    cout << "3. Generar reporte de control de inventario " << endl;
-    cout << "4. Generar historial de transacciones " << endl;
-    cout << "5. Generar reporte de control de facturas " << endl;
-    cout << "6. Volver al menu principal" << endl;
+    cout << "\nSeleccione la opcion a realizar " << endl;
+    cout << "\n\n\t1. Generar reporte de consumo diario " << endl;
+    cout << "\t2. Generar reporte de ventas semanal" << endl;
+    cout << "\t3. Generar reporte de consumo mensual " << endl;
+    cout << "\t4. Volver al menu principal" << endl;
 }
 
 void seleccionarModuloReportes()
 {
-    int option = 0;
-    while (option != 6)
+    int opcion = 0;
+
+    do
     {
         menuModuloReportes();
-        cin >> option;
-        switch (option)
+        string input;
+        cin >> input;
+
+        bool esNumero = true;
+        for (char c : input)
         {
-        case 1:
-            generarReporteConsumoDiario();
-            mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
-            system("pause");
-            break;
-        case 2:
-            generarReporteConsumoSemanal();
-            mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
-            system("pause");
-            break;
-        case 3:
-            generarReporteConsumoMes();
-            mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
-            system("pause");
-            break;
-        case 4:
-            cout << "Funcion no Implementada";
-            break;
-        case 5:
-            cout << "Funcion no Implementada";
-            break;
-        case 6:
-            cout << "Regresando al menu principal..." << endl;
-            break;
-        default:
-            cout << "Ingresar opcion valida" << endl;
-            break;
+            if (!isdigit(c))
+            {
+                esNumero = false;
+                break;
+            }
         }
-    }
+        if (esNumero)
+        {
+            opcion = stoi(input);
+            switch (opcion)
+            {
+            case 1:
+                generarReporteConsumoDiario();
+                mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+                system("pause");
+                break;
+            case 2:
+                generarReporteConsumoSemanal();
+                mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+                system("pause");
+                break;
+            case 3:
+                generarReporteConsumoMes();
+                mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+                system("pause");
+                break;
+            case 4:
+                cout << "Regresando al menu principal..." << endl;
+                system("pause");
+                return;
+            default:
+                cout << "Ingresar opcion valida" << endl;
+                break;
+            }
+        }
+        else
+        {
+            cout << "\n\nIngrese un numero valido. " << endl;
+            opcion = -1;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            system("pause");
+        }
+    } while (opcion != 3);
 }

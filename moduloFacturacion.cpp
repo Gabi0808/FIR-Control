@@ -677,7 +677,7 @@ void mostrarDetalleFactura(Orden ordenDetallada)
         if (resultadoBusqueda != -1)
         {
 
-            cout << ordenDetallada.cantidadProductoOrdenado[i] << "\t" << inventarioProducto[resultadoBusqueda].nombreProducto << "\t\t" << inventarioProducto[resultadoBusqueda].precioProducto << endl;
+            cout << ordenDetallada.cantidadProductoOrdenado[i] << "\t\t" << inventarioProducto[resultadoBusqueda].nombreProducto << "\t\t" << inventarioProducto[resultadoBusqueda].precioProducto << endl;
         }
         else
         {
