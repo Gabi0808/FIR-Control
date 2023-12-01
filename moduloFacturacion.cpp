@@ -230,19 +230,42 @@ void inicializarOrden(int numeroMesa)
     ordenesAbiertas[numeroMesa].numeroProductosOrdenados = 0;
 }
 
+void mostrarProductosALaPar(Producto productosAMostrar[])
+{
+
+    int distancia = 5; // Ajusta esta distancia según tus necesidades
+    for (int i = 0; i < ultimoRegistro; i++)
+    {
+        gotoxy(60, (i * distancia) + 2);
+        cout << "Codigo: " << productosAMostrar[i].codigoProducto << endl;
+        gotoxy(60, (i * distancia) + 3);
+        cout << "Nombre: " << productosAMostrar[i].nombreProducto << endl;
+        gotoxy(60, (i * distancia) + 4);
+        cout << "Precio: " << productosAMostrar[i].precioProducto << endl;
+        gotoxy(60, (i * distancia) + 5);
+        cout << "Cantidad: " << productosAMostrar[i].cantidadProducto << endl;
+        gotoxy(60, (i * distancia) + 6);
+        cout << "------------------------------" << endl;
+    }
+}
+
 void agregarProductoOrden(int numeroMesa, Orden ordenActual)
 {
     int cantidadOrdenada = 0;
     int resultadoBusqueda = -1;
+    int distancia = 3;
+    int valordei;
     string codigoProductoIngresado;
-
+    mostrarProductosALaPar(inventarioProducto);
     if (ordenActual.numeroProductosOrdenados == 0)
     {
         ordenActual.codigoOrden = construirCodigoOrden(numeroMesa, obtenerFechaHoyInt());
         ordenActual.numeroProductosOrdenados = 0;
         for (int i = 0; i < 50; i++)
         {
+            gotoxy(0, (i * distancia) + 8);
             cout << "Escriba '0' si termino de agregar productos a la orden." << endl;
+            gotoxy(0, (i * distancia) + 9);
             cout << "Ingrese el codigo del producto que desea agregar: ";
             cin >> codigoProductoIngresado;
             if (codigoProductoIngresado == "0")
@@ -250,22 +273,30 @@ void agregarProductoOrden(int numeroMesa, Orden ordenActual)
                 break;
             }
             ordenActual.productoOrdenado[i].codigoProducto = codigoProductoIngresado;
+            gotoxy(0, (i * distancia) + 10);
             cout << "Ingrese la cantidad de producto ordenado: ";
             cin >> ordenActual.cantidadProductoOrdenado[i];
             ordenesAbiertas[numeroMesa].productoOrdenado[i].codigoProducto = ordenActual.productoOrdenado[i].codigoProducto;
             ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[i] = ordenActual.cantidadProductoOrdenado[i];
             ordenActual.numeroProductosOrdenados++;
+            valordei = i;
         }
         ordenesAbiertas[numeroMesa] = ordenActual;
+        gotoxy(0, (valordei * distancia) + 11);
         cout << "Productos guardados con exito." << endl;
+        gotoxy(0, (valordei * distancia) + 12);
         cout << "La mesa # " << numeroMesa + 1 << " ha sido marcada como ocupada. " << endl;
     }
     else
     {
+        int contador = 0;
         for (int i = ordenActual.numeroProductosOrdenados; i < 50; i++)
         {
+            resultadoBusqueda = -1;
 
+            gotoxy(0, (contador * distancia) + 8);
             cout << "Escriba '0' si termino de agregar productos a la orden." << endl;
+            gotoxy(0, (contador * distancia) + 9);
             cout << "Ingrese el codigo del producto que desea agregar: ";
             cin >> codigoProductoIngresado;
             if (codigoProductoIngresado == "0")
@@ -279,18 +310,22 @@ void agregarProductoOrden(int numeroMesa, Orden ordenActual)
                     if (ordenActual.productoOrdenado[j].codigoProducto == codigoProductoIngresado)
                     {
                         resultadoBusqueda = j;
+                        break;
                     }
                 }
                 if (resultadoBusqueda != -1)
                 {
+                    gotoxy(0, (contador * distancia) + 10);
                     cout << "Ingrese la cantidad de producto ordenado: ";
                     cin >> cantidadOrdenada;
                     ordenActual.cantidadProductoOrdenado[resultadoBusqueda] += cantidadOrdenada;
                     ordenesAbiertas[numeroMesa].cantidadProductoOrdenado[resultadoBusqueda] = ordenActual.cantidadProductoOrdenado[resultadoBusqueda];
+                    i--;
                 }
                 else
                 {
                     ordenActual.productoOrdenado[i].codigoProducto = codigoProductoIngresado;
+                    gotoxy(0, (contador * distancia) + 10);
                     cout << "Ingrese la cantidad de producto ordenado: ";
                     cin >> ordenActual.cantidadProductoOrdenado[i];
                     ordenesAbiertas[numeroMesa].productoOrdenado[i].codigoProducto = ordenActual.productoOrdenado[i].codigoProducto;
@@ -298,8 +333,11 @@ void agregarProductoOrden(int numeroMesa, Orden ordenActual)
                     ordenActual.numeroProductosOrdenados++;
                 }
             }
+            contador++;
+            valordei = contador;
         }
         ordenesAbiertas[numeroMesa] = ordenActual;
+        gotoxy(0, (valordei * distancia) + 11);
         cout << "Productos guardados con exito." << endl;
     }
 }
@@ -546,13 +584,13 @@ void registrarSalidaProductos(Orden ordenARegistrar)
         if (resultadoBusqueda != -1)
         {
             inventarioProducto[resultadoBusqueda].cantidadProducto -= ordenARegistrar.cantidadProductoOrdenado[i];
-            registrarSalidaInsumos(ordenARegistrar.productoOrdenado[i]);
+            registrarSalidaInsumos(ordenARegistrar.productoOrdenado[i], ordenARegistrar.cantidadProductoOrdenado[i]);
         }
         sobreescribirDatos();
     }
 }
 
-void registrarSalidaInsumos(Producto productoARegistrar)
+void registrarSalidaInsumos(Producto productoARegistrar, int cantidadProductoOrdenado)
 {
     int resultadoBusqueda = -1;
     for (int i = 0; i < productoARegistrar.numeroInsumosUsados; i++)
@@ -560,7 +598,7 @@ void registrarSalidaInsumos(Producto productoARegistrar)
         resultadoBusqueda = buscarInsumo(productoARegistrar.insumosNecesarios[i].codigoInsumo);
         if (resultadoBusqueda != -1)
         {
-            inventarioInsumo[resultadoBusqueda].cantidadInsumo -= productoARegistrar.cantidadInsumosNecesarios[i];
+            inventarioInsumo[resultadoBusqueda].cantidadInsumo -= productoARegistrar.cantidadInsumosNecesarios[i] * cantidadProductoOrdenado;
         }
         sobreescribirDatosInsumos();
     }

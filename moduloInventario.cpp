@@ -366,6 +366,7 @@ void registrarEntradaSalida(string codigoARegistrar)
             cout << "Ingrese la cantidad de entrada (+) del producto ";
             cin >> cantidadARegistrar;
             inventarioProducto[codigoAModificar].cantidadProducto += cantidadARegistrar;
+            registrarEntradaInsumos(inventarioProducto[codigoAModificar], cantidadARegistrar);
 
             sobreescribirDatos();
             cout << "Entrada registrada exitosamente." << endl;
@@ -376,6 +377,7 @@ void registrarEntradaSalida(string codigoARegistrar)
             cout << "Ingrese la cantidad de salida (-) del producto ";
             cin >> cantidadARegistrar;
             inventarioProducto[codigoAModificar].cantidadProducto -= cantidadARegistrar;
+            registrarSalidaInsumos(inventarioProducto[codigoAModificar], cantidadARegistrar);
 
             sobreescribirDatos();
             break;
@@ -588,7 +590,6 @@ void registrarEntradaSalidaInsumo(string codigoARegistrar)
             cout << "Ingrese la cantidad de entrada (+) del producto ";
             cin >> cantidadARegistrar;
             inventarioInsumo[codigoAModificar].cantidadInsumo += cantidadARegistrar;
-
             actualizarCantidadProductos();
             cout << "Entrada registrada exitosamente." << endl;
             system("pause");
@@ -608,5 +609,20 @@ void registrarEntradaSalidaInsumo(string codigoARegistrar)
 
             break;
         }
+    }
+}
+
+void registrarEntradaInsumos(Producto productoARegistrar, int cantidadProductoOrdenado)
+{
+
+    int resultadoBusqueda = -1;
+    for (int i = 0; i < productoARegistrar.numeroInsumosUsados; i++)
+    {
+        resultadoBusqueda = buscarInsumo(productoARegistrar.insumosNecesarios[i].codigoInsumo);
+        if (resultadoBusqueda != -1)
+        {
+            inventarioInsumo[resultadoBusqueda].cantidadInsumo += productoARegistrar.cantidadInsumosNecesarios[i] * cantidadProductoOrdenado;
+        }
+        sobreescribirDatosInsumos();
     }
 }

@@ -663,6 +663,7 @@ void seleccionarAccionModuloMesa()
 
 void menuSeleccionMesa()
 {
+    system("cls");
     cout << " 1. Ver orden actual " << endl;
     cout << " 2. Agregar producto a la Orden" << endl;
     cout << " 3. Eliminar Producto de la Orden" << endl;
@@ -757,6 +758,7 @@ void seleccionarMesa()
             if (ordenesAbiertas[numeroMesa].numeroProductosOrdenados > 0)
             {
                 mostrarOrden(ordenesAbiertas[numeroMesa]);
+                system("pause");
             }
             else
             {
@@ -773,6 +775,7 @@ void seleccionarMesa()
             break;
         case 4:
             cerrarOrden(numeroMesa);
+            informacionMesas[numeroMesa].estadoMesa == "libre";
             system("pause");
             system("clear");
             

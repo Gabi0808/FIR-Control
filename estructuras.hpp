@@ -57,6 +57,7 @@ void eliminarInsumo(string codigoABuscar);
 void registrarEntradaSalidaInsumo(string codigoARegistrar);
 int calcularProductosDisponibles(Producto producto, Insumo inventarioInsumos[], int numInsumos);
 void actualizarCantidadProductos();
+void registrarEntradaInsumos(Producto ProductoARegistrar, int cantidadProductoOrdenado);
 
 // CRUD
 void recuperarRegistroInventario(Producto productosARecuperar[], int &cantidadRegistros);
@@ -107,6 +108,7 @@ void modificarMesa();
 void sobreescribirDatosMesa();
 void recuperarRegistroMesas(Mesa mesasARecuperar[], int &cantidadRegistros);
 
+void mostrarProductosALaPar(Producto productosAMostrar[]);
 int obtenerFechaHoyInt();
 string obtenerFechaHoy();
 string construirCodigoOrden(int numeroMesa, int fechaOrden);
@@ -122,7 +124,7 @@ void eliminarOrden(string codigoAEliminar);
 void agregarOrden();
 int buscarOrden(string codigoABuscar);
 void registrarSalidaProductos(Orden ordenARegistrar);
-void registrarSalidaInsumos(Producto productoARegistrar);
+void registrarSalidaInsumos(Producto productoARegistrar, int cantidadProductoOrdenado);
 void mostrarInfoOrdenes(Orden ordenAMostrar[], int cantidadOrdenes);
 
 int ultimoRegistroOrdenes = 0;
@@ -179,4 +181,23 @@ void extraerProductos(const string &ordenAExtraer, ProductosMovidos &productosAC
 string determinarPeriodo(int &dia, int &mes, int &anio);
 void mostrarReporte(Reporte reporteAMostrar);
 
+#ifdef _WIN32 // Para Windows
+#include <windows.h>
+void gotoxy(short int x, short int y) {
+    COORD coord = { x, y };
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+#elif __linux__ // Para Linux
+#include <ncurses.h>
+void gotoxy(int x, int y) {
+    move(y, x);
+}
+#else // Para otros sistemas operativos
+void gotoxy(int x, int y) {
+    printf("\033[%d;%df", y, x);
+}
 #endif
+
+#endif
+
+
