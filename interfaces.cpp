@@ -108,22 +108,74 @@ int login()
 void menuPrincipal(int accesType)
 {
     system("cls");
+    imprimirMarco();
     if (accesType == 2)
     {
+        gotoxy(4, 2);
         cout << BOLD << BLUE << "FFFFFF  II  RRRRRR       CCCCCC  OOOOOO  NN     NN  TTTTTTTT  RRRRRR    OOOOOO  LL" << RESET << endl;
+        gotoxy(4,3);
         cout << BOLD << BLUE << "FF      II  RR  RR       CC      OO  OO  NN NN  NN  TTTTTTTT  RR  RR    OO  OO  LL  " << RESET << endl;
+        gotoxy(4,4);
         cout << BOLD << BLUE << "FFFF    II  RRRRRR  " << BOLD << CYAN << " ===" << RESET << BOLD << BLUE << " CC      OO  OO  NN  NNNNN    TTTT    RRRRRR    OO  OO  LL" << RESET << endl;
+        gotoxy(4,5);
         cout << BOLD << BLUE << "FF      II  RR  RRR      CC      OO  OO  NN   NNNN    TTTT    RR  RRR   OO  OO  LL" << RESET << endl;
+        gotoxy(4, 6);
         cout << BOLD << BLUE << "FF      II  RR   RRR     CCCCCC  OOOOOO  NN    NNN    TTTT    RR   RRR  OOOOOO  LLLLLL " << RESET << endl;
 
-
-        cout << "\n\nSistema FIR-Control / Gerencia" << endl
-             << endl;
+        gotoxy(6, 9);
+        cout << "Sistema FIR-Control / Gerencia" << endl;
+        gotoxy(6, 11);
         cout << "Acceder a:" << endl;
-        cout << "\n\t1. Control de Inventario." << endl;
-        cout << "\t2. Control de ordenes y mesas." << endl;
-        cout << "\t3. Generacion de reportes." << endl;
-        cout << "\t4. Salir del programa." << endl;
+        gotoxy(6, 13);
+        cout << "1. Control de Inventario." << endl;
+        gotoxy(6, 14);
+        cout << "2. Control de ordenes y mesas." << endl;
+        gotoxy(6, 15);
+        cout << "3. Generacion de reportes." << endl;
+        gotoxy(6, 16);
+        cout << "4. Salir del programa." << endl;
+        gotoxy(110, 3);
+        cout << WHITE << ".sssssssss.";
+        gotoxy(105, 4);
+        cout << WHITE << ".sssssssssssssssssss";
+        gotoxy(103, 5);
+        cout << WHITE << "sssssssssssssssssssssssss";
+        gotoxy(101, 6);
+        cout << WHITE << "ssssssssssssssssssssssssssss";
+        gotoxy(101, 7);
+        cout << WHITE << "@@sssssssssssssssssssssss@ss";
+        gotoxy(101, 8);
+        cout << CYAN << "|" << WHITE << "s@@@@sssssssssssssss@@@@s" << CYAN <<"|" << WHITE << "s";
+        gotoxy(94, 9);
+        cout << CYAN << "_______|" << WHITE << "sssss@@@@@sssss@@@@@sssss" << CYAN << "|" << WHITE << "s";
+        gotoxy(92, 10);
+        cout << CYAN << "/" << WHITE << "         sssssssss@sssss@sssssssss" << CYAN << "|" << WHITE << "s";
+        gotoxy(91, 11);
+        cout << CYAN << "/  .------+" << YELLOW << "." << WHITE << "ssssssss@sssss@ssssssss" << YELLOW << "." << CYAN << "|";
+        gotoxy(90, 12);
+        cout << CYAN << "/  /       |" << YELLOW << "..." << WHITE << "sssssss@sss@sssssss" << YELLOW << "..." << CYAN << "|";
+        gotoxy(89, 13);
+        cout << CYAN << "|  |        |" << YELLOW << "......." << WHITE << "sss@sss@ssss" << YELLOW << "......" << CYAN << "|";
+        gotoxy(89, 14);
+        cout << CYAN << "|  |        |" << YELLOW << ".........." << WHITE << "s@ss@sss." << YELLOW << "......" << CYAN << "|";
+        gotoxy(89, 15);
+        cout << CYAN << "|  |        |" << YELLOW << "..........." << WHITE << "@ss@" << YELLOW << ".........." << CYAN << "|";
+        gotoxy(90, 16);
+        cout << CYAN << "\\  \\       |" << YELLOW << "............" << WHITE << "ss@" << YELLOW << ".........." << CYAN << "|";
+        gotoxy(91, 17);
+        cout << CYAN << "\\  '------+" << YELLOW << "..........." << WHITE << "ss@" << YELLOW << "..........." << CYAN << "|";
+        gotoxy(92, 18);
+        cout << CYAN << "\\________ " << YELLOW << "........................." << CYAN << "|";
+        gotoxy(101, 19);
+        cout << CYAN << "|" << YELLOW << "........................." << CYAN << "|";
+        gotoxy(100, 20);
+        cout << CYAN << "/" << YELLOW << "..........................." << CYAN << "\\";
+        gotoxy(100, 21);
+        cout << CYAN << "|" << YELLOW << "............................" << CYAN << "|";
+        gotoxy(103, 22);
+        cout << CYAN << "|" << YELLOW << "......................." << CYAN << "|";
+        gotoxy(107, 23);
+        cout << CYAN << "|" << YELLOW << "..............." << CYAN "|" << RESET;
     }
     else
     {
@@ -154,8 +206,10 @@ void seleccionarAccion(int accessType)
     do
     {
         menuPrincipal(accessType);
-        cout << "\nIngrese una opcion: ";
+        gotoxy(8, 20);
+        cout << "Ingrese una opcion: ";
         string input;
+        gotoxy(29, 20);
         cin >> input;
 
         bool esNumero = true;
