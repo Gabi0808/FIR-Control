@@ -9,6 +9,17 @@
 #include <sstream>
 #include <iomanip>
 #define MAX 1000
+#define RESET "\033[0m"
+#define BLACK "\033[30m"
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define YELLOW "\033[33m"
+#define BLUE "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN "\033[36m"
+#define WHITE "\033[37m"
+#define BOLD "\033[1m"
+#define UNDERLINE "\033[4m"
 
 using namespace std;
 
@@ -45,7 +56,7 @@ string codigoARegistrar;
 Producto productoEncontrado;
 Insumo insumoEncontrado;
 
-//CRUD
+// CRUD
 void recuperarRegistroInsumos(Insumo insumosARecuperar[], int &cantidadRegistrosInsumos);
 void ingresarInsumo();
 void guardarInsumos(Insumo insumosAGuardar[]);
@@ -183,21 +194,22 @@ void mostrarReporte(Reporte reporteAMostrar);
 
 #ifdef _WIN32 // Para Windows
 #include <windows.h>
-void gotoxy(short int x, short int y) {
-    COORD coord = { x, y };
+void gotoxy(short int x, short int y)
+{
+    COORD coord = {x, y};
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 #elif __linux__ // Para Linux
 #include <ncurses.h>
-void gotoxy(int x, int y) {
+void gotoxy(int x, int y)
+{
     move(y, x);
 }
 #else // Para otros sistemas operativos
-void gotoxy(int x, int y) {
+void gotoxy(int x, int y)
+{
     printf("\033[%d;%df", y, x);
 }
 #endif
 
 #endif
-
-

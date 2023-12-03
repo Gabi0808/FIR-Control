@@ -232,7 +232,7 @@ void seleccionarAccionControlInventario()
             cout << "\n\n\nIngrese un numero valido. " << endl;
             opcion = -1;
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.ignore();
             system("pause");
         }
     } while (opcion != 3);
@@ -338,7 +338,7 @@ void seleccionarAccionModuloInventario()
             cout << "\n\nIngrese un numero valido. " << endl;
             opcion = -1;
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.ignore();
             system("pause");
         }
     } while (opcion != 7);
@@ -588,7 +588,7 @@ void seleccionarAccionModuloFacturacion()
             cout << "Ingrese un numero valido. " << endl;
             opcion = -1;
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.ignore();
             system("pause");
         }
     } while (opcion != 4);
@@ -655,7 +655,7 @@ void seleccionarAccionModuloMesa()
             cout << "\n\nIngrese un numero valido. " << endl;
             opcion = -1;
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.ignore();
             system("pause");
         }
     } while (opcion != 6);
@@ -682,7 +682,7 @@ void seleccionarMesa()
     {
         cerr << "Entrada invalida. Por favor, ingrese un numero valido." << endl;
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.ignore();
         system("pause");
         return;
     }
@@ -712,7 +712,7 @@ void seleccionarMesa()
         {
             cerr << "Entrada invalida. Por favor, ingrese un numero valido." << endl;
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.ignore();
             system("pause");
             return;
         }
@@ -748,7 +748,7 @@ void seleccionarMesa()
         {
             cerr << "Entrada invalida. Por favor, ingrese un numero valido." << endl;
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.ignore();
             continue;
         }
 
@@ -879,7 +879,7 @@ void seleccionarAccionControlFactura()
             cout << "\n\nIngrese un numero valido. " << endl;
             opcion = -1;
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.ignore();
             system("pause");
         }
     } while (opcion != 5);
@@ -949,7 +949,7 @@ void seleccionarModuloReportes()
             cout << "\n\nIngrese un numero valido. " << endl;
             opcion = -1;
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.ignore();
             system("pause");
         }
     } while (opcion != 3);

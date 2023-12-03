@@ -1,12 +1,12 @@
 020103
 carne de res
 180
-10
+12.5
 lbs
 020301
 tajadas
 12
-4
+14
 lbs
 0505
 Queso
