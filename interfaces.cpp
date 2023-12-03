@@ -110,7 +110,14 @@ void menuPrincipal(int accesType)
     system("cls");
     if (accesType == 2)
     {
-        cout << "Sistema FIR-Control / Gerencia" << endl
+        cout << BOLD << BLUE << "FFFFFF  II  RRRRRR       CCCCCC  OOOOOO  NN     NN  TTTTTTTT  RRRRRR    OOOOOO  LL" << RESET << endl;
+        cout << BOLD << BLUE << "FF      II  RR  RR       CC      OO  OO  NN NN  NN  TTTTTTTT  RR  RR    OO  OO  LL  " << RESET << endl;
+        cout << BOLD << BLUE << "FFFF    II  RRRRRR  " << BOLD << CYAN << " ===" << RESET << BOLD << BLUE << " CC      OO  OO  NN  NNNNN    TTTT    RRRRRR    OO  OO  LL" << RESET << endl;
+        cout << BOLD << BLUE << "FF      II  RR  RRR      CC      OO  OO  NN   NNNN    TTTT    RR  RRR   OO  OO  LL" << RESET << endl;
+        cout << BOLD << BLUE << "FF      II  RR   RRR     CCCCCC  OOOOOO  NN    NNN    TTTT    RR   RRR  OOOOOO  LLLLLL " << RESET << endl;
+
+
+        cout << "\n\nSistema FIR-Control / Gerencia" << endl
              << endl;
         cout << "Acceder a:" << endl;
         cout << "\n\t1. Control de Inventario." << endl;
