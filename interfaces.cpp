@@ -28,6 +28,33 @@ void menuMesas();
 void ordenAbiertaMesas();
 void seleccionarAccionOrden();
 void menuSeleccionMesa();
+void imprimirMarco();
+
+void imprimirMarco()
+{
+    int pos = 0;
+    int posy = 0;
+    for (int x = 0; x < 2; x++)
+    {
+        for (int i = 0; i < 146; i++)
+        {
+            gotoxy(i, posy);
+            cout << BLUE << "*";
+        }
+        posy = 35;
+    }
+
+    for (int j = 0; j < 2; j++)
+    {
+
+        for (int k = 0; k < 35; k++)
+        {
+            gotoxy(pos, k);
+            cout << BLUE << "*";
+        }
+        pos = 145;
+    }
+}
 
 int login()
 {
@@ -36,19 +63,25 @@ int login()
     while (access > 0)
     {
         system("cls");
-        cout << "Bienvenido al menu principal de FIR-Control" << endl;
-        cout << endl
-             << endl
-             << "Inicie sesion para acceder a las funciones." << endl;
+        imprimirMarco();
+        gotoxy(55, 0);
+        cout << BLUE << BOLD << "Bienvenido al sistema FIR-Control" << endl;
+        gotoxy(50, 3);
+        cout << RESET << "Inicie sesion para acceder a las funciones." << endl;
+        gotoxy(8, 5);
         cout << "Intentos restantes: " << access << endl;
-        cout << "Ingrese su usuario: \n"
-             << endl;
+        gotoxy(8, 7);
+        cout << "Ingrese su usuario: ";
+        gotoxy(28, 7);
         cin >> usuario;
+        gotoxy(8, 9);
         cout << "Ingrese su contrasena: " << endl;
+        gotoxy(32, 9);
         cin >> contrasena;
 
         if (usuario == "BarBrother" && contrasena == "banana123")
         {
+
             cout << "Acceso concedido como empleado de Bar Brother" << endl;
             system("pause");
             return 1;
@@ -778,7 +811,7 @@ void seleccionarMesa()
             informacionMesas[numeroMesa].estadoMesa == "libre";
             system("pause");
             system("clear");
-            
+
             break;
         case 5:
             cout << "Regresando al menu anterior" << endl;
