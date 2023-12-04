@@ -1105,7 +1105,7 @@ void seleccionarModuloReportes()
     {
         menuModuloReportes();
         string input;
-        gotoxy(40, 12);
+        gotoxy(10, 12);
         cin >> input;
 
         bool esNumero = true;
@@ -1141,7 +1141,9 @@ void seleccionarModuloReportes()
                 system("pause");
                 break;
             case 4:
+                gotoxy(10, 15);
                 cout << "Regresando al menu principal..." << endl;
+                gotoxy(10,16);
                 system("pause");
                 return;
             default:

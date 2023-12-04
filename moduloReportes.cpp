@@ -296,18 +296,19 @@ void mostrarReporte(Reporte reporteAMostrar, ProductosMovidos productosReportado
     cout << "Nombre del Producto";
     gotoxy(45, 12);
     cout << "Precio";
-
+    int ultimaPos = 14;
     for (int i = 0; i < productosReportados.numeroProductosmovidos; i++)
     {
         resultadoBusqueda = buscarProducto(productosReportados.productosMovidos[i]);
         if (resultadoBusqueda != -1)
         {
-            gotoxy(5, 14);
+            gotoxy(5, ultimaPos);
             cout << productosReportados.cantidadProductosMovidos[i];
-            gotoxy(20, 14);
+            gotoxy(20, ultimaPos);
             cout << inventarioProducto[resultadoBusqueda].nombreProducto;
-            gotoxy(45, 14);
+            gotoxy(45, ultimaPos);
             cout << inventarioProducto[resultadoBusqueda].precioProducto;
+            ultimaPos++;
         }
         else
         {
