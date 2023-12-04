@@ -107,8 +107,14 @@ typedef struct
     float total;
 } Factura;
 
+
+
 int ultimoRegistroMesas = 0;
 Mesa informacionMesas[MAX];
+//COLORS
+void imprimirMarco();
+void imprimirMarcoVerde();
+
 // CRUD
 void seleccionarMesa();
 void mostrarInfoMesas(Mesa mesaAMostrar, Orden ordenAMostrar);

@@ -56,6 +56,32 @@ void imprimirMarco()
     }
 }
 
+void imprimirMarcoVerde()
+{
+    int pos = 0;
+    int posy = 0;
+    for (int x = 0; x < 2; x++)
+    {
+        for (int i = 0; i < 146; i++)
+        {
+            gotoxy(i, posy);
+            cout << GREEN << "*";
+        }
+        posy = 35;
+    }
+
+    for (int j = 0; j < 2; j++)
+    {
+
+        for (int k = 0; k < 35; k++)
+        {
+            gotoxy(pos, k);
+            cout << GREEN << "*" << RESET;
+        }
+        pos = 145;
+    }
+}
+
 int login()
 {
     string usuario, contrasena;
@@ -90,6 +116,7 @@ int login()
         {
             gotoxy(8,12);
             cout << "Acceso concedido como gerente de Bar Brother" << endl;
+            gotoxy(8,13);
             system("pause");
             return 2;
         }
@@ -294,7 +321,7 @@ void seleccionarAccionControlInventario()
         gotoxy(8, 10);
         cout << "Ingrese una opcion: ";
         string input;
-        gotoxy(8,37);
+        gotoxy(28,10);
         cin >> input;
 
         bool esNumero = true;
@@ -989,12 +1016,19 @@ void seleccionarAccionControlFactura()
 void menuModuloReportes()
 {
     system("cls");
+    imprimirMarcoVerde();
+    gotoxy(5,3);
     cout << "Generacion de reportes " << endl;
-    cout << "\nSeleccione la opcion a realizar " << endl;
-    cout << "\n\n\t1. Generar reporte de consumo diario " << endl;
-    cout << "\t2. Generar reporte de ventas semanal" << endl;
-    cout << "\t3. Generar reporte de consumo mensual " << endl;
-    cout << "\t4. Volver al menu principal" << endl;
+    gotoxy(5,5);
+    cout << "Seleccione la opcion a realizar " << endl;
+    gotoxy(10, 8);
+    cout << "1. Generar reporte de consumo diario " << endl;
+    gotoxy(10,9);
+    cout << "2. Generar reporte de ventas semanal" << endl;
+    gotoxy(10,10);
+    cout << "3. Generar reporte de consumo mensual " << endl;
+    gotoxy(10,11);
+    cout << "4. Volver al menu principal" << endl;
 }
 
 void seleccionarModuloReportes()
@@ -1005,6 +1039,7 @@ void seleccionarModuloReportes()
     {
         menuModuloReportes();
         string input;
+        gotoxy(40,12);
         cin >> input;
 
         bool esNumero = true;

@@ -256,30 +256,41 @@ void mostrarReporte(Reporte reporteAMostrar, ProductosMovidos productosReportado
 {
     int resultadoBusqueda = -1;
     system("cls");
+    imprimirMarcoVerde();
+    gotoxy(5, 4);
     cout << "Reporte generado en la fecha: " << reporteAMostrar.fechaReporte << endl;
-    cout << "\nReporte ";
+    gotoxy(5, 6);
+    cout << "Reporte ";
     switch (reporteAMostrar.tipoReporte)
     {
     case 1:
+        gotoxy(14, 6);
         cout << "Diario " << endl;
+        gotoxy(5, 7);
         cout << "Periodo de reporte: " << obtenerFechaHoy();
         break;
     case 2:
+        gotoxy(14, 6);
         cout << "Semanal" << endl;
+        gotoxy(5, 7);
         cout << "Periodo de reporte: " << formatoFechaAMostrar(reporteAMostrar.periodoReporte) << " hasta " << obtenerFechaHoy() << endl
              << endl;
         break;
     case 3:
+        gotoxy(14, 6);
         cout << "Mensual" << endl;
+        gotoxy(5, 7);
         cout << "Periodo de reporte: Mes " << reporteAMostrar.periodoReporte << endl;
         break;
     default:
         break;
     }
+    gotoxy(5, 8);
     cout << "Se consumieron en total " << productosReportados.numeroProductosmovidos << " productos distintos" << endl
          << endl;
-    cout << "Detalle de productos que fueron consumidos: " << endl
-         << endl;
+    gotoxy(5, 10);
+    cout << "Detalle de productos que fueron consumidos: " << endl;
+    gotoxy(5, 12);
     cout << "Cantidad \tNombre del Producto \t\tPrecio" << endl;
 
     for (int i = 0; i < productosReportados.numeroProductosmovidos; i++)
