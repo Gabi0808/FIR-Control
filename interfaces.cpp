@@ -595,17 +595,17 @@ void menuMesas()
     cout << "Control de ordenes y mesas." << endl;
     gotoxy(5, 6);
     cout << "Seleccione la opcion a realizar." << endl;
-    gotoxy(5,8);
+    gotoxy(5, 8);
     cout << "1. Seleccionar mesa." << endl;
-    gotoxy(5,9);
+    gotoxy(5, 9);
     cout << "2. Mostrar informacion de mesas." << endl;
-    gotoxy(5,10);
+    gotoxy(5, 10);
     cout << "3. Agregar mesa." << endl;
-    gotoxy(5,11);
+    gotoxy(5, 11);
     cout << "4. Eliminar mesa." << endl;
-    gotoxy(5,12);
+    gotoxy(5, 12);
     cout << "5. Modificar mesa." << endl;
-    gotoxy(5,13);
+    gotoxy(5, 13);
     cout << "6. Regresar al menu principal." << endl;
 }
 
@@ -717,7 +717,7 @@ void menuMF()
     cout << "2. Control de ordenes." << endl;
     gotoxy(5, 10);
     cout << "3. Control de facturas." << endl;
-    gotoxy(5,11);
+    gotoxy(5, 11);
     cout << "4. Regresar al menu principal." << endl;
 }
 
@@ -729,7 +729,7 @@ void seleccionarAccionModuloFacturacion()
     {
         menuMF();
         string input;
-        gotoxy(5,12);
+        gotoxy(5, 12);
         cin >> input;
 
         bool esNumero = true;
@@ -760,7 +760,9 @@ void seleccionarAccionModuloFacturacion()
                 system("pause");
                 break;
             case 4:
+                gotoxy(5,15);
                 cout << "Regresando al menu principal..." << endl;
+                gotoxy(5,16);
                 system("pause");
                 return;
                 break;
@@ -788,6 +790,7 @@ void seleccionarAccionModuloMesa()
     {
         menuMesas();
         string input;
+        gotoxy(5, 15);
         cin >> input;
 
         bool esNumero = true;
@@ -810,6 +813,7 @@ void seleccionarAccionModuloMesa()
                 seleccionarMesa();
                 break;
             case 2:
+                system("cls");
                 for (int i = 0; i < ultimoRegistroMesas; i++)
                 {
                     mostrarInfoMesas(informacionMesas[i], ordenesAbiertas[i]);
@@ -828,7 +832,9 @@ void seleccionarAccionModuloMesa()
                 modificarMesa();
                 break;
             case 6:
+                gotoxy(5,16);
                 cout << "Regresando al menu principal..." << endl;
+                gotoxy(5,17);
                 system("pause");
                 return;
                 break;
@@ -967,6 +973,7 @@ void seleccionarMesa()
 
             break;
         case 5:
+        
             cout << "Regresando al menu anterior" << endl;
             return;
             break;
@@ -981,19 +988,19 @@ void controlFactura()
 {
     system("cls");
     imprimirMarcoRojo();
-    gotoxy(5,4);
+    gotoxy(5, 4);
     cout << "Control de Facturas." << endl;
     gotoxy(5, 6);
     cout << "Seleccione la opcion a realizar." << endl;
-    gotoxy(5,8);
+    gotoxy(5, 8);
     cout << "1. Generar Factura." << endl;
-    gotoxy(5,9);
+    gotoxy(5, 9);
     cout << "2. Mostrar informacion de Facturas." << endl;
-    gotoxy(5,10);
+    gotoxy(5, 10);
     cout << "3. Eliminar Factura." << endl;
-    gotoxy(5,11);
+    gotoxy(5, 11);
     cout << "4. Modificar Factura." << endl;
-    gotoxy(5,12);
+    gotoxy(5, 12);
     cout << "5. Regresar al menu principal." << endl;
 }
 
@@ -1008,7 +1015,7 @@ void seleccionarAccionControlFactura()
     {
         controlFactura();
         string input;
-        gotoxy(5,13);
+        gotoxy(5, 13);
         cin >> input;
 
         bool esNumero = true;
@@ -1143,7 +1150,7 @@ void seleccionarModuloReportes()
             case 4:
                 gotoxy(10, 15);
                 cout << "Regresando al menu principal..." << endl;
-                gotoxy(10,16);
+                gotoxy(10, 16);
                 system("pause");
                 return;
             default:
