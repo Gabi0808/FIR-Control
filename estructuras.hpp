@@ -108,8 +108,14 @@ typedef struct
     float total;
 } Factura;
 
+
+
 int ultimoRegistroMesas = 0;
 Mesa informacionMesas[MAX];
+//COLORS
+void imprimirMarco();
+void imprimirMarcoVerde();
+
 // CRUD
 void seleccionarMesa();
 void mostrarInfoMesas(Mesa mesaAMostrar, Orden ordenAMostrar);
@@ -156,7 +162,7 @@ void guardarFactura(Factura facturaAGuardar[]);
 void sobreescribirDatosFactura();
 void recuperarRegistroFactura(Factura facturasARecuperar[], int &cantidadRegistros);
 void mostrarDetalleFactura(Orden ordenDetallada);
-void mostrarInfoFacturas();
+void mostrarInfoFacturas(Factura facturasAMostrar);
 
 int ultimoRegistroFacturas = 0;
 Factura informacionFacturas[MAX];
