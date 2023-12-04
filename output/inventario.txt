@@ -1,42 +1,42 @@
 081301
 tona lata 355ml
 40
-94
+91
 0
 N/A
 0
 010101
 carne asada
 150
-6
+4
 2
 020103 020301 
 0.5 2 
 080501
 victoria lata 355ml
 45
-73
+61
 0
 N/A
 0
 112501
 Flor de cana 7 anos 1L
 700
-20
+19
 0
 N/A
 0
 051201
 Paquete Modern
 40
-93
+92
 0
 N/A
 0
 051301
 Paquete Marlboro Rojo
 110
-96
+95
 0
 N/A
 0
@@ -50,7 +50,7 @@ N/A
 081402
 Corona 
 100
-20
+19
 1
 040507 
 1 
@@ -64,7 +64,7 @@ N/A
 041001
 Choricitos 
 65
-9
+8
 0
 N/A
 0
@@ -92,7 +92,7 @@ N/A
 091104
 Jugo del Valle
 30
-10
+9
 0
 N/A
 0
@@ -204,7 +204,7 @@ Shot 7 anos
 112508
 Ultra Lite (shots)
 45
-974
+971
 1
 112502 
 0.01 

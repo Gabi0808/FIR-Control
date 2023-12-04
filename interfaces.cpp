@@ -772,7 +772,9 @@ void seleccionarAccionModuloFacturacion()
                 system("pause");
                 break;
             case 4:
+                gotoxy(5,15);
                 cout << "Regresando al menu principal..." << endl;
+                gotoxy(5,16);
                 system("pause");
                 return;
                 break;
@@ -800,6 +802,7 @@ void seleccionarAccionModuloMesa()
     {
         menuMesas();
         string input;
+        gotoxy(5, 15);
         cin >> input;
 
         bool esNumero = true;
@@ -822,6 +825,7 @@ void seleccionarAccionModuloMesa()
                 seleccionarMesa();
                 break;
             case 2:
+                system("cls");
                 for (int i = 0; i < ultimoRegistroMesas; i++)
                 {
                     mostrarInfoMesas(informacionMesas[i], ordenesAbiertas[i]);
@@ -840,7 +844,9 @@ void seleccionarAccionModuloMesa()
                 modificarMesa();
                 break;
             case 6:
+                gotoxy(5,16);
                 cout << "Regresando al menu principal..." << endl;
+                gotoxy(5,17);
                 system("pause");
                 return;
                 break;
@@ -979,6 +985,7 @@ void seleccionarMesa()
 
             break;
         case 5:
+        
             cout << "Regresando al menu anterior" << endl;
             return;
             break;
@@ -1042,7 +1049,7 @@ void seleccionarAccionControlFactura()
             switch (opcion)
             {
             case 1:
-
+                
                 cout << "Ingrese el tipo de factura (1- Cliente Cuota Fija 2- Cliente)" << endl;
                 cin >> tipoFactura;
                 cout << "Ingrese el codigo de la orden " << endl;
@@ -1051,6 +1058,7 @@ void seleccionarAccionControlFactura()
                 resultadoBusqueda = buscarOrden(codigoOrden);
                 if (resultadoBusqueda != -1)
                 {
+                    system("cls");
                     generarFactura(tipoFactura, registroOrdenes[resultadoBusqueda]);
                     guardarFactura(informacionFacturas);
                     cout << "Factura generada exitosamente. " << endl;

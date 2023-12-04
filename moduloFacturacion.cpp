@@ -693,13 +693,13 @@ void mostrarFactura(Factura facturaAMostrar)
     {
 
         mostrarDetalleFactura(registroOrdenes[resultadoBusqueda]);
-        gotoxy(5, 12);
+        gotoxy(5, 15);
         cout << "Subtotal: " << facturaAMostrar.subtotal << endl;
-        gotoxy(5, 13);
-        cout << "Impuestos: " << facturaAMostrar.impuestos << endl;
-        gotoxy(5, 14);
-        cout << "Total: " << facturaAMostrar.total << endl;
         gotoxy(5, 16);
+        cout << "Impuestos: " << facturaAMostrar.impuestos << endl;
+        gotoxy(5, 17);
+        cout << "Total: " << facturaAMostrar.total << endl;
+        gotoxy(5, 18);
         cout << "-----------------------------------------" << endl;
     }
     else
@@ -715,15 +715,25 @@ void mostrarDetalleFactura(Orden ordenDetallada)
     cout << "Detalle de la Factura: " << endl
          << endl;
     gotoxy(5, 8);
-    cout << "Cantidad \tNombre del Producto \t\tPrecio" << endl;
+    cout << "Cantidad";
+    gotoxy(15, 8);
+    cout << "Nombre del Producto ";
+    gotoxy(40, 8);
+    cout << "Precio" << endl;
 
+    int ultimaPos = 9;
     for (int i = 0; i < ordenDetallada.numeroProductosOrdenados; i++)
     {
         resultadoBusqueda = buscarProducto(ordenDetallada.productoOrdenado[i].codigoProducto);
         if (resultadoBusqueda != -1)
         {
-
-            cout << ordenDetallada.cantidadProductoOrdenado[i] << "\t\t" << inventarioProducto[resultadoBusqueda].nombreProducto << "\t\t" << inventarioProducto[resultadoBusqueda].precioProducto << endl;
+            gotoxy(5, ultimaPos);
+            cout << ordenDetallada.cantidadProductoOrdenado[i];
+            gotoxy(15, ultimaPos);
+            cout <<inventarioProducto[resultadoBusqueda].nombreProducto;
+            gotoxy(40, ultimaPos);
+            cout << inventarioProducto[resultadoBusqueda].precioProducto << endl;
+            ultimaPos++;
         }
         else
         {
@@ -931,9 +941,14 @@ void mostrarInfoFacturas(Factura facturaAMostrar[])
             gotoxy(5, ultimaPos++);
             cout << "Detalle de la Factura: " << endl;
             ultimaPos++;
-            gotoxy(5, ultimaPos++);
-            cout << "Cantidad \tNombre del Producto \t\tPrecio" << endl;
+            gotoxy(5, ultimaPos);
+            cout << "Cantidad";
+            gotoxy(15, ultimaPos); 
+            cout << "Nombre del Producto";
+            gotoxy(40, ultimaPos);
+            cout << "Precio";
 
+            ultimaPos++;
             for (int i = 0; i < registroOrdenes[resultadoBusqueda].numeroProductosOrdenados; i++)
             {
                 int resultadoBusquedaProducto = -1;
@@ -941,7 +956,11 @@ void mostrarInfoFacturas(Factura facturaAMostrar[])
                 if (resultadoBusqueda != -1)
                 {
                     gotoxy(5, ultimaPos++);
-                    cout << registroOrdenes[resultadoBusqueda].cantidadProductoOrdenado[i] << "\t\t" << inventarioProducto[resultadoBusquedaProducto].nombreProducto << "\t\t" << inventarioProducto[resultadoBusquedaProducto].precioProducto << endl;
+                    cout << registroOrdenes[resultadoBusqueda].cantidadProductoOrdenado[i];
+                    gotoxy(15, ultimaPos); 
+                    cout << inventarioProducto[resultadoBusquedaProducto].nombreProducto;
+                    gotoxy(40, ultimaPos);
+                    cout << inventarioProducto[resultadoBusquedaProducto].precioProducto;
                 }
                 else
                 {
