@@ -114,9 +114,9 @@ int login()
         }
         else if (usuario == "BarBrotherG" && contrasena == "banana321")
         {
-            gotoxy(8,12);
+            gotoxy(8, 12);
             cout << "Acceso concedido como gerente de Bar Brother" << endl;
-            gotoxy(8,13);
+            gotoxy(8, 13);
             system("pause");
             return 2;
         }
@@ -301,13 +301,13 @@ void menuControlInventario()
     system("cls");
     imprimirMarco();
 
-    gotoxy(8,5);
+    gotoxy(8, 5);
     cout << "Seleccione una opcion: " << endl;
-    gotoxy(8,6);
+    gotoxy(8, 6);
     cout << "1. Control de productos " << endl;
-    gotoxy(8,7);
+    gotoxy(8, 7);
     cout << "2. Control de insumos" << endl;
-    gotoxy(8,8);
+    gotoxy(8, 8);
     cout << "3. Salir. " << endl;
 }
 
@@ -321,7 +321,7 @@ void seleccionarAccionControlInventario()
         gotoxy(8, 10);
         cout << "Ingrese una opcion: ";
         string input;
-        gotoxy(28,10);
+        gotoxy(28, 10);
         cin >> input;
 
         bool esNumero = true;
@@ -1017,17 +1017,17 @@ void menuModuloReportes()
 {
     system("cls");
     imprimirMarcoVerde();
-    gotoxy(5,3);
+    gotoxy(5, 3);
     cout << "Generacion de reportes " << endl;
-    gotoxy(5,5);
+    gotoxy(5, 5);
     cout << "Seleccione la opcion a realizar " << endl;
     gotoxy(10, 8);
     cout << "1. Generar reporte de consumo diario " << endl;
-    gotoxy(10,9);
+    gotoxy(10, 9);
     cout << "2. Generar reporte de ventas semanal" << endl;
-    gotoxy(10,10);
+    gotoxy(10, 10);
     cout << "3. Generar reporte de consumo mensual " << endl;
-    gotoxy(10,11);
+    gotoxy(10, 11);
     cout << "4. Volver al menu principal" << endl;
 }
 
@@ -1039,7 +1039,7 @@ void seleccionarModuloReportes()
     {
         menuModuloReportes();
         string input;
-        gotoxy(40,12);
+        gotoxy(10, 12);
         cin >> input;
 
         bool esNumero = true;
@@ -1059,16 +1059,19 @@ void seleccionarModuloReportes()
             case 1:
                 generarReporteConsumoDiario();
                 mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+                gotoxy(15,50);
                 system("pause");
                 break;
             case 2:
                 generarReporteConsumoSemanal();
                 mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+                gotoxy(15,50);
                 system("pause");
                 break;
             case 3:
                 generarReporteConsumoMes();
                 mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+                gotoxy(15,50);
                 system("pause");
                 break;
             case 4:

@@ -291,15 +291,23 @@ void mostrarReporte(Reporte reporteAMostrar, ProductosMovidos productosReportado
     gotoxy(5, 10);
     cout << "Detalle de productos que fueron consumidos: " << endl;
     gotoxy(5, 12);
-    cout << "Cantidad \tNombre del Producto \t\tPrecio" << endl;
+    cout << "Cantidad";
+    gotoxy(20, 12);
+    cout << "Nombre del Producto";
+    gotoxy(45, 12);
+    cout << "Precio";
 
     for (int i = 0; i < productosReportados.numeroProductosmovidos; i++)
     {
         resultadoBusqueda = buscarProducto(productosReportados.productosMovidos[i]);
         if (resultadoBusqueda != -1)
         {
-
-            cout << productosReportados.cantidadProductosMovidos[i] << "\t\t" << inventarioProducto[resultadoBusqueda].nombreProducto << "\t\t\t" << inventarioProducto[resultadoBusqueda].precioProducto << endl;
+            gotoxy(5, 14);
+            cout << productosReportados.cantidadProductosMovidos[i];
+            gotoxy(20, 14);
+            cout << inventarioProducto[resultadoBusqueda].nombreProducto;
+            gotoxy(45, 14);
+            cout << inventarioProducto[resultadoBusqueda].precioProducto;
         }
         else
         {
