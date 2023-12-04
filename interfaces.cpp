@@ -1070,16 +1070,19 @@ void seleccionarModuloReportes()
             case 1:
                 generarReporteConsumoDiario();
                 mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+                gotoxy(15,50);
                 system("pause");
                 break;
             case 2:
                 generarReporteConsumoSemanal();
                 mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+                gotoxy(15,50);
                 system("pause");
                 break;
             case 3:
                 generarReporteConsumoMes();
                 mostrarReporte(reportesGenerados[ultimoRegistroReportes - 1], productosEnReporte[ultimoRegistroProductosEnReporte - 1]);
+                gotoxy(15,50);
                 system("pause");
                 break;
             case 4:
