@@ -522,17 +522,14 @@ void mostrarInsumo(Insumo insumoAMostrar)
 int buscarInsumo(string codigoABuscar)
 {
 
+    for (int i = 0; i < ultimoRegistroInsumos; i++)
     {
-
-        for (int i = 0; i < ultimoRegistroInsumos; i++)
+        if (inventarioInsumo[i].codigoInsumo == codigoABuscar)
         {
-            if (inventarioInsumo[i].codigoInsumo == codigoABuscar)
-            {
-                return i;
-            }
+            return i;
         }
-        return -1;
     }
+    return -1;
 }
 
 void sobreescribirDatosInsumos()

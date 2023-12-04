@@ -380,8 +380,6 @@ void cerrarOrden(int numeroMesa)
         ultimoRegistroOrdenes++;
         registrarSalidaProductos(ordenesAbiertas[numeroMesa]);
         guardarOrden(registroOrdenes);
-        generarFactura(1, registroOrdenes[numeroMesa]);
-        guardarFactura(informacionFacturas);
         inicializarOrden(numeroMesa);
     }
     else

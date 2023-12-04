@@ -512,15 +512,26 @@ void seleccionarAccionModuloInventario()
 void menuInsumos()
 {
     system("cls");
-    cout << "Insumos del inventario" << endl;
-    cout << "\nSeleccione la opcion a realizar." << endl;
+    imprimirMarco();
+    gotoxy(5, 3);
+    cout << "Control de insumos" << endl;
+    gotoxy(5, 5);
+    cout << "Seleccione la opcion a realizar." << endl;
+    gotoxy(5, 6);
     cout << "Cantidad de registros: " << ultimoRegistroInsumos << endl;
+    gotoxy(5, 8);
     cout << "1. Ver insumos." << endl;
+    gotoxy(5, 9);
     cout << "2. Agregar insumo." << endl;
+    gotoxy(5, 10);
     cout << "3. Buscar insumo." << endl;
+    gotoxy(5, 11);
     cout << "4. Eliminar insumo." << endl;
+    gotoxy(5, 12);
     cout << "5. Modificar insumo." << endl;
+    gotoxy(5, 13);
     cout << "6. Registrar entrada/salida de insumo." << endl;
+    gotoxy(5, 14);
     cout << "7. Volver al menu principal." << endl;
 }
 
@@ -535,6 +546,7 @@ void seleccionarAccionInsumos()
         switch (opcion)
         {
         case 1:
+            system("cls");
             for (int i = 0; i < ultimoRegistroInsumos; i++)
             {
                 mostrarInsumo(inventarioInsumo[i]);
@@ -595,17 +607,17 @@ void menuMesas()
     cout << "Control de ordenes y mesas." << endl;
     gotoxy(5, 6);
     cout << "Seleccione la opcion a realizar." << endl;
-    gotoxy(5,8);
+    gotoxy(5, 8);
     cout << "1. Seleccionar mesa." << endl;
-    gotoxy(5,9);
+    gotoxy(5, 9);
     cout << "2. Mostrar informacion de mesas." << endl;
-    gotoxy(5,10);
+    gotoxy(5, 10);
     cout << "3. Agregar mesa." << endl;
-    gotoxy(5,11);
+    gotoxy(5, 11);
     cout << "4. Eliminar mesa." << endl;
-    gotoxy(5,12);
+    gotoxy(5, 12);
     cout << "5. Modificar mesa." << endl;
-    gotoxy(5,13);
+    gotoxy(5, 13);
     cout << "6. Regresar al menu principal." << endl;
 }
 
@@ -717,7 +729,7 @@ void menuMF()
     cout << "2. Control de ordenes." << endl;
     gotoxy(5, 10);
     cout << "3. Control de facturas." << endl;
-    gotoxy(5,11);
+    gotoxy(5, 11);
     cout << "4. Regresar al menu principal." << endl;
 }
 
@@ -729,7 +741,7 @@ void seleccionarAccionModuloFacturacion()
     {
         menuMF();
         string input;
-        gotoxy(5,12);
+        gotoxy(5, 12);
         cin >> input;
 
         bool esNumero = true;
@@ -981,34 +993,38 @@ void controlFactura()
 {
     system("cls");
     imprimirMarcoRojo();
-    gotoxy(5,4);
+    gotoxy(5, 4);
     cout << "Control de Facturas." << endl;
     gotoxy(5, 6);
     cout << "Seleccione la opcion a realizar." << endl;
-    gotoxy(5,8);
+    gotoxy(5, 8);
     cout << "1. Generar Factura." << endl;
-    gotoxy(5,9);
+    gotoxy(5, 9);
     cout << "2. Mostrar informacion de Facturas." << endl;
-    gotoxy(5,10);
-    cout << "3. Eliminar Factura." << endl;
-    gotoxy(5,11);
-    cout << "4. Modificar Factura." << endl;
-    gotoxy(5,12);
-    cout << "5. Regresar al menu principal." << endl;
+    gotoxy(5, 10);
+    cout << "3. Buscar Factura." << endl;
+    gotoxy(5, 11);
+    cout << "4. Agregar Factura." << endl;
+    gotoxy(5, 12);
+    cout << "5. Eliminar Factura." << endl;
+    gotoxy(5, 13);
+    cout << "6. Regresar al menu principal." << endl;
 }
 
 void seleccionarAccionControlFactura()
 {
     string codigoOrden;
+    string codigoFactura;
     int tipoFactura;
     int opcion = 0;
     int resultadoBusqueda = -1;
+    int resultadoBusquedaFactura = -1;
 
     do
     {
         controlFactura();
         string input;
-        gotoxy(5,13);
+        gotoxy(5, 15);
         cin >> input;
 
         bool esNumero = true;
@@ -1052,14 +1068,25 @@ void seleccionarAccionControlFactura()
                 system("pause");
                 break;
             case 3:
+                system("cls");
+                gotoxy(5, 2);
+                cout<< "Ingrese el numero de factura a buscar."<<endl;
+                gotoxy(45, 2);
+                cin >> codigoFactura;
+                resultadoBusquedaFactura = buscarFactura(codigoFactura);
+                system("cls");
+                mostrarFactura(informacionFacturas[resultadoBusquedaFactura]);
+                system("pause");
+                break;
+            case 4:
                 agregarFactura();
                 system("pause");
                 cout << "La factura ha sido agregada exitosamente " << endl;
                 break;
-            case 4:
+            case 5:
                 eliminarFactura();
                 break;
-            case 5:
+            case 6:
                 gotoxy(5, 14);
                 cout << "Regresando al menu principal..." << endl;
                 break;
@@ -1076,7 +1103,7 @@ void seleccionarAccionControlFactura()
             cin.ignore();
             system("pause");
         }
-    } while (opcion != 5);
+    } while (opcion != 6);
 }
 
 void menuModuloReportes()
@@ -1143,7 +1170,7 @@ void seleccionarModuloReportes()
             case 4:
                 gotoxy(10, 15);
                 cout << "Regresando al menu principal..." << endl;
-                gotoxy(10,16);
+                gotoxy(10, 16);
                 system("pause");
                 return;
             default:
