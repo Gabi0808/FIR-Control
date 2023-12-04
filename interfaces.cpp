@@ -88,6 +88,7 @@ int login()
         }
         else if (usuario == "BarBrotherG" && contrasena == "banana321")
         {
+            gotoxy(8,12);
             cout << "Acceso concedido como gerente de Bar Brother" << endl;
             system("pause");
             return 2;
@@ -113,11 +114,11 @@ void menuPrincipal(int accesType)
     {
         gotoxy(4, 2);
         cout << BOLD << BLUE << "FFFFFF  II  RRRRRR       CCCCCC  OOOOOO  NN     NN  TTTTTTTT  RRRRRR    OOOOOO  LL" << RESET << endl;
-        gotoxy(4,3);
+        gotoxy(4, 3);
         cout << BOLD << BLUE << "FF      II  RR  RR       CC      OO  OO  NN NN  NN  TTTTTTTT  RR  RR    OO  OO  LL  " << RESET << endl;
-        gotoxy(4,4);
+        gotoxy(4, 4);
         cout << BOLD << BLUE << "FFFF    II  RRRRRR  " << BOLD << CYAN << " ===" << RESET << BOLD << BLUE << " CC      OO  OO  NN  NNNNN    TTTT    RRRRRR    OO  OO  LL" << RESET << endl;
-        gotoxy(4,5);
+        gotoxy(4, 5);
         cout << BOLD << BLUE << "FF      II  RR  RRR      CC      OO  OO  NN   NNNN    TTTT    RR  RRR   OO  OO  LL" << RESET << endl;
         gotoxy(4, 6);
         cout << BOLD << BLUE << "FF      II  RR   RRR     CCCCCC  OOOOOO  NN    NNN    TTTT    RR   RRR  OOOOOO  LLLLLL " << RESET << endl;
@@ -145,7 +146,7 @@ void menuPrincipal(int accesType)
         gotoxy(101, 7);
         cout << WHITE << "@@sssssssssssssssssssssss@ss";
         gotoxy(101, 8);
-        cout << CYAN << "|" << WHITE << "s@@@@sssssssssssssss@@@@s" << CYAN <<"|" << WHITE << "s";
+        cout << CYAN << "|" << WHITE << "s@@@@sssssssssssssss@@@@s" << CYAN << "|" << WHITE << "s";
         gotoxy(94, 9);
         cout << CYAN << "_______|" << WHITE << "sssss@@@@@sssss@@@@@sssss" << CYAN << "|" << WHITE << "s";
         gotoxy(92, 10);
@@ -271,11 +272,16 @@ void seleccionarAccion(int accessType)
 void menuControlInventario()
 {
     system("cls");
-    cout << "Seleccione una opcion: " << endl
-         << endl;
-    cout << "\t1. Control de productos " << endl;
-    cout << "\t2. Control de insumos" << endl;
-    cout << "\t3. Salir. " << endl;
+    imprimirMarco();
+
+    gotoxy(8,5);
+    cout << "Seleccione una opcion: " << endl;
+    gotoxy(8,6);
+    cout << "1. Control de productos " << endl;
+    gotoxy(8,7);
+    cout << "2. Control de insumos" << endl;
+    gotoxy(8,8);
+    cout << "3. Salir. " << endl;
 }
 
 void seleccionarAccionControlInventario()
@@ -285,8 +291,10 @@ void seleccionarAccionControlInventario()
     do
     {
         menuControlInventario();
+        gotoxy(8, 10);
         cout << "Ingrese una opcion: ";
         string input;
+        gotoxy(8,37);
         cin >> input;
 
         bool esNumero = true;
@@ -486,9 +494,9 @@ void seleccionarAccionInsumos()
             else
             {
                 cout << "No se encontro un insumo con ese codigo. " << endl;
+                system("pause");
             }
 
-            system("pause");
             break;
         case 4:
             cout << "Ingrese el codigo del insumo que desea eliminar";
@@ -668,7 +676,7 @@ void seleccionarAccionModuloFacturacion()
                 system("pause");
                 break;
             case 4:
-                cout << "Regresando al menu principal...";
+                cout << "Regresando al menu principal..." << endl;
                 system("pause");
                 return;
                 break;
@@ -961,7 +969,6 @@ void seleccionarAccionControlFactura()
                 break;
             case 5:
                 cout << "Regresando al menu principal..." << endl;
-                system("pause");
                 break;
             default:
                 cout << "Seleccione una opcion valida. ";
