@@ -54,6 +54,7 @@ void imprimirMarco()
         }
         pos = 145;
     }
+    cout << RESET;
 }
 
 void imprimirMarcoVerde()
@@ -326,14 +327,15 @@ void menuControlInventario()
 {
     system("cls");
     imprimirMarco();
-
-    gotoxy(8, 5);
+    gotoxy(62, 0);
+    cout << GREEN << "Modulo Inventario" << RESET << endl;
+    gotoxy(5, 3);
     cout << "Seleccione una opcion: " << endl;
-    gotoxy(8, 6);
+    gotoxy(13, 5);
     cout << "1. Control de productos " << endl;
-    gotoxy(8, 7);
+    gotoxy(13, 6);
     cout << "2. Control de insumos" << endl;
-    gotoxy(8, 8);
+    gotoxy(13, 7);
     cout << "3. Salir. " << endl;
 }
 
@@ -344,10 +346,10 @@ void seleccionarAccionControlInventario()
     do
     {
         menuControlInventario();
-        gotoxy(8, 10);
+        gotoxy(5, 9);
         cout << "Ingrese una opcion: ";
         string input;
-        gotoxy(28, 10);
+        gotoxy(26, 9);
         cin >> input;
 
         bool esNumero = true;
@@ -396,17 +398,26 @@ void seleccionarAccionControlInventario()
 void menuModuloInventario()
 {
     system("cls");
-    cout << "Modulo de Inventario." << endl
-         << endl;
-    cout << "Seleccione la opcion a realizar." << endl
-         << endl;
+    imprimirMarco();
+    gotoxy(62, 0);
+    cout << GREEN << "Modulo de Inventario." << RESET << endl;
+    gotoxy(5, 3);
+    cout << "Seleccione la opcion a realizar." << endl;
+    gotoxy(5, 5);
     cout << "Cantidad de registros: " << ultimoRegistro << endl;
+    gotoxy(5, 7);
     cout << "1. Ver inventario." << endl;
+    gotoxy(5, 8);
     cout << "2. Agregar producto al inventario." << endl;
+    gotoxy(5, 9);
     cout << "3. Buscar producto" << endl;
+    gotoxy(5, 10);
     cout << "4. Eliminar producto al inventario." << endl;
+    gotoxy(5, 11);
     cout << "5. Modificar producto del inventario." << endl;
+    gotoxy(5, 12);
     cout << "6. Registrar entrada/salida." << endl;
+    gotoxy(5, 13);
     cout << "7. Regresar al menu principal." << endl;
 }
 void seleccionarAccionModuloInventario()
@@ -417,6 +428,7 @@ void seleccionarAccionModuloInventario()
     do
     {
         menuModuloInventario();
+        gotoxy(5, 15);
         cout << "Ingrese la opcion a realizar: ";
         string input;
         cin >> input;
@@ -438,10 +450,8 @@ void seleccionarAccionModuloInventario()
             switch (opcion)
             {
             case 1:
-                for (int i = 0; i < ultimoRegistro; i++)
-                {
-                    mostrarProducto(inventarioProducto[i]);
-                }
+                system("cls");
+                mostrarInventarioProductos(inventarioProducto);
                 system("pause");
 
                 break;
@@ -1037,7 +1047,8 @@ void seleccionarAccionControlFactura()
                 system("pause");
                 break;
             case 2:
-                mostrarInfoFacturas();
+                system("cls");
+                mostrarInfoFacturas(informacionFacturas);
                 system("pause");
                 break;
             case 3:
@@ -1094,7 +1105,7 @@ void seleccionarModuloReportes()
     {
         menuModuloReportes();
         string input;
-        gotoxy(10, 12);
+        gotoxy(40, 12);
         cin >> input;
 
         bool esNumero = true;

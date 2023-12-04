@@ -674,7 +674,6 @@ void generarFactura(int tipoFactura, Orden ordenDetallada)
 
 void mostrarFactura(Factura facturaAMostrar)
 {
-    system("cls");
     int resultadoBusqueda = -1;
     string fecha = obtenerFechaHoy();
     gotoxy(15, 2);
@@ -698,7 +697,7 @@ void mostrarFactura(Factura facturaAMostrar)
         mostrarDetalleFactura(registroOrdenes[resultadoBusqueda]);
         gotoxy(5, 12);
         cout << "Subtotal: " << facturaAMostrar.subtotal << endl;
-        gotoxy(5, 13);  
+        gotoxy(5, 13);
         cout << "Impuestos: " << facturaAMostrar.impuestos << endl;
         gotoxy(5, 14);
         cout << "Total: " << facturaAMostrar.total << endl;
@@ -717,7 +716,7 @@ void mostrarDetalleFactura(Orden ordenDetallada)
     gotoxy(5, 7);
     cout << "Detalle de la Factura: " << endl
          << endl;
-    gotoxy(5,8);
+    gotoxy(5, 8);
     cout << "Cantidad \tNombre del Producto \t\tPrecio" << endl;
 
     for (int i = 0; i < ordenDetallada.numeroProductosOrdenados; i++)
@@ -905,11 +904,66 @@ void modificarFactura(string codigoAModificar)
     }
 }
 
-void mostrarInfoFacturas()
+void mostrarInfoFacturas(Factura facturaAMostrar[])
 {
+
+    int ultimaPos = 2;
     for (int i = 0; i < ultimoRegistroFacturas; i++)
     {
-        mostrarFactura(informacionFacturas[i]);
+        int resultadoBusqueda = -1;
+        string fecha = obtenerFechaHoy();
+        gotoxy(30, ultimaPos++);
+        cout << "BAR BROTHER" << endl;
+        gotoxy(5, ultimaPos++);
+        cout << "Barrio Luis Delgadillo frente a la pista de aterrizaje Siuna, RACCN" << endl;
+        gotoxy(5, ultimaPos++);
+        cout << "RUC : 0011306740000X";
+        gotoxy(30, ultimaPos);
+        cout << "Telefono 2794-2387" << endl;
+        gotoxy(5, ultimaPos++);
+        cout << "No. Factura " << facturaAMostrar[i].numeroFactura;
+        gotoxy(30, ultimaPos);
+        cout << "Numero de orden: " << facturaAMostrar[i].ordenCompleta.codigoOrden << endl;
+        gotoxy(5, ultimaPos++);
+        cout << "Fecha: " << fecha << endl;
+        resultadoBusqueda = buscarOrden(facturaAMostrar[i].ordenCompleta.codigoOrden);
+        if (resultadoBusqueda != -1)
+        {
+            ultimaPos++;
+            gotoxy(5, ultimaPos++);
+            cout << "Detalle de la Factura: " << endl;
+            ultimaPos++;
+            gotoxy(5, ultimaPos++);
+            cout << "Cantidad \tNombre del Producto \t\tPrecio" << endl;
+
+            for (int i = 0; i < registroOrdenes[resultadoBusqueda].numeroProductosOrdenados; i++)
+            {
+                int resultadoBusquedaProducto = -1;
+                resultadoBusquedaProducto = buscarProducto(registroOrdenes[resultadoBusqueda].productoOrdenado[i].codigoProducto);
+                if (resultadoBusqueda != -1)
+                {
+                    gotoxy(5, ultimaPos++);
+                    cout << registroOrdenes[resultadoBusqueda].cantidadProductoOrdenado[i] << "\t\t" << inventarioProducto[resultadoBusquedaProducto].nombreProducto << "\t\t" << inventarioProducto[resultadoBusquedaProducto].precioProducto << endl;
+                }
+                else
+                {
+                    cout << "No se encontro producto con ese codigo." << endl;
+                }
+            }
+            ultimaPos++;
+            gotoxy(5, ultimaPos++);
+            cout << "Subtotal: " << facturaAMostrar[i].subtotal << endl;
+            gotoxy(5, ultimaPos++);
+            cout << "Impuestos: " << facturaAMostrar[i].impuestos << endl;
+            gotoxy(5, ultimaPos++);
+            cout << "Total: " << facturaAMostrar[i].total << endl;
+            gotoxy(5, ultimaPos++);
+            cout << "-----------------------------------------" << endl;
+        }
+        else
+        {
+            cout << "No se encontro orden con ese codigo." << endl;
+        }
     }
 }
 

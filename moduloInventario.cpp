@@ -137,6 +137,42 @@ void recuperarRegistroInventario(Producto productosARecuperar[], int &cantidadRe
     }
 }
 
+void mostrarInventarioProductos(Producto productosAMostrar[])
+{
+    int ultimaPos = 2;
+    for (int i = 0; i < ultimoRegistro; i++)
+    {
+
+        gotoxy(5, ultimaPos++);
+        cout << "Codigo: " << productosAMostrar[i].codigoProducto << endl;
+
+        gotoxy(5, ultimaPos++);
+        cout << "Nombre: " << productosAMostrar[i].nombreProducto << endl;
+
+        gotoxy(5, ultimaPos++);
+        cout << "Precio: " << productosAMostrar[i].precioProducto << endl;
+
+        gotoxy(5, ultimaPos++);
+        cout << "Cantidad: " << productosAMostrar[i].cantidadProducto << endl;
+
+        if (productosAMostrar[i].numeroInsumosUsados != 0)
+        {
+
+            for (int j = 0; j < productosAMostrar[i].numeroInsumosUsados; j++)
+            {
+                gotoxy(5, ultimaPos++);
+                cout << "Codigo Insumo " << j + 1 << ": " << productosAMostrar[i].insumosNecesarios[j].codigoInsumo << endl;
+
+                gotoxy(5, ultimaPos++);
+                cout << "Cantidad requerida de Insumo " << j + 1 << ": " << productosAMostrar[i].cantidadInsumosNecesarios[j] << endl;
+            }
+        }
+
+        gotoxy(5, ultimaPos++);
+        cout << "------------------------------" << endl;
+    }
+}
+
 void mostrarProducto(Producto productoAMostrar)
 {
 
@@ -144,16 +180,17 @@ void mostrarProducto(Producto productoAMostrar)
     cout << "Nombre: " << productoAMostrar.nombreProducto << endl;
     cout << "Precio: " << productoAMostrar.precioProducto << endl;
     cout << "Cantidad: " << productoAMostrar.cantidadProducto << endl;
+
     if (productoAMostrar.numeroInsumosUsados != 0)
     {
         for (int i = 0; i < productoAMostrar.numeroInsumosUsados; i++)
         {
+
             cout << "Codigo Insumo " << i + 1 << ": " << productoAMostrar.insumosNecesarios[i].codigoInsumo << endl;
             cout << "Cantidad requerida de Insumo " << i + 1 << ": " << productoAMostrar.cantidadInsumosNecesarios[i] << endl;
         }
+        cout << "------------------------------" << endl;
     }
-
-    cout << "------------------------------" << endl;
 }
 
 void guardarProductos(Producto productosAGuardar[])

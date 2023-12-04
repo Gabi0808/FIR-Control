@@ -74,6 +74,7 @@ void registrarEntradaInsumos(Producto ProductoARegistrar, int cantidadProductoOr
 void recuperarRegistroInventario(Producto productosARecuperar[], int &cantidadRegistros);
 void ingresarProducto();
 void guardarProductos(Producto productosAGuardar[]);
+void mostrarInventarioProductos(Producto productosAMostrar[]);
 void mostrarProducto(Producto productoAMostrar);
 void modificarProducto(string codigoABuscar);
 void sobreescribirDatos();
@@ -162,7 +163,7 @@ void guardarFactura(Factura facturaAGuardar[]);
 void sobreescribirDatosFactura();
 void recuperarRegistroFactura(Factura facturasARecuperar[], int &cantidadRegistros);
 void mostrarDetalleFactura(Orden ordenDetallada);
-void mostrarInfoFacturas();
+void mostrarInfoFacturas(Factura facturasAMostrar);
 
 int ultimoRegistroFacturas = 0;
 Factura informacionFacturas[MAX];
