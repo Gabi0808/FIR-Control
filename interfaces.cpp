@@ -1033,7 +1033,7 @@ void seleccionarAccionControlFactura()
             switch (opcion)
             {
             case 1:
-
+                
                 cout << "Ingrese el tipo de factura (1- Cliente Cuota Fija 2- Cliente)" << endl;
                 cin >> tipoFactura;
                 cout << "Ingrese el codigo de la orden " << endl;
@@ -1042,6 +1042,7 @@ void seleccionarAccionControlFactura()
                 resultadoBusqueda = buscarOrden(codigoOrden);
                 if (resultadoBusqueda != -1)
                 {
+                    system("cls");
                     generarFactura(tipoFactura, registroOrdenes[resultadoBusqueda]);
                     guardarFactura(informacionFacturas);
                     cout << "Factura generada exitosamente. " << endl;
