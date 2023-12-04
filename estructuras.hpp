@@ -74,6 +74,7 @@ void registrarEntradaInsumos(Producto ProductoARegistrar, int cantidadProductoOr
 void recuperarRegistroInventario(Producto productosARecuperar[], int &cantidadRegistros);
 void ingresarProducto();
 void guardarProductos(Producto productosAGuardar[]);
+void mostrarInventarioProductos(Producto productosAMostrar[]);
 void mostrarProducto(Producto productoAMostrar);
 void modificarProducto(string codigoABuscar);
 void sobreescribirDatos();
