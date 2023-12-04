@@ -114,6 +114,7 @@ Mesa informacionMesas[MAX];
 //COLORS
 void imprimirMarco();
 void imprimirMarcoVerde();
+void imprimirMarcoRojo();
 
 // CRUD
 void seleccionarMesa();
