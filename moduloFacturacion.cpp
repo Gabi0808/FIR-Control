@@ -955,12 +955,13 @@ void mostrarInfoFacturas(Factura facturaAMostrar[])
                 resultadoBusquedaProducto = buscarProducto(registroOrdenes[resultadoBusqueda].productoOrdenado[i].codigoProducto);
                 if (resultadoBusqueda != -1)
                 {
-                    gotoxy(5, ultimaPos++);
+                    gotoxy(5, ultimaPos);
                     cout << registroOrdenes[resultadoBusqueda].cantidadProductoOrdenado[i];
                     gotoxy(15, ultimaPos); 
                     cout << inventarioProducto[resultadoBusquedaProducto].nombreProducto;
                     gotoxy(40, ultimaPos);
                     cout << inventarioProducto[resultadoBusquedaProducto].precioProducto;
+                    ultimaPos++;
                 }
                 else
                 {
